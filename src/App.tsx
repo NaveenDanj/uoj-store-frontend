@@ -2,17 +2,28 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthLayout from "./layout/AuthLayout";
 import LandingLayout from "./layout/LandingLayout";
 import DashboardLayout from "./layout/DashboardLayout";
+import LoginPage from "./pages/Auth/Login";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+  useEffect(() => {
+    if (theme) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+  
   return (
     <BrowserRouter>
+      
       <Routes>
         
         <Route path="/auth" element={<AuthLayout />}>
-          {/* <Route index element={<Home />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} /> */}
+          <Route path="login" element={<LoginPage />} />
         </Route>
 
         <Route path="/" element={<LandingLayout />}>
@@ -21,8 +32,10 @@ function App() {
         <Route path="/dashboard" element={<DashboardLayout />}>
         </Route>
 
+        <Route path="*" element={<div>no page</div>} /> 
 
       </Routes>
+    
     </BrowserRouter>
   );
 }
