@@ -4,6 +4,7 @@ import LandingLayout from "./layout/LandingLayout";
 import DashboardLayout from "./layout/DashboardLayout";
 import LoginPage from "./pages/Auth/Login";
 import { useEffect, useState } from "react";
+import RegisterPage from "./pages/Auth/Register";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -25,6 +26,7 @@ function App() {
         
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
         </Route>
 
         <Route path="/" element={<LandingLayout />}>

@@ -15,7 +15,7 @@ export default  function LoginPage(){
                 <div className="flex justify-center p-5 pt-10 w-full">
                     <div className='flex flex-row gap-2'>
                         <img src={AppLogo} />
-                        <h1 className="my-auto text-center text-2xl font-bold">Peer-Store</h1>
+                        <h1 className="my-auto text-center text-2xl font-bold">UOJ-Store</h1>
                     </div>
                 </div>
             
@@ -36,7 +36,7 @@ export default  function LoginPage(){
                 </div>
             
                 <div className="flex justify-center items-center flex-grow">
-                    <label>@2024 Peer-Store</label>
+                    <label>@2024 UOJ-Store</label>
                 </div>
             
             </div>
