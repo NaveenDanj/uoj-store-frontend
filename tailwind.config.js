@@ -9,6 +9,7 @@ export default {
 		extend: {
 
 			keyframes: {
+
 				"caret-blink": {
 					"0%,70%,100%": {
 						opacity: "1"
@@ -17,10 +18,22 @@ export default {
 						opacity: "0"
 					},
 				},
+
+				'fade-in-left': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateX(-50px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateX(0)'
+					},
+				},
 			},
 
 			animation: {
 				"caret-blink": "caret-blink 1.25s ease-out infinite",
+				'fade-in-left': 'fade-in-left 0.5s ease-out',
 			},
 
 			borderRadius: {

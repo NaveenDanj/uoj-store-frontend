@@ -13,9 +13,14 @@ import {
 import { Label } from "@/components/ui/label"
 
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
+import VerifyAccount from '@/components/ui/Auth/VerifyAccount'
+import { useState } from 'react'
 
 
 export default  function RegisterPage(){
+
+    const [showVerification , setShowVerification] = useState(false)
+
     return (
         
         <div className="w-[100vw] h-[100vh] flex flex-row">
@@ -30,6 +35,7 @@ export default  function RegisterPage(){
                 </div>
             
                 <div className="flex gap-5 flex-grow h-[50%] justify-center items-center">
+                    {!showVerification ? (
                     <div className='flex gap-5 flex-col'>
                         <center><h2 className="text-2xl lg:text-3xl font-bold">Welcome Back! Please <br /> Sign up To Continue</h2></center>
                         <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">By signing up, you will gain access to exclusive content.</p></center>
@@ -62,12 +68,16 @@ export default  function RegisterPage(){
                                 </InputOTP>
                             </div>
 
-                            <Button className='w-full mt-5 bg-[#0F172A] hover:bg-[#272E3F] hover:text-white dark:bg-[#3b404f] p-5 text-white' variant="outline">Sign up</Button>
+                            <Button onClick={() => setShowVerification(true)} className='w-full mt-5 bg-[#0F172A] hover:bg-[#272E3F] hover:text-white dark:bg-[#3b404f] p-5 text-white' variant="outline">Next</Button>
                         </div>
 
                         <img src={Help} className='w-[65%] max-w-[500px] h-auto' />
                     </div>
-                
+                    ) : (
+                        <div className="animate-fade-in-left">
+                            <VerifyAccount />
+                        </div>
+                    )}
                 </div>
             
                 <div className="flex justify-center items-center flex-grow">
