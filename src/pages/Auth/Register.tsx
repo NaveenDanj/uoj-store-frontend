@@ -41,10 +41,13 @@ export default  function RegisterPage(){
                         <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">By signing up, you will gain access to exclusive content.</p></center>
 
                         <div className='flex gap-5 justify-center items-center mt-5 flex-col w-full'>
-                            <Input  placeholder='Enter your email' className='max-w-[400px]'  />
+                            <Input type='text' placeholder='Enter your username' className='max-w-[400px]'  />
                             <Input type='password'  placeholder='Enter your password' className='max-w-[400px] mb-3'  />
                             
-                            <Label>Your registration number</Label>
+                            <div className='w-full flex justify-center'>
+                                <Label>Your registration number</Label>
+                            </div>
+
                             <div className=' flex justify-center max-w-[400px]'>
                                 <InputOTP className='w-[400px]' maxLength={10} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
                                     <InputOTPGroup>

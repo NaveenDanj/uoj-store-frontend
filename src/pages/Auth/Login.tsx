@@ -25,7 +25,7 @@ export default  function LoginPage(){
                         <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">By signing up, you will gain access to exclusive content.</p></center>
 
                         <div className='flex gap-5 justify-center items-center mt-5 flex-col w-full'>
-                            <Input size={120} placeholder='Enter your email' className='max-w-[400px]'  />
+                            <Input type='text' size={120} placeholder='Enter your username' className='max-w-[400px]'  />
                             <Input type='password' size={120} placeholder='Enter your password' className='max-w-[400px]'  />
                             <Button className='w-full bg-[#0F172A] hover:bg-[#272E3F] hover:text-white dark:bg-[#3b404f] p-5 text-white' variant="outline">Sign in</Button>
                         </div>
