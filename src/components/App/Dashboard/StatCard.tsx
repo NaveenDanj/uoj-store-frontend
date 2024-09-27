@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 
 export default function StatCard(){
     return (
-        <div className="flex flex-col border border-black/1 dark:border-white/1 min-w-[300px] sm:min-w-[200px] md:min-w-[250px] lg:min-w-[350px] py-8  p-4 rounded-md">
+        <div className="flex flex-col border border-black/1 dark:border-white/1 min-w-[300px] sm:min-w-[200px] md:min-w-[250px] lg:min-w-[300px] py-8  p-4 rounded-xl">
             <img src={imageFile} className='w-[48px] h-[36px]' />
             <label className='mt-4 font-semibold'>Image</label>
 
