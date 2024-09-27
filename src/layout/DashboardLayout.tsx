@@ -22,6 +22,7 @@ import {
     MenubarShortcut,
     MenubarTrigger,
 } from "@/components/ui/menubar"
+import { Outlet } from 'react-router-dom';
 
 
 export default function DashboardLayout() {
@@ -82,11 +83,11 @@ export default function DashboardLayout() {
           </div>
 
           <div
-            className={`${commonClass} ${getMenuClass('teams')}`}
-            onClick={() => setSelectedMenu('teams')}
+            className={`${commonClass} ${getMenuClass('spaces')}`}
+            onClick={() => setSelectedMenu('spaces')}
           >
             <GroupsIcon className="text-[#718195] cursor-pointer" />
-            <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Teams</label>
+            <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Spaces</label>
           </div>
 
         </div>
@@ -101,13 +102,11 @@ export default function DashboardLayout() {
             <Button variant={'outline'} className='py-5 dark:bg-[#27272A]'>Upload new file</Button>
         </div>
 
-        <div className='flex flex-grow items-end'>
-            
-        </div>  
+        <div className='flex flex-grow items-end'></div>  
 
       </div>
 
-      <div className="flex flex-col flex-grow rounded-md px-3 py-1 ">
+      <div className="dark:bg-[#111318] flex flex-col flex-grow rounded-md px-3 py-1 ">
         
         <div className='flex flex-row justify-between w-full py-4 px-3'>
             
@@ -123,19 +122,25 @@ export default function DashboardLayout() {
 
                 <Menubar>
                     <MenubarMenu>
+
                         <MenubarTrigger className='cursor-pointer border-0 px-1' asChild={true}>
                             <PersonIcon  sx={{ fontSize : 24}} />
                         </MenubarTrigger>
-                        <MenubarContent className='mr-2'>
+
+                        <MenubarContent className='mr-2 mt-2'>
+                            
                             <MenubarItem>
                                 User Settings <MenubarShortcut>⌘T</MenubarShortcut>
                             </MenubarItem>
+
                             <MenubarItem>Admin</MenubarItem>
                             <MenubarSeparator />
                             <MenubarItem>Print</MenubarItem>
                             <MenubarSeparator />
                             <MenubarItem>Logout</MenubarItem>
+
                         </MenubarContent>
+
                     </MenubarMenu>
                 </Menubar>
 
@@ -146,7 +151,18 @@ export default function DashboardLayout() {
 
         <Separator />
 
+        <div className='w-full flex flex-col h-full overflow-y-auto'>
+            <div className='flex flex-col flex-grow '>
+                <Outlet />
+            </div>
+
+            <div className=''>
+                asd
+            </div>
+        </div>
+
       </div>
+
     </div>
   );
 }

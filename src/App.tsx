@@ -5,6 +5,7 @@ import DashboardLayout from "./layout/DashboardLayout";
 import LoginPage from "./pages/Auth/Login";
 import { useEffect, useState } from "react";
 import RegisterPage from "./pages/Auth/Register";
+import DashboardPage from "./pages/App/Dashboard";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -33,6 +34,7 @@ function App() {
         </Route>
           
         <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="" element={<DashboardPage />} />
         </Route>
 
         <Route path="*" element={<div>no page</div>} /> 
