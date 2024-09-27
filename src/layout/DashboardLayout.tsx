@@ -7,17 +7,30 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Progress } from "@/components/ui/progress"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import GroupsIcon from '@mui/icons-material/Groups';
+import { Separator } from "@/components/ui/separator"
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import PersonIcon from '@mui/icons-material/Person';
+
+import {
+    Menubar,
+    MenubarContent,
+    MenubarItem,
+    MenubarMenu,
+    MenubarSeparator,
+    MenubarShortcut,
+    MenubarTrigger,
+} from "@/components/ui/menubar"
+
 
 export default function DashboardLayout() {
   const [selectedMenu, setSelectedMenu] = useState('dashboard'); // Initial selected menu
 
-  // Function to determine if a menu is selected
   const isSelected = (menu:string) => selectedMenu === menu;
 
-  // Common class for all menus
   const commonClass = 'flex gap-2 p-2 rounded-md cursor-pointer';
 
-  // Function to get the conditional class
   const getMenuClass = (menu:string) => {
     return isSelected(menu)
       ? 'bg-[#EEF0F4] dark:bg-[#2B2F3B] border border-black/1 dark:border-white/1'
@@ -68,6 +81,14 @@ export default function DashboardLayout() {
             <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Trash</label>
           </div>
 
+          <div
+            className={`${commonClass} ${getMenuClass('teams')}`}
+            onClick={() => setSelectedMenu('teams')}
+          >
+            <GroupsIcon className="text-[#718195] cursor-pointer" />
+            <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Teams</label>
+          </div>
+
         </div>
 
         <div className='flex flex-col gap-4 mt-20 px-1'> 
@@ -81,14 +102,52 @@ export default function DashboardLayout() {
         </div>
 
         <div className='flex flex-grow items-end'>
-            zsds
+            
         </div>  
 
       </div>
 
-      <div className="flex flex-col flex-grow rounded-md p-3">
-        {/* Content Area */}
+      <div className="flex flex-col flex-grow rounded-md px-3 py-1 ">
+        
+        <div className='flex flex-row justify-between w-full py-4 px-3'>
+            
+            <div className='my-auto'>
+                <h2 className='text-2xl font-semibold'>Dashboard</h2>
+            </div>
+            
+            <div className='flex gap-3 my-auto'>
+
+                <Button className='px-2' variant={'outline'}>
+                    <DarkModeIcon sx={{ fontSize : 18 }} />
+                </Button>
+
+                <Menubar>
+                    <MenubarMenu>
+                        <MenubarTrigger className='cursor-pointer border-0 px-1' asChild={true}>
+                            <PersonIcon  sx={{ fontSize : 24}} />
+                        </MenubarTrigger>
+                        <MenubarContent className='mr-2'>
+                            <MenubarItem>
+                                User Settings <MenubarShortcut>⌘T</MenubarShortcut>
+                            </MenubarItem>
+                            <MenubarItem>Admin</MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem>Print</MenubarItem>
+                            <MenubarSeparator />
+                            <MenubarItem>Logout</MenubarItem>
+                        </MenubarContent>
+                    </MenubarMenu>
+                </Menubar>
+
+
+            </div>
+        
+        </div>
+
+        <Separator />
+
       </div>
     </div>
   );
 }
+

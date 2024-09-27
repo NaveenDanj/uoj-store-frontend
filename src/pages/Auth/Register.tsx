@@ -13,7 +13,7 @@ import {
 import { Label } from "@/components/ui/label"
 
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
-import VerifyAccount from '@/components/ui/Auth/VerifyAccount'
+import VerifyAccount from '@/components/Auth/VerifyAccount'
 import { useState } from 'react'
 
 
