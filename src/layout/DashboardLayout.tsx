@@ -41,7 +41,7 @@ export default function DashboardLayout() {
   return (
     <div className="h-[100vh] gap-2 flex p-1 w-full">
 
-      <div className="hidden lg:flex flex-col p-3 px-5 border border-black/10 dark:border-white/10 min-w-[300px] bg-[#F9F9FB] dark:bg-[#1B1E27] rounded-md">
+      <div className="hidden lg:flex flex-col p-3 px-5 border border-black/10 dark:border-white/10 lg:min-w-[300px] bg-[#F9F9FB] dark:bg-[#1B1E27] rounded-md">
         
         <div className="flex gap-1">
           <img src={AppLogo} className="w-9 my-auto" />
@@ -152,13 +152,18 @@ export default function DashboardLayout() {
         <Separator />
 
         <div className='w-full flex flex-col h-full overflow-y-auto'>
-            <div className='flex flex-col flex-grow '>
+            
+            <div className='flex flex-col flex-grow mb-5'>
                 <Outlet />
             </div>
 
-            <div className=''>
+            <Separator />
+
+
+            <div className='py-3 px-1'>
                 asd
             </div>
+
         </div>
 
       </div>

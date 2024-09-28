@@ -1,31 +1,40 @@
 import ChartSection from "@/components/App/Dashboard/ChartSection";
+import FolderSection from "@/components/App/Dashboard/FolderSection";
 import PieChartSection from "@/components/App/Dashboard/PieChartSection";
 import StatCard from "@/components/App/Dashboard/StatCard";
 import { Separator } from "@/components/ui/separator";
-
+import AddIcon from '@mui/icons-material/Add';
 
 export default function DashboardPage(){
     return (
         <div className="w-full flex flex-col ">
             
-            <div className="w-full pt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className="w-full pt-5 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
                 <StatCard />
                 <StatCard />
                 <StatCard />
                 <StatCard />
             </div>
 
-            <div className="flex flex-col xl:flex-row justify-between gap-3 w-full mt-10">
-                
-                <div className="w-full border border-bborder-white/1 p-5 rounded-lg">
-                    <div className="mb-3 flex flex-col gap-1">
-                        <label className="text-[#475569] font-semibold">Total Storage used</label>
-                        <label className="text-2xl font-bold">291.77 MB</label>
-                    </div>
-                    <ChartSection />
+
+            <div className="flex flex-col lg:grid lg:grid-cols-3 gap-5 mt-10 w-full">
+
+                <div className="col-span-2 w-full">
+                    
+                    <div className="flex flex-col h-[500px] border border-bborder-white/1  p-5 rounded-lg">
+                        <div className="mb-3 flex flex-col gap-1">
+                            <label className="text-[#475569] font-semibold">Total Storage used</label>
+                            <label className="text-2xl font-bold">291.77 MB</label>
+                        </div>
+                        <div className="">
+                            <ChartSection />
+                        </div>
+                    </div>  
+
                 </div>
 
-                <div className="flex flex-col w-full xl:w-[70%] border border-black/1 dark:border-white/1 p-5 rounded-lg">
+                    
+                <div className="flex flex-col lg:h-[500px] border border-black/1 dark:border-white/1 p-5 rounded-lg">
                     
                     <div className="mb-3 flex flex-col gap-1">
                         <label className="text-xl font-bold">Storage</label>
@@ -44,11 +53,43 @@ export default function DashboardPage(){
                             <label className="text-sm font-bold">2.74% Available</label>
                         </div>
                     </div>
+                
+                </div>
+
+
+            </div>
+        
+
+            <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5 mt-8 w-full">
+                    
+                <div className="col-span-2 w-full">
+                    
+                    <div className="flex gap-2 w-full justify-between">
+
+                        <div className="gap-3 flex">
+                            <label className="ml-2 my-auto text-lg font-bold">Folders</label>
+                            <div className="cursor-pointer my-auto flex justify-center items-center rounded-full bg-[#F5AD1D]">
+                                <AddIcon className="text-white cursor-pointer dark:text-black" sx={{ fontSize : 18 }} />
+                            </div>
+                        </div>
+
+                        <label className="my-auto text-sm font-bold cursor-pointer">See all</label>
+
+                    </div>
+
+                    <div className="overflow-x-auto">
+                        <FolderSection />
+                    </div>
 
                 </div>
 
-            </div>
+                <div className="bg-blue-500 w-full">
+                    asd
+                </div>
 
+                    
+            </div>
+            
         </div>
     )
 }
