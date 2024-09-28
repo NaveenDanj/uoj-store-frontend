@@ -1,6 +1,7 @@
 import ChartSection from "@/components/App/Dashboard/ChartSection";
 import FolderSection from "@/components/App/Dashboard/FolderSection";
 import PieChartSection from "@/components/App/Dashboard/PieChartSection";
+import RecentActivitySection from "@/components/App/Dashboard/RecentActivitySection";
 import StatCard from "@/components/App/Dashboard/StatCard";
 import { Separator } from "@/components/ui/separator";
 import AddIcon from '@mui/icons-material/Add';
@@ -83,8 +84,8 @@ export default function DashboardPage(){
 
                 </div>
 
-                <div className="bg-blue-500 w-full">
-                    asd
+                <div className="w-full mt-5">
+                    <RecentActivitySection />
                 </div>
 
                     
