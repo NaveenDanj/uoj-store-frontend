@@ -17,7 +17,7 @@ const  RecentActivityItem = ({isLast} : {isLast:boolean}) => {
                 <div className="my-auto flex flex-col">
                     <label className="text-sm text-gray-500 font-semibold"><span className="dark:text-white text-black font-semibold">You</span> added a new folder<br/>
                         root<br/>
-                        Sep 28, 2024, 01:11 AM
+                        <span className="text-xs">Sep 28, 2024, 01:11 AM</span>
                     </label>
                 </div>
 
