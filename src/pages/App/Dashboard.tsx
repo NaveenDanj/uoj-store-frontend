@@ -1,4 +1,5 @@
 import ChartSection from "@/components/App/Dashboard/ChartSection";
+import FileSection from "@/components/App/Dashboard/FileSection";
 import FolderSection from "@/components/App/Dashboard/FolderSection";
 import PieChartSection from "@/components/App/Dashboard/PieChartSection";
 import RecentActivitySection from "@/components/App/Dashboard/RecentActivitySection";
@@ -23,13 +24,16 @@ export default function DashboardPage(){
                 <div className="col-span-2 w-full">
                     
                     <div className="flex flex-col h-[500px] border border-bborder-white/1  p-5 rounded-lg">
+                        
                         <div className="mb-3 flex flex-col gap-1">
                             <label className="text-[#475569] font-semibold">Total Storage used</label>
                             <label className="text-2xl font-bold">291.77 MB</label>
                         </div>
-                        <div className="">
+
+                        <div className="flex flex-grow ">
                             <ChartSection />
                         </div>
+                    
                     </div>  
 
                 </div>
@@ -74,12 +78,16 @@ export default function DashboardPage(){
                             </div>
                         </div>
 
-                        <label className="my-auto text-sm font-bold cursor-pointer">See all</label>
+                        <label className="my-auto text-sm font-medium cursor-pointer">See All</label>
 
                     </div>
 
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto ">
                         <FolderSection />
+                    </div>
+
+                    <div className="col-span-2 w-full  mt-5">
+                        <FileSection />
                     </div>
 
                 </div>
@@ -88,9 +96,8 @@ export default function DashboardPage(){
                     <RecentActivitySection />
                 </div>
 
-                    
             </div>
-            
+
         </div>
     )
 }

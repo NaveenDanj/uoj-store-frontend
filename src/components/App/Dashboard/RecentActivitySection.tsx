@@ -29,7 +29,7 @@ const  RecentActivityItem = ({isLast} : {isLast:boolean}) => {
 
 export default function RecentActivitySection() {
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col max-h-[600px]">
 
         <div className="">
             <label className="ml-2 my-auto text-lg font-bold">Recent Activities</label>
