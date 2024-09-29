@@ -6,18 +6,18 @@ import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 export default function FileItem() {
   const [isChecked, setIsChecked] = useState(false);
 
-  // Function to handle checkbox state change
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
 
   return (
     <div
-      className={`flex flex-col p-5 rounded-lg max-w-[250px] ${
+      className={`group flex flex-col p-5 rounded-lg max-w-[250px] ${
         isChecked ? 'bg-[#F6F7F9] dark:bg-[#1B1E27]' : 'hover:bg-[#F6F7F9] hover:dark:bg-[#1B1E27]'
       }`}
     >
-      <div className="flex flex-row justify-between">
+      {/* Show the checkbox and icon only on hover */}
+      <div className="flex flex-row justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <Checkbox className="p-0 bg-white" checked={isChecked} onCheckedChange={handleCheckboxChange} />
         <MoreVertOutlinedIcon sx={{ fontSize: 20 }} />
       </div>
