@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import RegisterPage from "./pages/Auth/Register";
 import DashboardPage from "./pages/App/Dashboard";
 import FilePage from "./pages/App/File";
-import Favourite from "./pages/App/Favourite";
+import FavouritePage from "./pages/App/Favourite";
+import TrashPage from "./pages/App/Trash";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -38,7 +39,8 @@ function App() {
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="" element={<DashboardPage />} />
           <Route path="file" element={<FilePage />} />
-          <Route path="favourites" element={<Favourite />} />
+          <Route path="favourites" element={<FavouritePage />} />
+          <Route path="trash" element={<TrashPage />} />
         </Route>
 
         <Route path="*" element={<div>no page</div>} /> 

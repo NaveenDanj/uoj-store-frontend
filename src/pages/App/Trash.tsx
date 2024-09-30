@@ -7,18 +7,21 @@ import Location from "@/components/App/File/Location";
 import FileItem from "@/components/App/File/FileItem";
 
 
-export default function FavouritePage() {
+export default function TrashPage() {
   return (
     <div className="w-full flex flex-col">
         
         <div className="w-full flex flex-col  md:flex-row justify-between mt-8 pl-3">
-            <label className="text-xl mb-5 md:mb-0 my-auto font-semibold">Manage Files</label>
+            
+            <div className="flex flex-col">
+                <label className="text-xl mb-5 md:mb-0 my-auto font-semibold">Manage Trash</label>
+                <label className="text-sm mb-5 md:mb-0 text-gray-500 my-auto font-semibold">View and manage your files and folders from your trash</label>
+            </div>
 
             <div className="flex flex-row gap-4 my-auto">
                 
-                <Button className="dark:bg-[#111318] w-full" variant={'outline'}>
-                    <LocalOfferOutlinedIcon className="my-auto mr-2" sx={{ fontSize : 20 }} />
-                    Manage Tags
+                <Button variant={'outline' } className=" text-red-500 border-red-500 dark:bg-[#111318]">
+                    Empty Trash
                 </Button>
 
             </div>
