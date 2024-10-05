@@ -6,6 +6,7 @@ import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import Location from "@/components/App/File/Location";
 import FileItem from "@/components/App/File/FileItem";
 import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
+import MoveFileDialog from "@/components/App/Dialog/MoveFileDialog";
 
 
 export default function FilePage() {
@@ -23,6 +24,8 @@ export default function FilePage() {
                     </Button>
 
                     <UploadFileDialog />
+
+                    <MoveFileDialog />
 
                 </div>
 

@@ -41,7 +41,7 @@ export default function UploadFileDialog() {
                         <Button>Browse File</Button>
                     </div>
 
-                    <div className='flex flex-col gap-2 justify-start mt-5'>
+                    <div className='flex flex-col gap-3 justify-start mt-5'>
                         <FileItem />
                         <FileItem />
                         {/* <FileItem /> */}
