@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthLayout from "./layout/AuthLayout";
 import LandingLayout from "./layout/LandingLayout";
@@ -9,6 +10,7 @@ import DashboardPage from "./pages/App/Dashboard";
 import FilePage from "./pages/App/File";
 import FavouritePage from "./pages/App/Favourite";
 import TrashPage from "./pages/App/Trash";
+import "./global.css"
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -22,12 +24,12 @@ function App() {
       localStorage.setItem('theme', 'light');
     }
   }, [theme]);
-  
+
   return (
     <BrowserRouter>
-      
+
       <Routes>
-        
+
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
@@ -35,7 +37,7 @@ function App() {
 
         <Route path="/" element={<LandingLayout />}>
         </Route>
-          
+
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="" element={<DashboardPage />} />
           <Route path="file" element={<FilePage />} />
@@ -43,10 +45,10 @@ function App() {
           <Route path="trash" element={<TrashPage />} />
         </Route>
 
-        <Route path="*" element={<div>no page</div>} /> 
+        <Route path="*" element={<div>no page</div>} />
 
       </Routes>
-    
+
     </BrowserRouter>
   );
 }

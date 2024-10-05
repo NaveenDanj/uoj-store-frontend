@@ -1,10 +1,11 @@
 
+import React from 'react'
 import FileIcon from '@/assets/file-icon.svg'
 
 const FileItem = () => {
     return (
         <div className="flex cursor-pointer w-full flex-row lg:flex-col justify-between p-3 border border-black/1 dark:border-white/1 rounded-lg">
-            
+
             <div className='flex lg:flex-col gap-3'>
                 <div className='flex justify-center'>
                     <img src={FileIcon} className='w-[48px] h-[48px] cursor-pointer' />
@@ -21,25 +22,25 @@ const FileItem = () => {
 }
 
 export default function FileSection() {
-  return (
-    <div className="flex flex-col w-full mt-10">
-        
-        <div className="flex justify-between">
-            <label className="ml-2 my-auto text-lg font-bold">All Files</label>
-            <label className="my-auto text-sm font-medium cursor-pointer">See All</label>
-        </div>
+    return (
+        <div className="flex flex-col w-full mt-10">
 
-        <div className="flex flex-col lg:grid lg:grid-cols-4 sm:grid-cols-3 gap-4 mt-5 w-full">
-            <FileItem />
-            <FileItem />
-            <FileItem />
-            <FileItem />
-            <FileItem />
-            <FileItem />
-            <FileItem />
-            <FileItem />
-        </div>
+            <div className="flex justify-between">
+                <label className="ml-2 my-auto text-lg font-bold">All Files</label>
+                <label className="my-auto text-sm font-medium cursor-pointer">See All</label>
+            </div>
 
-    </div>
-  )
+            <div className="flex flex-col lg:grid lg:grid-cols-4 sm:grid-cols-3 gap-4 mt-5 w-full">
+                <FileItem />
+                <FileItem />
+                <FileItem />
+                <FileItem />
+                <FileItem />
+                <FileItem />
+                <FileItem />
+                <FileItem />
+            </div>
+
+        </div>
+    )
 }

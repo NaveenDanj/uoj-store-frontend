@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import FileImage from '@/assets/file-image.svg';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,9 +13,8 @@ export default function FileItem() {
 
   return (
     <div
-      className={`group flex flex-col p-5 rounded-lg max-w-[250px] ${
-        isChecked ? 'bg-[#F6F7F9] dark:bg-[#1B1E27]' : 'hover:bg-[#F6F7F9] hover:dark:bg-[#1B1E27]'
-      }`}
+      className={`group flex flex-col p-5 rounded-lg max-w-[250px] ${isChecked ? 'bg-[#F6F7F9] dark:bg-[#1B1E27]' : 'hover:bg-[#F6F7F9] hover:dark:bg-[#1B1E27]'
+        }`}
     >
       {/* Show the checkbox and icon only on hover */}
       <div className="flex flex-row justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">

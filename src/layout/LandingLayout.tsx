@@ -1,6 +1,6 @@
+import React from "react"
 
-
-export default  function LandingLayout(){
+export default function LandingLayout() {
     return (
         <div className="h-full w-full bg-red-500">
             landing

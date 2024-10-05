@@ -1,3 +1,4 @@
+import React from "react"
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -6,35 +7,35 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-  
+
 export default function Location() {
-  return (
-    <div className="w-full">
+    return (
+        <div className="w-full">
 
-        <Breadcrumb>
-            
-            <BreadcrumbList>
+            <Breadcrumb>
 
-                <BreadcrumbItem>
-                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                </BreadcrumbItem>
-                
-                <BreadcrumbSeparator />
-                
-                <BreadcrumbItem>
-                    <BreadcrumbLink href="/components">Components</BreadcrumbLink>
-                </BreadcrumbItem>
+                <BreadcrumbList>
 
-                <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                    </BreadcrumbItem>
 
-                <BreadcrumbItem>
-                    <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-                </BreadcrumbItem>
+                    <BreadcrumbSeparator />
 
-            </BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+                    </BreadcrumbItem>
 
-        </Breadcrumb>
-        
-    </div>
-  )
+                    <BreadcrumbSeparator />
+
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+                    </BreadcrumbItem>
+
+                </BreadcrumbList>
+
+            </Breadcrumb>
+
+        </div>
+    )
 }

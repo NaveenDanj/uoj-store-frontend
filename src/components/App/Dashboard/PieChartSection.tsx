@@ -1,5 +1,6 @@
+import React from "react";
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
 
 export default function PieChartSection() {
 
@@ -13,12 +14,12 @@ export default function PieChartSection() {
 
     const chartConfig = {
         desktop: {
-          label: "Group A",
-          color: "#0EB981",
+            label: "Group A",
+            color: "#0EB981",
         },
         mobile: {
-          label: "Mobile",
-          color: "#60a5fa",
+            label: "Mobile",
+            color: "#60a5fa",
         },
     } satisfies ChartConfig
 
@@ -34,7 +35,7 @@ export default function PieChartSection() {
                     fill="#F0F0F0"
                     dataKey="value"
                 >
-                    <Cell  fill={'#0EB981'} />
+                    <Cell fill={'#0EB981'} />
                 </Pie>
             </PieChart>
         </ChartContainer>
