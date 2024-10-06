@@ -7,12 +7,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Progress } from "@/components/ui/progress"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import GroupsIcon from '@mui/icons-material/Groups';
 import { Separator } from "@/components/ui/separator"
 // import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import PersonIcon from '@mui/icons-material/Person';
-
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import RuleFolderIcon from '@mui/icons-material/RuleFolder';
 import {
   Menubar,
   MenubarContent,
@@ -103,7 +103,7 @@ export default function DashboardLayout() {
               navigate('/dashboard/admin/file')
             }}
           >
-            <GroupsIcon className="text-[#718195] cursor-pointer" />
+            <RuleFolderIcon className="text-[#718195] cursor-pointer" />
             <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Manage Files</label>
           </div>
 
@@ -115,7 +115,7 @@ export default function DashboardLayout() {
               navigate('/dashboard/admin/users')
             }}
           >
-            <GroupsIcon className="text-[#718195] cursor-pointer" />
+            <AdminPanelSettingsIcon className="text-[#718195] cursor-pointer" />
             <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Manage Users</label>
           </div>
 
