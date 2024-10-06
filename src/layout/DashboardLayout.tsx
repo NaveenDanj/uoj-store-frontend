@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AppLogo from '@/assets/app-logo.webp';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';

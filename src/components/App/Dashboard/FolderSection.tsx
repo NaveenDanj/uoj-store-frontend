@@ -1,4 +1,3 @@
-import React from 'react';
 import File from '@/assets/file.svg'
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 

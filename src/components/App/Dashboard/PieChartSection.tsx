@@ -1,4 +1,3 @@
-import React from "react";
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart"
 import { PieChart, Pie, Cell } from 'recharts';
 

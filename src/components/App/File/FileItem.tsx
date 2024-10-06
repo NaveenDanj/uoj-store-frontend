@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import FileImage from '@/assets/file-image.svg';
 import { Checkbox } from "@/components/ui/checkbox";

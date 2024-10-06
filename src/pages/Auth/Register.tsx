@@ -1,4 +1,3 @@
-import React from 'react'
 import logo from '@/assets/file-auth.svg'
 import AppLogo from '@/assets/app-logo.webp'
 import { Input } from "@/components/ui/input"

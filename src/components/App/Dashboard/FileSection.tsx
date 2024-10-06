@@ -1,5 +1,3 @@
-
-import React from 'react'
 import FileIcon from '@/assets/file-icon.svg'
 
 const FileItem = () => {

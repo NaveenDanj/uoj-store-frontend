@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import { Input } from "@/components/ui/input"

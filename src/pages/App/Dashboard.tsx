@@ -1,4 +1,3 @@
-import React from "react";
 import ChartSection from "@/components/App/Dashboard/ChartSection";
 import FileSection from "@/components/App/Dashboard/FileSection";
 import FolderSection from "@/components/App/Dashboard/FolderSection";

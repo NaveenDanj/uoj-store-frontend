@@ -1,4 +1,3 @@
-import React from 'react'
 import imageFile from '@/assets/image-file.svg'
 import { Progress } from '@/components/ui/progress'
 import { Label } from "@/components/ui/label"

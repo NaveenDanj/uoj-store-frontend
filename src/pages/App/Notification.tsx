@@ -1,4 +1,3 @@
-import React from 'react'
 import Activity from "@/assets/activity.svg"
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
