@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import GroupsIcon from '@mui/icons-material/Groups';
 import { Separator } from "@/components/ui/separator"
-import LightModeIcon from '@mui/icons-material/LightMode';
+// import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import PersonIcon from '@mui/icons-material/Person';
 
@@ -22,11 +22,13 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar"
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 
 export default function DashboardLayout() {
-  const [selectedMenu, setSelectedMenu] = useState('dashboard'); // Initial selected menu
+  const navigate = useNavigate();
+
+  const [selectedMenu, setSelectedMenu] = useState('dashboard');
 
   const isSelected = (menu: string) => selectedMenu === menu;
 
@@ -52,7 +54,10 @@ export default function DashboardLayout() {
 
           <div
             className={`${commonClass} ${getMenuClass('dashboard')}`}
-            onClick={() => setSelectedMenu('dashboard')}
+            onClick={() => {
+              setSelectedMenu('dashboard')
+              navigate('/dashboard')
+            }}
           >
             <WidgetsIcon className="text-[#718195] cursor-pointer" />
             <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Dashboard</label>
@@ -60,7 +65,10 @@ export default function DashboardLayout() {
 
           <div
             className={`${commonClass} ${getMenuClass('files')}`}
-            onClick={() => setSelectedMenu('files')}
+            onClick={() => {
+              setSelectedMenu('files')
+              navigate('/dashboard/file')
+            }}
           >
             <InsertDriveFileIcon className="text-[#718195] cursor-pointer" />
             <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Files</label>
@@ -68,7 +76,10 @@ export default function DashboardLayout() {
 
           <div
             className={`${commonClass} ${getMenuClass('favourites')}`}
-            onClick={() => setSelectedMenu('favourites')}
+            onClick={() => {
+              setSelectedMenu('favourites')
+              navigate('/dashboard/favourites')
+            }}
           >
             <GradeIcon className="text-[#718195] cursor-pointer" />
             <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Favourites</label>
@@ -76,19 +87,37 @@ export default function DashboardLayout() {
 
           <div
             className={`${commonClass} ${getMenuClass('trash')}`}
-            onClick={() => setSelectedMenu('trash')}
+            onClick={() => {
+              setSelectedMenu('trash')
+              navigate('/dashboard/trash')
+            }}
           >
             <DeleteIcon className="text-[#718195] cursor-pointer" />
             <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Trash</label>
           </div>
 
-          {/* <div
-            className={`${commonClass} ${getMenuClass('spaces')}`}
-            onClick={() => setSelectedMenu('spaces')}
+          <div
+            className={`${commonClass} ${getMenuClass('manageFiles')}`}
+            onClick={() => {
+              setSelectedMenu('manageFiles')
+              navigate('/dashboard/admin/file')
+            }}
           >
             <GroupsIcon className="text-[#718195] cursor-pointer" />
-            <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Spaces</label>
-          </div> */}
+            <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Manage Files</label>
+          </div>
+
+
+          <div
+            className={`${commonClass} ${getMenuClass('manageUsers')}`}
+            onClick={() => {
+              setSelectedMenu('manageUsers')
+              navigate('/dashboard/admin/users')
+            }}
+          >
+            <GroupsIcon className="text-[#718195] cursor-pointer" />
+            <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Manage Users</label>
+          </div>
 
         </div>
 

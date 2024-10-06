@@ -7,7 +7,7 @@ export default function ProfilePage() {
     return (
         <div className="w-full flex flex-col">
 
-            <div className="flex flex-row justify-between w-full px-2 py-4">
+            <div className="flex flex-row justify-between w-full px-3 py-4">
 
                 <div className="flex flex-col gap-0 my-auto">
                     <label className="text-xl font-semibold">Update your profile</label>

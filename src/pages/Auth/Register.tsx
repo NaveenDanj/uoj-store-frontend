@@ -3,6 +3,7 @@ import logo from '@/assets/file-auth.svg'
 import AppLogo from '@/assets/app-logo.webp'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import LoginBack from '@/assets/login-bg.webp'
 
 import {
     InputOTP,
@@ -104,8 +105,11 @@ export default function RegisterPage() {
 
             </div>
 
-            <div className="hidden lg:flex justify-center items-center w-screen h-[100vh] bg-cover bg-[url('https://filekit-demo.vercel.app/_next/image?url=%2Fassets%2Flogin-bg.webp&w=1080&q=100')]">
-                <img src={logo} className='w-[65%] max-w-[500px] h-auto' />
+            <div
+                className="hidden lg:flex justify-center items-center w-screen h-[100vh] bg-cover"
+                style={{ backgroundImage: `url(${LoginBack})` }}
+            >
+                <img src={logo} className="w-[65%] max-w-[500px] h-auto" />
             </div>
 
         </div>

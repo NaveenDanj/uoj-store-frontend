@@ -12,6 +12,7 @@ import FavouritePage from "./pages/App/Favourite";
 import TrashPage from "./pages/App/Trash";
 import "./global.css"
 import ProfilePage from "@/pages/App/Profile";
+import AdminPage from "@/pages/App/Admin";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -45,7 +46,13 @@ function App() {
           <Route path="favourites" element={<FavouritePage />} />
           <Route path="trash" element={<TrashPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="admin">
+            <Route path="users" element={<AdminPage />} />
+            <Route path="file" element={<AdminPage />} />
+          </Route>
+
         </Route>
+
 
         <Route path="*" element={<div>no page</div>} />
 
