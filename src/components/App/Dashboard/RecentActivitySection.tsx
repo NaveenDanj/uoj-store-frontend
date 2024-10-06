@@ -3,7 +3,6 @@ import { Separator } from "@/components/ui/separator";
 import Activity from "@/assets/activity.svg"
 
 
-
 const RecentActivityItem = ({ isLast }: { isLast: boolean }) => {
     return (
         <div>

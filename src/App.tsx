@@ -13,6 +13,8 @@ import TrashPage from "./pages/App/Trash";
 import "./global.css"
 import ProfilePage from "@/pages/App/Profile";
 import AdminPage from "@/pages/App/Admin";
+import NotificationPage from "@/pages/App/Notification";
+import ManageFilePage from "./pages/App/ManageFiles";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -48,9 +50,9 @@ function App() {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="admin">
             <Route path="users" element={<AdminPage />} />
-            <Route path="file" element={<AdminPage />} />
+            <Route path="file" element={<ManageFilePage />} />
           </Route>
-
+          <Route path="notification" element={<NotificationPage />} />
         </Route>
 
 

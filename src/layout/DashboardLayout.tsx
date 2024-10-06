@@ -164,7 +164,7 @@ export default function DashboardLayout() {
 
                   <MenubarItem>Admin</MenubarItem>
                   <MenubarSeparator />
-                  <MenubarItem>Print</MenubarItem>
+                  <MenubarItem>Notifications</MenubarItem>
                   <MenubarSeparator />
                   <MenubarItem>Logout</MenubarItem>
 

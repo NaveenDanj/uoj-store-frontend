@@ -1,6 +1,6 @@
 
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 2px;
 }
   
 ::-webkit-scrollbar-track {
@@ -23,4 +23,13 @@ html {
 }
   
   
+/* Scrollbar customization for Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #718195 #f9f9fb;
+}
   
+/* Dark mode for Firefox */
+body.dark * {
+    scrollbar-color: #3B404F #1B1E27;
+}
