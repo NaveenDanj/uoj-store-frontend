@@ -11,6 +11,7 @@ import FilePage from "./pages/App/File";
 import FavouritePage from "./pages/App/Favourite";
 import TrashPage from "./pages/App/Trash";
 import "./global.css"
+import ProfilePage from "@/pages/App/Profile";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -43,6 +44,7 @@ function App() {
           <Route path="file" element={<FilePage />} />
           <Route path="favourites" element={<FavouritePage />} />
           <Route path="trash" element={<TrashPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
 
         <Route path="*" element={<div>no page</div>} />

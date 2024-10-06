@@ -37,14 +37,11 @@ export default function MoveFileDialog() {
         <Dialog>
             <DialogTrigger>Open</DialogTrigger>
             <DialogContent>
+
                 <DialogHeader>
-                    <DialogTitle>Move 'project-proposal.pdf'</DialogTitle>
-
+                    <DialogTitle>Move project-proposal.pdf</DialogTitle>
                     <DialogDescription >
-
                     </DialogDescription>
-
-
                 </DialogHeader>
 
                 <div className="flex flex-col mt-3">
@@ -75,6 +72,7 @@ export default function MoveFileDialog() {
                     </div>
 
                 </div>
+
             </DialogContent>
         </Dialog>
     )
