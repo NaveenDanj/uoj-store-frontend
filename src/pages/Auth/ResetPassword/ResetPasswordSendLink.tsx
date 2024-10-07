@@ -8,8 +8,7 @@ import { useState } from 'react'
 import {
     InputOTP,
     InputOTPGroup,
-    InputOTPSeparator,
-    InputOTPSlot,
+    InputOTPSlot
 } from "@/components/ui/input-otp"
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 

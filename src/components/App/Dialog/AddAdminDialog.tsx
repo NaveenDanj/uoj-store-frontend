@@ -8,7 +8,6 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { Button } from '@/components/ui/button'
-import AddIcon from '@mui/icons-material/Add';
 // import FileItem from '@/components/common/FileItem';
 import { Input } from '@/components/ui/input';
 
