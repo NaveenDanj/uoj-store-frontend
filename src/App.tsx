@@ -17,6 +17,7 @@ import ManageFilePage from "./pages/App/ManageFiles";
 import LoginSessionPage from "./pages/Auth/LoginSession";
 import PrivateSessionLayout from "@/layout/PrivateSessionLayout";
 import PrivateSessionPage from "@/pages/Session/PrivateSession";
+import ResetPasswordSendLinkPage from "./pages/Auth/ResetPassword/ResetPasswordSendLink";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -38,10 +39,15 @@ function App() {
       <Routes>
 
         <Route path="/auth" element={<AuthLayout />}>
+
           <Route path="" element={<LoginPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="private-session-login" element={<LoginSessionPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="reset-password">
+            <Route path="" element={<ResetPasswordSendLinkPage />} />
+          </Route>
+
         </Route>
 
         <Route path="/" element={<LandingLayout />}>

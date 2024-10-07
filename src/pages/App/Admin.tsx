@@ -1,8 +1,7 @@
 
-import { Button } from '@/components/ui/button'
+import AddAdminDialog from '@/components/App/Dialog/AddAdminDialog'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
-
 
 import {
     Table,
@@ -25,7 +24,7 @@ export default function AdminPage() {
                     <label className="text-sm text-gray-500 font-semibold">View and manage users</label>
                 </div>
 
-                <Button className="my-auto">Create Admin</Button>
+                <AddAdminDialog />
 
             </div>
 
