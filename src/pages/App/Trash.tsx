@@ -15,7 +15,7 @@ export default function TrashPage() {
                     <label className="text-sm mb-5 md:mb-0 text-gray-500 my-auto font-semibold">View and manage your files and folders from your trash</label>
                 </div>
 
-                <div className="flex flex-row gap-4 my-auto">
+                <div className="flex flex-row gap-4 px-2 my-auto">
 
                     <Button variant={'outline'} className=" text-red-500 border-red-500 dark:bg-[#111318]">
                         Empty Trash

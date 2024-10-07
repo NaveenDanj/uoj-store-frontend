@@ -2,22 +2,24 @@ import { Button } from "@/components/ui/button";
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import { Input } from "@/components/ui/input"
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import Location from "@/components/App/File/Location";
 import FileItem from "@/components/App/File/FileItem";
+import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
+// import CreateFolderDialog from "@/components/App/Dialog/CreateFolderDialog";
 
-
-export default function FavouritePage() {
+export default function PrivateSessionPage() {
     return (
         <div className="w-full flex flex-col">
 
             <div className="w-full flex flex-col  md:flex-row justify-between mt-8 pl-3">
-                <label className="text-xl mb-5 md:mb-0 my-auto font-semibold">Manage Files</label>
+                <label className="text-xl mb-5 md:mb-0 my-auto font-semibold">Manage Session Files</label>
 
                 <div className="flex flex-row gap-4 px-2 my-auto">
 
-                    <Button className="dark:bg-[#111318] w-full" variant={'outline'}>
-                        <LocalOfferOutlinedIcon className="my-auto mr-2" sx={{ fontSize: 20 }} />
-                        Manage Tags
-                    </Button>
+                    <UploadFileDialog />
+
+                    {/* <MoveFileDialog /> */}
+                    {/* <CreateFolderDialog /> */}
 
                 </div>
 

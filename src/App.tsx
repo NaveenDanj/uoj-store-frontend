@@ -15,6 +15,8 @@ import AdminPage from "@/pages/App/Admin";
 import NotificationPage from "@/pages/App/Notification";
 import ManageFilePage from "./pages/App/ManageFiles";
 import LoginSessionPage from "./pages/Auth/LoginSession";
+import PrivateSessionLayout from "@/layout/PrivateSessionLayout";
+import PrivateSessionPage from "@/pages/Session/PrivateSession";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -43,6 +45,10 @@ function App() {
         </Route>
 
         <Route path="/" element={<LandingLayout />}>
+        </Route>
+
+        <Route path="/private-session" element={<PrivateSessionLayout />} >
+          <Route path="" element={<PrivateSessionPage />} />
         </Route>
 
         <Route path="/dashboard" element={<DashboardLayout />}>
