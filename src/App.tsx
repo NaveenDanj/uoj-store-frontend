@@ -14,6 +14,7 @@ import ProfilePage from "@/pages/App/Profile";
 import AdminPage from "@/pages/App/Admin";
 import NotificationPage from "@/pages/App/Notification";
 import ManageFilePage from "./pages/App/ManageFiles";
+import LoginSessionPage from "./pages/Auth/LoginSession";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -35,7 +36,9 @@ function App() {
       <Routes>
 
         <Route path="/auth" element={<AuthLayout />}>
+          <Route path="" element={<LoginPage />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="private-session-login" element={<LoginSessionPage />} />
           <Route path="register" element={<RegisterPage />} />
         </Route>
 

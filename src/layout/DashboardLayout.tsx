@@ -127,7 +127,7 @@ export default function DashboardLayout() {
         </div>
 
         <div className='flex flex-col gap-4 mt-10'>
-          <Button className='py-5' >Create New Space</Button>
+          <Button className='py-5' >New Private Session</Button>
           <Button variant={'outline'} className='py-5 dark:bg-[#27272A]'>Upload new file</Button>
         </div>
 
