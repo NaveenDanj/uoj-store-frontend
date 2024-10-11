@@ -6,13 +6,11 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import Location from "../File/Location"
 import { Button } from "@/components/ui/button"
 import Foldercon from '@/assets/folder-icon.svg'
-
 
 const FolderItem = () => {
     return (
@@ -31,10 +29,14 @@ const FolderItem = () => {
     )
 }
 
-export default function MoveFileDialog() {
+export default function MoveFileDialog({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     return (
-        <Dialog>
-            <DialogTrigger>Open</DialogTrigger>
+        <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+
+            {/* <DialogTrigger asChild>
+                <MenubarItem>Move to</MenubarItem>
+            </DialogTrigger> */}
+
             <DialogContent>
 
                 <DialogHeader>
