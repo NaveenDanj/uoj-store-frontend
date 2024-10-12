@@ -50,7 +50,6 @@ export default function FileItem() {
         </Menubar>
         <MoveFileDialog isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} />
         <ShareDialog isOpen={isShareOpen} setIsOpen={setIsShareOpen} />
-
       </>
     )
   }

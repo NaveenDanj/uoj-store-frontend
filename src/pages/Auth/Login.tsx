@@ -3,8 +3,49 @@ import AppLogo from '@/assets/app-logo.webp'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import LoginBack from '@/assets/login-bg.webp'
+import { useState } from 'react'
+import { axiosInstance } from '@/axios/index'
+import { useToast } from '@/hooks/use-toast'
+import { useDispatch } from 'react-redux'
+import { setUser } from '@/store/UserSlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function LoginPage() {
+    const { toast } = useToast()
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState<{ username: string, password: string }>({
+        username: "",
+        password: ""
+    })
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            const res = await axiosInstance.post("/auth/sign-in", {
+                username: formData.username,
+                password: formData.password
+            })
+
+            console.log(res);
+            localStorage.setItem("token", res.data.authToken)
+
+            dispatch(setUser(res.data.user))
+            navigate('/dashboard', { replace: true })
+
+        } catch (error) {
+            // @ts-ignore
+            const errMsg = error.response.data.message as string;
+            toast({
+                title: "Uh oh! Something went wrong.",
+                description: errMsg,
+            })
+        }
+
+    }
+
+
     return (
 
         <div className="w-[100vw] h-[100vh] flex flex-row">
@@ -23,11 +64,11 @@ export default function LoginPage() {
                         <center><h2 className="text-2xl lg:text-3xl font-bold">Welcome Back! Please <br /> Sign In To Continue</h2></center>
                         <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">By signing up, you will gain access to exclusive content.</p></center>
 
-                        <div className='flex gap-5 justify-center items-center mt-5 flex-col w-full'>
-                            <Input type='text' size={120} placeholder='Enter your username' className='max-w-[400px]' />
-                            <Input type='password' size={120} placeholder='Enter your password' className='max-w-[400px]' />
-                            <Button className='w-full bg-[#0F172A] hover:bg-[#272E3F] hover:text-white dark:bg-[#3b404f] p-5 text-white' variant="outline">Sign in</Button>
-                        </div>
+                        <form onSubmit={(e) => handleSubmit(e)} className='flex gap-5 justify-center items-center mt-5 flex-col w-full'>
+                            <Input value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} required type='text' size={120} placeholder='Enter your username' className='max-w-[400px]' />
+                            <Input value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} required type='password' size={120} placeholder='Enter your password' className='max-w-[400px]' />
+                            <Button type='submit' className='w-full bg-[#0F172A] hover:bg-[#272E3F] hover:text-white dark:bg-[#3b404f] p-5 text-white' variant="outline">Sign in</Button>
+                        </form>
 
                         {/* <img src={Help} className='w-[65%] max-w-[500px] h-auto' /> */}
                     </div>

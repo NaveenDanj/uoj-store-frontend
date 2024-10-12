@@ -18,9 +18,25 @@ import LoginSessionPage from "./pages/Auth/LoginSession";
 import PrivateSessionLayout from "@/layout/PrivateSessionLayout";
 import PrivateSessionPage from "@/pages/Session/PrivateSession";
 import ResetPasswordSendLinkPage from "./pages/Auth/ResetPassword/ResetPasswordSendLink";
+import { Toaster } from "@/components/ui/toaster"
+import ProtectedRoute from "./components/UserProtectedRoute";
+import { axiosInstance } from "./axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "./store/UserSlice";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+  const dispatch = useDispatch();
+
+  const getCurrentUser = async () => {
+    try {
+      const res = await axiosInstance.get("/auth/current-user")
+      console.log(res);
+      dispatch(setUser(res.data.user))
+    } catch (err) {
+      dispatch(setUser(null))
+    }
+  }
 
   useEffect(() => {
     console.log(setTheme)
@@ -31,11 +47,12 @@ function App() {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
+    getCurrentUser();
   }, [theme]);
 
   return (
     <BrowserRouter>
-
+      <Toaster />
       <Routes>
 
         <Route path="/auth" element={<AuthLayout />}>
@@ -59,7 +76,7 @@ function App() {
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="" element={<DashboardPage />} />
-          <Route path="file" element={<FilePage />} />
+          <Route path="file" element={<ProtectedRoute><FilePage /></ProtectedRoute>} />
           <Route path="favourites" element={<FavouritePage />} />
           <Route path="trash" element={<TrashPage />} />
           <Route path="profile" element={<ProfilePage />} />
@@ -69,7 +86,6 @@ function App() {
           </Route>
           <Route path="notification" element={<NotificationPage />} />
         </Route>
-
 
         <Route path="*" element={<div>no page</div>} />
 
