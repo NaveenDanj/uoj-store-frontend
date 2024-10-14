@@ -9,11 +9,13 @@ import { useToast } from '@/hooks/use-toast'
 import { useDispatch } from 'react-redux'
 import { setUser } from '@/store/UserSlice'
 import { useNavigate } from 'react-router-dom'
+import LoadingDialog from '@/components/common/LoadingDialog'
 
 export default function LoginPage() {
     const { toast } = useToast()
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
 
     const [formData, setFormData] = useState<{ username: string, password: string }>({
         username: "",
@@ -23,6 +25,9 @@ export default function LoginPage() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
+
+            setLoading(true)
+
             const res = await axiosInstance.post("/auth/sign-in", {
                 username: formData.username,
                 password: formData.password
@@ -30,6 +35,8 @@ export default function LoginPage() {
 
             console.log(res);
             localStorage.setItem("token", res.data.authToken)
+
+            setLoading(false)
 
             dispatch(setUser(res.data.user))
             navigate('/dashboard', { replace: true })
@@ -41,6 +48,8 @@ export default function LoginPage() {
                 title: "Uh oh! Something went wrong.",
                 description: errMsg,
             })
+
+            setLoading(false)
         }
 
     }
@@ -49,7 +58,7 @@ export default function LoginPage() {
     return (
 
         <div className="w-[100vw] h-[100vh] flex flex-row">
-
+            <LoadingDialog open={loading} />
             <div className="dark:bg-[#111318] bg-white w-full flex flex-col">
 
                 <div className="flex justify-center p-5 w-full">

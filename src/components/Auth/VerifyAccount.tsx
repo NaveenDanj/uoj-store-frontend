@@ -9,10 +9,11 @@ import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 import { useState } from "react";
-
+import LoadingDialog from "../common/LoadingDialog";
 
 export default function VerifyAccount({ userEmail, nextStep }: { userEmail: string, nextStep: () => void }) {
     const { toast } = useToast()
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState<{ email: string; otp: string }>({
         email: userEmail,
@@ -21,12 +22,14 @@ export default function VerifyAccount({ userEmail, nextStep }: { userEmail: stri
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        setLoading(true);
         console.log("user form : ", formData)
         try {
             const res = await axiosInstance.post("/auth/verify-account", formData)
+            setLoading(false);
             nextStep()
-            console.log(res)
         } catch (error) {
+            setLoading(false);
             console.log(error);
             // @ts-ignore
             const errMsg = error.response.data.message as string;
@@ -40,6 +43,7 @@ export default function VerifyAccount({ userEmail, nextStep }: { userEmail: stri
 
     return (
         <div className='flex gap-5 flex-col'>
+            <LoadingDialog open={loading} />
             <center><h2 className="text-2xl lg:text-3xl font-bold">Hi Stranger! Please <br /> verify your account to Continue</h2></center>
             <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">We have sent you a verification code to your university email</p></center>
 

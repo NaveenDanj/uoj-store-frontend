@@ -21,12 +21,14 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setUser } from '@/store/UserSlice'
 import VerifiedMessage from '@/components/Auth/VerifiedMessage'
+import LoadingDialog from '@/components/common/LoadingDialog'
 
 
 export default function RegisterPage() {
     const { toast } = useToast()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
     const [currentRoute, setCurrentRoute] = useState("register")
     const [userEmail, setUserEmail] = useState<string>("")
     const [formData, setFormData] = useState<{
@@ -50,7 +52,7 @@ export default function RegisterPage() {
         event.preventDefault();
 
         try {
-
+            setLoading(true)
             const email = formData.regYear.toLowerCase() + formData.code.toLowerCase() + "@univ.jfn.ac.lk"
 
             const res = await axiosInstance.post("/auth/sign-up", {
@@ -64,17 +66,21 @@ export default function RegisterPage() {
 
             setUserEmail(res.data.user.email)
             console.log("res", res)
+
+            setLoading(false)
             dispatch(setUser(res.data.user))
             setCurrentRoute('verify')
 
         } catch (error) {
             console.log(error);
+            setLoading(false)
             // @ts-ignore
             const errMsg = error.response.data.message as string;
             toast({
                 title: "Uh oh! Something went wrong.",
                 description: errMsg,
             })
+
         }
 
     }
@@ -87,7 +93,7 @@ export default function RegisterPage() {
     return (
 
         <div className="w-[100vw] h-[100vh] flex flex-row">
-
+            <LoadingDialog open={loading} />
             <div className="dark:bg-[#111318] bg-white w-full flex flex-col pb-5">
 
                 <div className="flex justify-center p-5  w-full">
