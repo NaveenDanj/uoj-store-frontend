@@ -5,7 +5,6 @@ interface User {
     ID: number,
     username: string,
     email: string,
-    registration_number: string,
     role: string,
     is_verified: boolean,
     is_active: boolean,
