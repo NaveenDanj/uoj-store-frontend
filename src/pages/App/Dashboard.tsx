@@ -5,9 +5,22 @@ import PieChartSection from "@/components/App/Dashboard/PieChartSection";
 import RecentActivitySection from "@/components/App/Dashboard/RecentActivitySection";
 import StatCard from "@/components/App/Dashboard/StatCard";
 import { Separator } from "@/components/ui/separator";
+import { RootState } from "@/store/store";
 import AddIcon from '@mui/icons-material/Add';
+import { useSelector } from "react-redux";
 
 export default function DashboardPage() {
+
+    const loading = useSelector((state: RootState) => state.user.loading);
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen w-full">
+                <p className="text-2xl text-center">Loading...</p>
+            </div>
+        )
+    }
+
     return (
         <div className="w-full flex flex-col ">
 

@@ -80,6 +80,8 @@ export default function LoginPage() {
                         </form>
 
                         {/* <img src={Help} className='w-[65%] max-w-[500px] h-auto' /> */}
+                        <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">Dont have an account yet? Please <span onClick={() => navigate('/auth/register')} className='text-blue-500 cursor-pointer'>sign up</span></p></center>
+                        <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]"><span onClick={() => navigate('/auth/reset-password')} className='text-blue-500 cursor-pointer'>Forget Password</span></p></center>
                     </div>
 
                 </div>

@@ -23,9 +23,8 @@ export default function VerifyAccount({ userEmail, nextStep }: { userEmail: stri
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setLoading(true);
-        console.log("user form : ", formData)
         try {
-            const res = await axiosInstance.post("/auth/verify-account", formData)
+            await axiosInstance.post("/auth/verify-account", formData)
             setLoading(false);
             nextStep()
         } catch (error) {

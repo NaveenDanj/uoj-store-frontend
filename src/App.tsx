@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AuthLayout from "./layout/AuthLayout";
 import LandingLayout from "./layout/LandingLayout";
 import DashboardLayout from "./layout/DashboardLayout";
@@ -21,20 +21,27 @@ import ResetPasswordSendLinkPage from "./pages/Auth/ResetPassword/ResetPasswordS
 import { Toaster } from "@/components/ui/toaster"
 import ProtectedRoute from "./components/UserProtectedRoute";
 import { axiosInstance } from "./axios";
-import { useDispatch } from "react-redux";
-import { setUser } from "./store/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setLoading } from "./store/UserSlice";
+import { RootState } from "./store/store";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user)
+
 
   const getCurrentUser = async () => {
     try {
+      dispatch(setLoading(true));
       const res = await axiosInstance.get("/auth/current-user")
-      console.log(res);
       dispatch(setUser(res.data.user))
+      dispatch(setLoading(false));
     } catch (err) {
       dispatch(setUser(null))
+      dispatch(setLoading(false));
+    } finally {
+      dispatch(setLoading(false));
     }
   }
 
@@ -47,8 +54,15 @@ function App() {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
-    getCurrentUser();
   }, [theme]);
+
+  useEffect(() => {
+    getCurrentUser();
+  }, [])
+
+  if (user.loading) {
+    return
+  }
 
   return (
     <BrowserRouter>
@@ -67,7 +81,8 @@ function App() {
 
         </Route>
 
-        <Route path="/" element={<LandingLayout />}>
+        <Route path="/" element={<Navigate to="/dashboard" />}>
+
         </Route>
 
         <Route path="/private-session" element={<PrivateSessionLayout />} >
@@ -76,7 +91,7 @@ function App() {
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="" element={<DashboardPage />} />
-          <Route path="file" element={<ProtectedRoute><FilePage /></ProtectedRoute>} />
+          <Route path="file" element={<ProtectedRoute user={user.currentUser}><FilePage /></ProtectedRoute>} />
           <Route path="favourites" element={<FavouritePage />} />
           <Route path="trash" element={<TrashPage />} />
           <Route path="profile" element={<ProfilePage />} />

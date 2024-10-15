@@ -108,9 +108,10 @@ export default function RegisterPage() {
                     {currentRoute == "register" && (
                         <div className='flex gap-5 flex-col'>
                             <center><h2 className="text-2xl lg:text-3xl font-bold">Welcome Back! Please <br /> Sign up To Continue</h2></center>
-                            <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">By signing up, you will gain access to exclusive content.</p></center>
+                            <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">Already have an account? Please <span onClick={() => navigate('/auth/login')} className='text-blue-500 cursor-pointer'>sign in</span></p></center>
 
-                            <form method="POST" onSubmit={(e) => handleRegisterSubmit(e)} className='flex gap-5 justify-center items-center mt-5 flex-col w-full'>
+
+                            <form method="POST" onSubmit={(e) => handleRegisterSubmit(e)} className='flex gap-5 justify-center items-center mt-3 flex-col w-full'>
                                 <Input onChange={(e) => setFormData({ ...formData, name: e.target.value })} required type='text' placeholder='Enter your username' className='max-w-[350px]' />
                                 <Input onChange={(e) => setFormData({ ...formData, password: e.target.value })} required type='password' placeholder='Enter your password' className='max-w-[350px] ' />
                                 <Input onChange={(e) => setFormData({ ...formData, passphrase: e.target.value })} required minLength={32} maxLength={32} type='text' placeholder='Enter your pass-phrase' />
@@ -131,7 +132,6 @@ export default function RegisterPage() {
                                         </InputOTPGroup>
 
                                     </InputOTP>
-
 
                                 </div>
 
@@ -162,7 +162,7 @@ export default function RegisterPage() {
 
                                 </div>
 
-                                <Button type='submit' className='w-full mt-5 bg-[#0F172A] hover:bg-[#272E3F] hover:text-white dark:bg-[#3b404f] p-5 text-white' variant="outline">Next</Button>
+                                <Button type='submit' className='w-full mt-2 bg-[#0F172A] hover:bg-[#272E3F] hover:text-white dark:bg-[#3b404f] p-5 text-white' variant="outline">Next</Button>
                             </form>
 
                         </div>
