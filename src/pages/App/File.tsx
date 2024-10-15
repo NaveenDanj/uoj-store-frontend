@@ -6,10 +6,38 @@ import Location from "@/components/App/File/Location";
 import FileItem from "@/components/App/File/FileItem";
 // import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
 import CreateFolderDialog from "@/components/App/Dialog/CreateFolderDialog";
+import { axiosInstance } from "@/axios";
+import { useEffect, useState } from "react";
+import FolderItem from "@/components/common/FolderItem";
+import { useToast } from "@/hooks/use-toast";
+import { Folders } from "lucide-react";
 // import MoveFileDialog from "@/components/App/Dialog/MoveFileDialog";
-
+import { Folder, File } from '../../types'
 
 export default function FilePage() {
+    const { toast } = useToast()
+
+    const [fileList, setFileList] = useState<File[]>([])
+    const [folderList, setFolderList] = useState<Folder[]>([])
+
+    const fetchFolderItems = async () => {
+        try {
+            const res = await axiosInstance.get("/folder/get-folder-items/1")
+            setFileList(res.data.files)
+            setFolderList(res.data.folders as Folder[])
+        } catch (error) {
+            toast({
+                title: "Uh oh! Something went wrong.",
+                description: `Error while fetching files and folders`,
+            })
+        }
+    }
+
+    useEffect(() => {
+        fetchFolderItems()
+    }, [])
+
+
     return (
         <div className="w-full flex flex-col">
 
@@ -45,16 +73,8 @@ export default function FilePage() {
             </div>
 
             <div className="mt-10 pl-3 grid grid-cols-2 gap-4 mb-8 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 3xl:grid-cols-8">
-                <FileItem />
-                <FileItem />
-                <FileItem />
-                <FileItem />
-                <FileItem />
-                <FileItem />
-                <FileItem />
-                <FileItem />
-                <FileItem />
-                <FileItem />
+                {folderList.map((item, index) => (<FolderItem folder={item} key={index} />))}
+                {fileList.map((item, index) => (<FileItem key={index} file={item} />))}
             </div>
 
         </div>

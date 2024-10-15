@@ -13,9 +13,10 @@ import {
 } from "@/components/ui/menubar"
 import MoveFileDialog from '../Dialog/MoveFileDialog';
 import { ShareDialog } from '../Dialog/ShareDialog';
+import { File } from '@/types';
 
 
-export default function FileItem() {
+export default function FileItem({ file }: { file: File }) {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -72,7 +73,7 @@ export default function FileItem() {
       </div>
 
       <div className="mt-3 flex justify-center">
-        <label className="text-sm">IMG_0427.jpeg</label>
+        <center><label className="text-sm">{file.original_name}</label></center>
       </div>
     </div>
   );
