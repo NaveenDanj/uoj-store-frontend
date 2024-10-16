@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import { Input } from "@/components/ui/input"
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import FileItem from "@/components/App/File/FileItem";
+// import FileItem from "@/components/App/File/FileItem";
 
 
 export default function FavouritePage() {
@@ -32,6 +32,7 @@ export default function FavouritePage() {
             </div>
 
             <div className="mt-10 pl-3 grid grid-cols-2 gap-4 mb-8 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 3xl:grid-cols-8">
+                {/* <FileItem key={1} file={item} />
                 <FileItem />
                 <FileItem />
                 <FileItem />
@@ -40,8 +41,7 @@ export default function FavouritePage() {
                 <FileItem />
                 <FileItem />
                 <FileItem />
-                <FileItem />
-                <FileItem />
+                <FileItem /> */}
             </div>
 
         </div>

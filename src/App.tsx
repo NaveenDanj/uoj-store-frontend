@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AuthLayout from "./layout/AuthLayout";
-import LandingLayout from "./layout/LandingLayout";
 import DashboardLayout from "./layout/DashboardLayout";
 import LoginPage from "./pages/Auth/Login";
 import { useEffect, useState } from "react";

@@ -10,7 +10,6 @@ import { axiosInstance } from "@/axios";
 import { useEffect, useState } from "react";
 import FolderItem from "@/components/common/FolderItem";
 import { useToast } from "@/hooks/use-toast";
-import { Folders } from "lucide-react";
 // import MoveFileDialog from "@/components/App/Dialog/MoveFileDialog";
 import { Folder, File } from '../../types'
 

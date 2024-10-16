@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import FileItem from "@/components/App/File/FileItem";
+// import FileItem from "@/components/App/File/FileItem";
 
 
 export default function TrashPage() {
@@ -34,6 +34,7 @@ export default function TrashPage() {
             </div>
 
             <div className="mt-10 pl-3 grid grid-cols-2 gap-4 mb-8 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 3xl:grid-cols-8">
+                {/* <FileItem />
                 <FileItem />
                 <FileItem />
                 <FileItem />
@@ -42,8 +43,7 @@ export default function TrashPage() {
                 <FileItem />
                 <FileItem />
                 <FileItem />
-                <FileItem />
-                <FileItem />
+                <FileItem /> */}
             </div>
 
         </div>
