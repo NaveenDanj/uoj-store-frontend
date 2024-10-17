@@ -1,0 +1,29 @@
+name: Deploy to Lightsail
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.LIGHTSAIL_SSH_PRIVATE_KEY }}
+
+      - name: Deploy code to Lightsail
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.LIGHTSAIL_USER }}@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
+            sudo cd /var/www/html/uoj-store-frontend
+            sudo git pull origin main
+            sudo yarn
+            sudo yarn build
+            sudo systemctl restart nginx
+          EOF
