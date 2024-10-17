@@ -14,5 +14,15 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: 'dist'
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://15.206.79.187:5001',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 })
