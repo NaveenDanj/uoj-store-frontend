@@ -21,7 +21,7 @@ jobs:
       - name: Deploy code to Lightsail
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.LIGHTSAIL_USER }}@${{ secrets.LIGHTSAIL_IP }} << 'EOF'
-            sudo cd /var/www/html/uoj-store-frontend
+            cd /var/www/html/uoj-store-frontend
             sudo git pull origin main
             sudo yarn
             sudo yarn build
