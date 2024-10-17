@@ -32,7 +32,7 @@ function App() {
 
 
   const test = async () => {
-    const res2 = await axios.get("https://uoj.uk.to/api/ping")
+    const res2 = await axios.get("https://jsonplaceholder.typicode.com/posts")
     console.log(res2)
   }
 
