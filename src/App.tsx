@@ -23,6 +23,7 @@ import { axiosInstance } from "./axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setLoading } from "./store/UserSlice";
 import { RootState } from "./store/store";
+import axios from "axios";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -31,7 +32,7 @@ function App() {
 
 
   const test = async () => {
-    const res2 = await axiosInstance.get("/ping")
+    const res2 = await axios.get("https://uoj.uk.to/api/ping")
     console.log(res2)
   }
 
