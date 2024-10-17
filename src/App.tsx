@@ -34,6 +34,8 @@ function App() {
     try {
       dispatch(setLoading(true));
       const res = await axiosInstance.get("/auth/current-user")
+      const res2 = await axiosInstance.get("/ping")
+      console.log(res2)
       dispatch(setUser(res.data.user))
       dispatch(setLoading(false));
     } catch (err) {
