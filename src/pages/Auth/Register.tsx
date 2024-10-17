@@ -112,17 +112,17 @@ export default function RegisterPage() {
 
 
                             <form method="POST" onSubmit={(e) => handleRegisterSubmit(e)} className='flex gap-5 justify-center items-center mt-3 flex-col w-full'>
-                                <Input onChange={(e) => setFormData({ ...formData, name: e.target.value })} required type='text' placeholder='Enter your username' className='max-w-[350px]' />
-                                <Input onChange={(e) => setFormData({ ...formData, password: e.target.value })} required type='password' placeholder='Enter your password' className='max-w-[350px] ' />
+                                <Input onChange={(e) => setFormData({ ...formData, name: e.target.value })} required type='text' placeholder='Enter your username' className='max-w-[400px]' />
+                                <Input onChange={(e) => setFormData({ ...formData, password: e.target.value })} required type='password' placeholder='Enter your password' className='max-w-[400px] ' />
                                 <Input onChange={(e) => setFormData({ ...formData, passphrase: e.target.value })} required minLength={32} maxLength={32} type='text' placeholder='Enter your pass-phrase' />
 
                                 <div className='w-full flex justify-center'>
                                     <Label>Your academic year (ex - 2021)</Label>
                                 </div>
 
-                                <div className='flex-row justify-center max-w-[350px]'>
+                                <div className='flex-row justify-center max-w-[400px]'>
 
-                                    <InputOTP onChange={e => setFormData({ ...formData, regYear: e })} required className='w-[350px] flex-col' maxLength={4} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
+                                    <InputOTP onChange={e => setFormData({ ...formData, regYear: e })} required className='w-[400px] flex-col' maxLength={4} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
 
                                         <InputOTPGroup>
                                             <InputOTPSlot index={0} />
@@ -139,7 +139,7 @@ export default function RegisterPage() {
                                     <Label>Your registration number (ex - CSC-019)</Label>
                                 </div>
 
-                                <div className='flex-row justify-center max-w-[350px]'>
+                                <div className='flex-row justify-center max-w-[400px]'>
 
                                     <InputOTP required onChange={e => setFormData({ ...formData, code: e })} className='w-[350px] flex-col' maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
 
