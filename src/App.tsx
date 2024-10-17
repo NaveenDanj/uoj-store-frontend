@@ -30,12 +30,15 @@ function App() {
   const user = useSelector((state: RootState) => state.user)
 
 
+  const test = async () => {
+    const res2 = await axiosInstance.get("/ping")
+    console.log(res2)
+  }
+
   const getCurrentUser = async () => {
     try {
       dispatch(setLoading(true));
       const res = await axiosInstance.get("/auth/current-user")
-      const res2 = await axiosInstance.get("/ping")
-      console.log(res2)
       dispatch(setUser(res.data.user))
       dispatch(setLoading(false));
     } catch (err) {
@@ -58,6 +61,7 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
+    test()
     getCurrentUser();
   }, [])
 
