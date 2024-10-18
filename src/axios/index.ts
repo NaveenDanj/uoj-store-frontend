@@ -5,7 +5,6 @@ export const axiosInstance = axios.create({
     timeout: 6*10000, 
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token') || "token"}`,
-        'Origin': 'http://15.206.79.187'
+        'Authorization': `Bearer ${localStorage.getItem('token') || "token"}`
     }
 });
