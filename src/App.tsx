@@ -20,14 +20,14 @@ import ResetPasswordSendLinkPage from "./pages/Auth/ResetPassword/ResetPasswordS
 import { Toaster } from "@/components/ui/toaster"
 import ProtectedRoute from "./components/UserProtectedRoute";
 // import { axiosInstance } from "./axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { setUser, setLoading } from "./store/UserSlice";
 import { RootState } from "./store/store";
 import axios from "axios";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user)
 
 
