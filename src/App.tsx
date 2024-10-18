@@ -32,7 +32,7 @@ function App() {
 
 
   const test = async () => {
-    const res = await axiosInstance.get("/ping")
+    const res = await axios.get("http://localhost:5001/ping")
     console.log(res)
   }
 
@@ -63,7 +63,7 @@ function App() {
 
   useEffect(() => {
     test()
-    getCurrentUser();
+    // getCurrentUser();
   }, [])
 
   if (user.loading) {
