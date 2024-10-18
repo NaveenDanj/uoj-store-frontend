@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+// import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import { Input } from "@/components/ui/input"
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import Location from "@/components/App/File/Location";
@@ -12,6 +12,7 @@ import FolderItem from "@/components/common/FolderItem";
 import { useToast } from "@/hooks/use-toast";
 // import MoveFileDialog from "@/components/App/Dialog/MoveFileDialog";
 import { Folder, File } from '../../types'
+import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
 
 export default function FilePage() {
     const { toast } = useToast()
@@ -45,12 +46,12 @@ export default function FilePage() {
 
                 <div className="flex flex-row gap-4 my-auto px-2">
 
-                    <Button className="dark:bg-[#111318] w-full" variant={'outline'}>
+                    {/*<Button className="dark:bg-[#111318] w-full" variant={'outline'}>
                         <LocalOfferOutlinedIcon className="my-auto mr-2" sx={{ fontSize: 20 }} />
                         Manage Tags
-                    </Button>
+                    </Button> */}
 
-                    {/* <UploadFileDialog /> */}
+                    <UploadFileDialog />
 
                     {/* <MoveFileDialog /> */}
                     <CreateFolderDialog />

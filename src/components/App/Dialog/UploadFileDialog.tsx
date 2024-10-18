@@ -8,9 +8,9 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { Button } from '@/components/ui/button'
-import AddIcon from '@mui/icons-material/Add';
+// import AddIcon from '@mui/icons-material/Add';
 import FileItem from '@/components/common/FileItem';
-
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 
 export default function UploadFileDialog() {
@@ -18,9 +18,9 @@ export default function UploadFileDialog() {
         <Sheet>
 
             <SheetTrigger asChild={true}>
-                <Button className="w-full">
-                    <AddIcon className="my-auto mr-2" sx={{ fontSize: 20 }} />
-                    Add New
+                <Button variant={'outline'} className="w-full dark:bg-[#111318]">
+                    <FileUploadIcon className="my-auto mr-2" sx={{ fontSize: 20 }} />
+                    Upload
                 </Button>
             </SheetTrigger>
 

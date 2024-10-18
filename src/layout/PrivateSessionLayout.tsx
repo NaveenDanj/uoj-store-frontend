@@ -18,7 +18,7 @@ export default function PrivateSessionLayout() {
                 </div>
 
                 <div className='flex flex-col gap-4 mt-10'>
-                    <Button variant={'outline'} className='py-5 dark:bg-[#27272A]'>Upload new file</Button>
+                    <label>Upload new file</label>
                     <Button variant={'outline'} className='py-5 text-red-500 border-red-500 dark:bg-[#1B1E27]' >End Session</Button>
                 </div>
 

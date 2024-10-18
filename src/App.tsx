@@ -19,36 +19,35 @@ import PrivateSessionPage from "@/pages/Session/PrivateSession";
 import ResetPasswordSendLinkPage from "./pages/Auth/ResetPassword/ResetPasswordSendLink";
 import { Toaster } from "@/components/ui/toaster"
 import ProtectedRoute from "./components/UserProtectedRoute";
-// import { axiosInstance } from "./axios";
-import { useSelector } from "react-redux";
-// import { setUser, setLoading } from "./store/UserSlice";
+import { axiosInstance } from "./axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setLoading } from "./store/UserSlice";
 import { RootState } from "./store/store";
-import axios from "axios";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user)
 
 
   const test = async () => {
-    const res = await axios.get("http://localhost:5001/ping")
-    console.log(res)
+    // const res = await axios.get("http://localhost:5001/ping")
+    // console.log(res)
   }
 
-  // const getCurrentUser = async () => {
-  //   try {
-  //     dispatch(setLoading(true));
-  //     const res = await axiosInstance.get("/auth/current-user")
-  //     dispatch(setUser(res.data.user))
-  //     dispatch(setLoading(false));
-  //   } catch (err) {
-  //     dispatch(setUser(null))
-  //     dispatch(setLoading(false));
-  //   } finally {
-  //     dispatch(setLoading(false));
-  //   }
-  // }
+  const getCurrentUser = async () => {
+    try {
+      dispatch(setLoading(true));
+      const res = await axiosInstance.get("/auth/current-user")
+      dispatch(setUser(res.data.user))
+      dispatch(setLoading(false));
+    } catch (err) {
+      dispatch(setUser(null))
+      dispatch(setLoading(false));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
 
   useEffect(() => {
     console.log(setTheme)
@@ -63,7 +62,7 @@ function App() {
 
   useEffect(() => {
     test()
-    // getCurrentUser();
+    getCurrentUser();
   }, [])
 
   if (user.loading) {
