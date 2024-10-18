@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-    baseURL: 'http://15.206.79.187:5001/api',
+    baseURL: 'https://uoj.uk.to/api',
     timeout: 6*10000, 
     headers: {
         'Content-Type': 'application/json',
