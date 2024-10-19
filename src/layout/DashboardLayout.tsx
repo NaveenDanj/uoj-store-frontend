@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppLogo from '@/assets/app-logo.webp';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
@@ -23,10 +23,12 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar"
 import { Outlet, useNavigate } from 'react-router-dom';
+import { PassPhraseDialog } from '@/components/App/Dialog/PassPhraseDialog';
 
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false)
 
   const [selectedMenu, setSelectedMenu] = useState('dashboard');
 
@@ -39,6 +41,22 @@ export default function DashboardLayout() {
       ? 'bg-[#EEF0F4] dark:bg-[#2B2F3B] border border-black/1 dark:border-white/1'
       : 'bg-transparent border-none';
   };
+
+  const handleSetOpen = () => {
+    setOpen(false)
+  }
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+      const passPhrase = localStorage.getItem('passphrase')
+      if (!passPhrase) {
+        setOpen(true)
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [])
 
   return (
     <div className="h-[100vh] gap-2 flex p-1 w-full">
@@ -190,6 +208,8 @@ export default function DashboardLayout() {
           <div className='py-4 px-1'>
             <label className='text-sm'>© 2024 <span className='font-bold'>UOJ-Store.</span> All rights reserved.</label>
           </div>
+
+          <PassPhraseDialog open={open} setOpen={handleSetOpen} />
 
         </div>
 
