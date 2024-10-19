@@ -24,11 +24,14 @@ import {
 } from "@/components/ui/menubar"
 import { Outlet, useNavigate } from 'react-router-dom';
 import { PassPhraseDialog } from '@/components/App/Dialog/PassPhraseDialog';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false)
+  const user = useSelector((state: RootState) => state.user.currentUser)
 
   const [selectedMenu, setSelectedMenu] = useState('dashboard');
 
@@ -114,28 +117,31 @@ export default function DashboardLayout() {
             <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Trash</label>
           </div>
 
-          <div
-            className={`${commonClass} ${getMenuClass('manageFiles')}`}
-            onClick={() => {
-              setSelectedMenu('manageFiles')
-              navigate('/dashboard/admin/file')
-            }}
-          >
-            <RuleFolderIcon className="text-[#718195] cursor-pointer" />
-            <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Manage Files</label>
-          </div>
+          {user?.role == 'Admin' && (
+            <div
+              className={`${commonClass} ${getMenuClass('manageFiles')}`}
+              onClick={() => {
+                setSelectedMenu('manageFiles')
+                navigate('/dashboard/admin/file')
+              }}
+            >
+              <RuleFolderIcon className="text-[#718195] cursor-pointer" />
+              <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Manage Files</label>
+            </div>
+          )}
 
-
-          <div
-            className={`${commonClass} ${getMenuClass('manageUsers')}`}
-            onClick={() => {
-              setSelectedMenu('manageUsers')
-              navigate('/dashboard/admin/users')
-            }}
-          >
-            <AdminPanelSettingsIcon className="text-[#718195] cursor-pointer" />
-            <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Manage Users</label>
-          </div>
+          {user?.role == 'Admin' && (
+            <div
+              className={`${commonClass} ${getMenuClass('manageUsers')}`}
+              onClick={() => {
+                setSelectedMenu('manageUsers')
+                navigate('/dashboard/admin/users')
+              }}
+            >
+              <AdminPanelSettingsIcon className="text-[#718195] cursor-pointer" />
+              <label className="text-sm text-[#718195] dark:text-white cursor-pointer font-semibold my-auto">Manage Users</label>
+            </div>
+          )}
 
         </div>
 
