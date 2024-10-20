@@ -37,7 +37,7 @@ export default function UploadFileDialog() {
         formData.append('folder_id', '1');
 
         try {
-            await axios.post('https://uoj.uk.to/api/file/upload', formData, {
+            await axios.post('http://localhost:5001/api/file/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
