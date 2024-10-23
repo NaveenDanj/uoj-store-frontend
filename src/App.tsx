@@ -23,6 +23,7 @@ import { axiosInstance } from "./axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setLoading } from "./store/UserSlice";
 import { RootState } from "./store/store";
+import DownloadPage from "./pages/DownloadPage";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -92,6 +93,10 @@ function App() {
 
         <Route path="/private-session" element={<PrivateSessionLayout />} >
           <Route path="" element={<PrivateSessionPage />} />
+        </Route>
+
+        <Route path="/download" element={<AuthLayout />} >
+          <Route path="" element={<DownloadPage />} />
         </Route>
 
         <Route path="/dashboard" element={<DashboardLayout />}>
