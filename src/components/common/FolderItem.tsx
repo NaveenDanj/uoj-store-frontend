@@ -6,12 +6,11 @@ import {
     MenubarItem,
     MenubarMenu,
     MenubarSeparator,
-    MenubarShortcut,
     MenubarTrigger,
 } from "@/components/ui/menubar"
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import MoveFileDialog from '../App/Dialog/MoveFileDialog';
-import { ShareDialog } from '../App/Dialog/ShareDialog';
+// import { ShareDialog } from '../App/Dialog/ShareDialog';
 import File from '@/assets/file.svg'
 import { Folder } from '../../types'
 
@@ -26,7 +25,7 @@ export default function FolderItem({ folder }: { folder: Folder }) {
     const MenuComponent = () => {
 
         const [isMoveOpen, setIsMoveOpen] = useState(false);
-        const [isShareOpen, setIsShareOpen] = useState(false);
+        // const [isShareOpen, setIsShareOpen] = useState(false);
 
         return (
             <>
@@ -38,9 +37,9 @@ export default function FolderItem({ folder }: { folder: Folder }) {
                         </MenubarTrigger>
 
                         <MenubarContent className=''>
-                            <MenubarItem onClick={() => setIsShareOpen(true)}>
+                            {/* <MenubarItem onClick={() => setIsShareOpen(true)}>
                                 Share & Get Link <MenubarShortcut>⌘T</MenubarShortcut>
-                            </MenubarItem>
+                            </MenubarItem> */}
                             <MenubarItem>Download</MenubarItem>
                             <MenubarItem>Add to Favourite</MenubarItem>
                             <MenubarSeparator />
@@ -50,7 +49,7 @@ export default function FolderItem({ folder }: { folder: Folder }) {
                     </MenubarMenu>
                 </Menubar>
                 <MoveFileDialog isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} />
-                <ShareDialog isOpen={isShareOpen} setIsOpen={setIsShareOpen} />
+                {/* <ShareDialog isOpen={isShareOpen} setIsOpen={setIsShareOpen} /> */}
             </>
         )
     }
