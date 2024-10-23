@@ -13,7 +13,6 @@ export default function DownloadPage() {
     const isFirstRender = useRef(true);
     const { toast } = useToast()
 
-    // Assuming you pass the file URL through route state or query params
     const queryParams = new URLSearchParams(location.search);
     const fileUrl = queryParams.get('fileUrl') || '';
 
