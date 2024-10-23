@@ -111,7 +111,7 @@ export function ShareDialog({
 
         try {
             const res = await axiosInstance.post('/share/generate-link', formData)
-            const link = 'https://uoj.uk.to/download?fileId=' + res.data.Link as string
+            const link = 'https://uoj.uk.to/download?fileUrl=' + res.data.Link as string
             await navigator.clipboard.writeText(link);
             setDownloadLink(link)
             setNextPage(true)
