@@ -15,6 +15,7 @@ import { Folder, File } from '../../types'
 import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import EmptyFolderIcon from '@/assets/empty-folder.svg'
 
 export default function FilePage() {
     const { toast } = useToast()
@@ -75,6 +76,14 @@ export default function FilePage() {
                 {folderList.map((item, index) => (<FolderItem folderStack={folderStack} setFolderStack={setFolderStack} folder={item} key={index} />))}
                 {fileList.map((item, index) => (<FileItem key={index} file={item} />))}
             </div>
+
+            {(folderList.length == 0 && fileList.length == 0) && (
+                <div className="flex flex-col gap-1 justify-center items-center w-[100%] h-[100%]">
+                    <img src={EmptyFolderIcon} width={200} height={100} />
+                    <center><label className="text-lg text-gray-500 font-bold">No files</label></center>
+                    <center><label className="text-sm text-gray-500 font-semibold">Please start uploading files</label></center>
+                </div>
+            )}
 
         </div>
     )

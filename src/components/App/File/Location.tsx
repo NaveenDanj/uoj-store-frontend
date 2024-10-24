@@ -36,7 +36,7 @@ export default function Location({ stack, setFolderStack }: {
 
                     {stack.map(item => (
                         <>
-                            <BreadcrumbItem>
+                            <BreadcrumbItem id={item.id + ''}>
                                 <BreadcrumbLink onClick={() => handleChangeDIR(item.id)}>{item.name}</BreadcrumbLink>
                             </BreadcrumbItem>
 

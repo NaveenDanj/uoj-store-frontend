@@ -15,7 +15,7 @@ export type File = {
     CreatedAt: Date;
     UpdatedAt: Date;
     DeletedAt: Date | null;
-    file_id: number;
+    file_id: string;
     folder_id: number;
     user_id: number;
     original_name: string;

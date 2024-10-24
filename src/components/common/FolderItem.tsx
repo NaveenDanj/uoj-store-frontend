@@ -5,7 +5,6 @@ import {
     MenubarContent,
     MenubarItem,
     MenubarMenu,
-    MenubarSeparator,
     MenubarTrigger,
 } from "@/components/ui/menubar"
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
@@ -13,14 +12,40 @@ import MoveFileDialog from '../App/Dialog/MoveFileDialog';
 // import { ShareDialog } from '../App/Dialog/ShareDialog';
 import File from '@/assets/file.svg'
 import { Folder } from '../../types'
+import { axiosInstance } from '@/axios';
+import { useToast } from '@/hooks/use-toast';
 
 export default function FolderItem({ folder, setFolderStack, folderStack }: { folderStack: { id: number, name: string }[], folder: Folder, setFolderStack: React.Dispatch<React.SetStateAction<{ id: number, name: string }[]>> }) {
 
     const [isChecked, setIsChecked] = useState(false);
+    const { toast } = useToast()
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
     };
+
+    const moveToTrash = async (id: number) => {
+
+        try {
+
+            await axiosInstance.post('/folder/move-folder-trash', {
+                folder_id: id
+            })
+
+            toast({
+                title: "Folder moved to trash",
+                description: "",
+            })
+
+        } catch (err) {
+            toast({
+                title: "Uh oh! Something went wrong.",
+                description: "Could not move to trash",
+            })
+            console.log(err)
+        }
+
+    }
 
     const MenuComponent = () => {
 
@@ -40,11 +65,11 @@ export default function FolderItem({ folder, setFolderStack, folderStack }: { fo
                             {/* <MenubarItem onClick={() => setIsShareOpen(true)}>
                                 Share & Get Link <MenubarShortcut>⌘T</MenubarShortcut>
                             </MenubarItem> */}
-                            <MenubarItem>Download</MenubarItem>
-                            <MenubarItem>Add to Favourite</MenubarItem>
-                            <MenubarSeparator />
+                            {/* <MenubarItem>Download</MenubarItem> */}
+                            {/* <MenubarItem>Add to Favourite</MenubarItem> */}
+                            {/* <MenubarSeparator /> */}
                             <MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>
-                            <MenubarItem>Move to Trash</MenubarItem>
+                            <MenubarItem onClick={() => moveToTrash(folder.ID)}>Move to Trash</MenubarItem>
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>

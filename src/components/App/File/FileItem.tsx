@@ -15,10 +15,13 @@ import MoveFileDialog from '../Dialog/MoveFileDialog';
 import { ShareDialog } from '../Dialog/ShareDialog';
 import { File } from '@/types';
 import { axiosInstance } from '@/axios';
+import { useToast } from '@/hooks/use-toast';
 
 
 export default function FileItem({ file }: { file: File }) {
   const [isChecked, setIsChecked] = useState(false);
+  const { toast } = useToast()
+
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -52,6 +55,25 @@ export default function FileItem({ file }: { file: File }) {
       }
     }
 
+    const handleMoveToTrash = async (id: string) => {
+      try {
+        const res = await axiosInstance.post('/file/move-to-trash', {
+          file_id: id
+        })
+
+        toast({
+          title: "File moved to trash",
+          description: res.data.message as string,
+        })
+
+      } catch (err) {
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: "Could not move to trash",
+        })
+      }
+    }
+
     return (
       <>
         <Menubar>
@@ -69,7 +91,7 @@ export default function FileItem({ file }: { file: File }) {
               <MenubarItem>Add to Favourite</MenubarItem>
               <MenubarSeparator />
               <MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>
-              <MenubarItem>Move to Trash</MenubarItem>
+              <MenubarItem onClick={() => handleMoveToTrash(file.file_id)}>Move to Trash</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
