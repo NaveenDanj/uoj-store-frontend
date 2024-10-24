@@ -11,6 +11,9 @@ export interface User {
   CreatedAt: Date
   UpdatedAt: Date
   DeletedAt: Date | null,
+  root_folder: number,
+  session_folder: number,
+  SessionId: number
 }
 
 

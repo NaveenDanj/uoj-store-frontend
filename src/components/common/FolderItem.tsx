@@ -14,7 +14,7 @@ import MoveFileDialog from '../App/Dialog/MoveFileDialog';
 import File from '@/assets/file.svg'
 import { Folder } from '../../types'
 
-export default function FolderItem({ folder }: { folder: Folder }) {
+export default function FolderItem({ folder, setFolderStack, folderStack }: { folderStack: { id: number, name: string }[], folder: Folder, setFolderStack: React.Dispatch<React.SetStateAction<{ id: number, name: string }[]>> }) {
 
     const [isChecked, setIsChecked] = useState(false);
 
@@ -56,8 +56,7 @@ export default function FolderItem({ folder }: { folder: Folder }) {
 
     return (
         <div
-            className={`group flex flex-col p-5 rounded-lg max-w-[250px] ${isChecked ? 'bg-[#F6F7F9] dark:bg-[#1B1E27]' : 'hover:bg-[#F6F7F9] hover:dark:bg-[#1B1E27]'
-                }`}
+            className={`group flex flex-col p-5 rounded-lg max-w-[250px] ${isChecked ? 'bg-[#F6F7F9] dark:bg-[#1B1E27]' : 'hover:bg-[#F6F7F9] hover:dark:bg-[#1B1E27]'}`}
         >
             {/* Show the checkbox and icon only on hover */}
             <div className="flex flex-row justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -67,7 +66,7 @@ export default function FolderItem({ folder }: { folder: Folder }) {
 
             </div>
 
-            <div className="flex justify-center relative top-[-10px]">
+            <div onClick={() => setFolderStack([...folderStack, { id: folder.ID, name: folder.name }])} className="flex justify-center relative top-[-10px]">
                 <img src={File} className="w-[38px] h-[56px]" />
             </div>
 

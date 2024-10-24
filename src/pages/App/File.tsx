@@ -13,16 +13,23 @@ import { useToast } from "@/hooks/use-toast";
 // import MoveFileDialog from "@/components/App/Dialog/MoveFileDialog";
 import { Folder, File } from '../../types'
 import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function FilePage() {
     const { toast } = useToast()
+    const user = useSelector((state: RootState) => state.user)
 
     const [fileList, setFileList] = useState<File[]>([])
     const [folderList, setFolderList] = useState<Folder[]>([])
+    const [folderStack, setFolderStack] = useState<{ id: number, name: string }[]>([{
+        id: user.currentUser?.root_folder || 1,
+        name: "Home"
+    }])
 
     const fetchFolderItems = async () => {
         try {
-            const res = await axiosInstance.get("/folder/get-folder-items/1")
+            const res = await axiosInstance.get("/folder/get-folder-items/" + folderStack[folderStack.length - 1].id)
             setFileList(res.data.files)
             setFolderList(res.data.folders as Folder[])
         } catch (error) {
@@ -34,8 +41,9 @@ export default function FilePage() {
     }
 
     useEffect(() => {
+        console.log('folder stack changed => ', folderStack)
         fetchFolderItems()
-    }, [])
+    }, [folderStack])
 
 
     return (
@@ -45,17 +53,8 @@ export default function FilePage() {
                 <label className="text-xl mb-5 md:mb-0 my-auto font-semibold">Manage Files</label>
 
                 <div className="flex flex-row gap-4 my-auto px-2">
-
-                    {/*<Button className="dark:bg-[#111318] w-full" variant={'outline'}>
-                        <LocalOfferOutlinedIcon className="my-auto mr-2" sx={{ fontSize: 20 }} />
-                        Manage Tags
-                    </Button> */}
-
-                    <UploadFileDialog />
-
-                    {/* <MoveFileDialog /> */}
-                    <CreateFolderDialog />
-
+                    <UploadFileDialog folderId={folderStack[folderStack.length - 1].id} />
+                    <CreateFolderDialog folderId={folderStack[folderStack.length - 1].id} />
                 </div>
 
             </div>
@@ -69,11 +68,11 @@ export default function FilePage() {
             </div>
 
             <div className="flex pl-3 mt-5">
-                <Location />
+                <Location stack={folderStack} setFolderStack={setFolderStack} />
             </div>
 
             <div className="mt-10 pl-3 grid grid-cols-2 gap-4 mb-8 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 3xl:grid-cols-8">
-                {folderList.map((item, index) => (<FolderItem folder={item} key={index} />))}
+                {folderList.map((item, index) => (<FolderItem folderStack={folderStack} setFolderStack={setFolderStack} folder={item} key={index} />))}
                 {fileList.map((item, index) => (<FileItem key={index} file={item} />))}
             </div>
 

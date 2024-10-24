@@ -11,18 +11,22 @@ import { Button } from '@/components/ui/button'
 import AddIcon from '@mui/icons-material/Add';
 // import FileItem from '@/components/common/FileItem';
 import { Input } from '@/components/ui/input';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosInstance } from "@/axios";
 import { useToast } from "@/hooks/use-toast";
 
-export default function CreateFolderDialog() {
+export default function CreateFolderDialog({ folderId }: { folderId: number }) {
     const { toast } = useToast()
-
 
     const [formData, setFormData] = useState<{ name: string, parent_id: number }>({
         name: '',
-        parent_id: 1
+        parent_id: folderId
     })
+
+    useEffect(() => {
+        setFormData({ ...formData, parent_id: folderId })
+    }, [folderId])
+
 
     const handleCreateFolder = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -31,7 +35,7 @@ export default function CreateFolderDialog() {
             await axiosInstance.post("/folder/create-folder", formData)
             toast({
                 title: "New folder created successfully.",
-                description: `"${formData.name}" created at the root folder`,
+                description: `Folder "${formData.name}" created`,
             })
         } catch (err) {
             // @ts-ignore

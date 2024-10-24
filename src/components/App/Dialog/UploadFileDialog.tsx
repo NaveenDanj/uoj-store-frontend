@@ -15,10 +15,11 @@ import FileItem from '@/components/common/FileItem';
 import UploadProgressDialog from './UploadProgressDialog';
 import axios from 'axios';  // Import axios
 
-export default function UploadFileDialog() {
+export default function UploadFileDialog({ folderId }: { folderId: number }) {
     const [files, setFiles] = useState<File[]>([]);
     const [uploading, setUploading] = useState<boolean>(false);
     const [progressMap, setProgressMap] = useState<{ [key: string]: number }>({});
+
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
@@ -27,14 +28,14 @@ export default function UploadFileDialog() {
     // Initialize dropzone hooks
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        accept: undefined, // Accept all file types
+        accept: undefined,
     });
 
     const uploadFile = async (file: File) => {
         const formData = new FormData();
         formData.append('upfile', file);
         formData.append('passPhrase', localStorage.getItem('passphrase') || '');
-        formData.append('folder_id', '1');
+        formData.append('folder_id', folderId + '');
 
         try {
             await axios.post('http://localhost:5001/api/file/upload', formData, {
