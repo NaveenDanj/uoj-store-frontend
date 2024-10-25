@@ -14,11 +14,14 @@ import File from '@/assets/file.svg'
 import { Folder } from '../../types'
 import { axiosInstance } from '@/axios';
 import { useToast } from '@/hooks/use-toast';
+import { useDispatch } from 'react-redux';
+import { setUpdater } from '@/store/UserSlice';
 
 export default function FolderItem({ folder, setFolderStack, folderStack }: { folderStack: { id: number, name: string }[], folder: Folder, setFolderStack: React.Dispatch<React.SetStateAction<{ id: number, name: string }[]>> }) {
 
     const [isChecked, setIsChecked] = useState(false);
     const { toast } = useToast()
+    const dispatch = useDispatch()
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
@@ -36,6 +39,9 @@ export default function FolderItem({ folder, setFolderStack, folderStack }: { fo
                 title: "Folder moved to trash",
                 description: "",
             })
+
+
+            dispatch(setUpdater(Math.random() * 10000))
 
         } catch (err) {
             toast({
@@ -68,15 +74,20 @@ export default function FolderItem({ folder, setFolderStack, folderStack }: { fo
                             {/* <MenubarItem>Download</MenubarItem> */}
                             {/* <MenubarItem>Add to Favourite</MenubarItem> */}
                             {/* <MenubarSeparator /> */}
-                            <MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>
-                            <MenubarItem onClick={() => moveToTrash(folder.ID)}>Move to Trash</MenubarItem>
+                            {folder.special_folder == '' && <MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>}
+                            {folder.special_folder == '' && <MenubarItem onClick={() => moveToTrash(folder.ID)}>Move to Trash</MenubarItem>}
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>
-                <MoveFileDialog isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} />
+                <MoveFileDialog type='folder' folderSource={folder} isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} />
                 {/* <ShareDialog isOpen={isShareOpen} setIsOpen={setIsShareOpen} /> */}
             </>
         )
+    }
+
+    const handleChageDir = () => {
+        setFolderStack([...folderStack, { id: folder.ID, name: folder.name }])
+        dispatch(setUpdater(Math.random() * 10000))
     }
 
     return (
@@ -87,11 +98,11 @@ export default function FolderItem({ folder, setFolderStack, folderStack }: { fo
             <div className="flex flex-row justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <Checkbox className="p-0 bg-white my-auto" checked={isChecked} onCheckedChange={handleCheckboxChange} />
                 {/* <MoreVertOutlinedIcon sx={{ fontSize: 20 }} /> */}
-                <MenuComponent />
+                {folder.special_folder == '' && <MenuComponent />}
 
             </div>
 
-            <div onClick={() => setFolderStack([...folderStack, { id: folder.ID, name: folder.name }])} className="flex justify-center relative top-[-10px]">
+            <div onClick={() => handleChageDir()} className="flex justify-center relative top-[-10px]">
                 <img src={File} className="w-[38px] h-[56px]" />
             </div>
 

@@ -14,12 +14,14 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FileItem from '@/components/common/FileItem';
 import UploadProgressDialog from './UploadProgressDialog';
 import axios from 'axios';  // Import axios
+import { useDispatch } from 'react-redux';
+import { setUpdater } from '@/store/UserSlice';
 
 export default function UploadFileDialog({ folderId }: { folderId: number }) {
     const [files, setFiles] = useState<File[]>([]);
     const [uploading, setUploading] = useState<boolean>(false);
     const [progressMap, setProgressMap] = useState<{ [key: string]: number }>({});
-
+    const dispatch = useDispatch()
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
@@ -49,6 +51,9 @@ export default function UploadFileDialog({ folderId }: { folderId: number }) {
                     setProgressMap((prev) => ({ ...prev, [file.name]: progress }));
                 },
             });
+
+            dispatch(setUpdater(Math.random() * 10000))
+
         } catch (error) {
             console.error("File upload error:", error);
         }

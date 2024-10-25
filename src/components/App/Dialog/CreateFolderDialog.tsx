@@ -14,9 +14,12 @@ import { Input } from '@/components/ui/input';
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/axios";
 import { useToast } from "@/hooks/use-toast";
+import { useDispatch } from "react-redux";
+import { setUpdater } from "@/store/UserSlice";
 
 export default function CreateFolderDialog({ folderId }: { folderId: number }) {
     const { toast } = useToast()
+    const dispatch = useDispatch()
 
     const [formData, setFormData] = useState<{ name: string, parent_id: number }>({
         name: '',
@@ -37,6 +40,9 @@ export default function CreateFolderDialog({ folderId }: { folderId: number }) {
                 title: "New folder created successfully.",
                 description: `Folder "${formData.name}" created`,
             })
+
+            dispatch(setUpdater(Math.random() * 10000))
+
         } catch (err) {
             // @ts-ignore
             const errMsg = err.response.data.message as string;

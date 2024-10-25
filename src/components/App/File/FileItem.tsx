@@ -95,7 +95,7 @@ export default function FileItem({ file }: { file: File }) {
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
-        <MoveFileDialog isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} />
+        <MoveFileDialog type={'file'} fileSouce={file} isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} />
         <ShareDialog file={file} isOpen={isShareOpen} setIsOpen={setIsShareOpen} />
       </>
     )

@@ -10,8 +10,10 @@ export default function FavouritePage() {
         <div className="w-full flex flex-col">
 
             <div className="w-full flex flex-col  md:flex-row justify-between mt-8 pl-3">
-                <label className="text-xl mb-5 md:mb-0 my-auto font-semibold">Manage Files</label>
-
+                <div className="flex flex-col">
+                    <label className="text-xl mb-5 md:mb-0 my-auto font-semibold">Manage Favourite Files</label>
+                    <label className="text-sm mb-5 md:mb-0 text-gray-500 my-auto font-semibold">View and manage your files which are marked as favourites</label>
+                </div>
                 <div className="flex flex-row gap-4 px-2 my-auto">
 
                     <Button className="dark:bg-[#111318] w-full" variant={'outline'}>
