@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 // import FileItem from "@/components/App/File/FileItem";
-import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
-import FileItem from "@/components/App/File/FileItem";
+// import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
+// import FileItem from "@/components/App/File/FileItem";
 // import CreateFolderDialog from "@/components/App/Dialog/CreateFolderDialog";
 
 export default function PrivateSessionPage() {
@@ -15,7 +15,7 @@ export default function PrivateSessionPage() {
 
                 <div className="flex flex-row gap-4 px-2 my-auto">
 
-                    <UploadFileDialog />
+                    {/* <UploadFileDialog /> */}
 
                     {/* <MoveFileDialog /> */}
                     {/* <CreateFolderDialog /> */}
@@ -33,7 +33,7 @@ export default function PrivateSessionPage() {
             </div>
 
             <div className="mt-10 pl-3 grid grid-cols-2 gap-4 mb-8 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 3xl:grid-cols-8">
-                <FileItem file={{
+                {/* <FileItem file={{
                     ID: 0,
                     CreatedAt: new Date(),
                     UpdatedAt: new Date(),
@@ -133,7 +133,7 @@ export default function PrivateSessionPage() {
                     is_favourite: false,
                     is_deleted: false,
                     is_public: false
-                }} />
+                }} /> */}
                 {/* <FileItem />
                 <FileItem />
                 <FileItem />
