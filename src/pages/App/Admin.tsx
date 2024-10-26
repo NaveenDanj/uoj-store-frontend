@@ -32,7 +32,7 @@ export default function AdminPage() {
             const res = await axiosInstance.get('/admin/fetch-users')
             console.log(res)
             setUsers(res.data.users)
-            setFilteredUsers(res.data.users) // initialize filtered users
+            setFilteredUsers(res.data.users)
         } catch (err) {
             console.log(err)
         }
@@ -46,7 +46,7 @@ export default function AdminPage() {
         fetchAllUsers()
     }, [user.updater])
 
-    // Filter users based on search term
+
     useEffect(() => {
         const lowercasedTerm = searchTerm.toLowerCase()
         const filtered = users.filter(user =>
@@ -98,13 +98,13 @@ export default function AdminPage() {
                             <TableCell>{item.email}</TableCell>
                             <TableCell>{item.role === '' ? 'User' : item.role}</TableCell>
                             <TableCell className="text-right">{item.is_active ? 'Active' : 'Inactive'}</TableCell>
-                            <TableCell className="text-right">
-                                <Button onClick={() => {
+                            <TableCell className="text-right px-5">
+                                <Button variant={'outline'} className='px-2 dark:bg-[#111318]' onClick={() => {
                                     setSelectedUser(item)
                                     console.log(item)
                                     setOpen(true)
                                 }}>
-                                    <EditNoteIcon />
+                                    <EditNoteIcon sx={{ fontSize: 16 }} />
                                 </Button>
                             </TableCell>
                         </TableRow>

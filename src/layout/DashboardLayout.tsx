@@ -204,7 +204,7 @@ export default function DashboardLayout() {
 
                 <MenubarContent className='mr-2 mt-2'>
 
-                  <MenubarItem>
+                  <MenubarItem onClick={() => navigate('/dashboard/profile')}>
                     User Settings <MenubarShortcut>⌘T</MenubarShortcut>
                   </MenubarItem>
 
