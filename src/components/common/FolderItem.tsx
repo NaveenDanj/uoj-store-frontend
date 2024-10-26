@@ -17,7 +17,18 @@ import { useToast } from '@/hooks/use-toast';
 import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
 
-export default function FolderItem({ folder, setFolderStack, folderStack }: { folderStack: { id: number, name: string }[], folder: Folder, setFolderStack: React.Dispatch<React.SetStateAction<{ id: number, name: string }[]>> }) {
+export default function FolderItem({ setSelectedItem, selectedItem, folder, setFolderStack, folderStack }:
+    {
+        folderStack: { id: number, name: string }[],
+        folder: Folder,
+        setFolderStack: React.Dispatch<React.SetStateAction<{ id: number, name: string }[]>>
+        setSelectedItem: React.Dispatch<React.SetStateAction<{
+            folderId?: number;
+            fileId?: string;
+            type: string;
+        }[]>>,
+        selectedItem: { folderId?: number, fileId?: string, type: string }[]
+    }) {
 
     const [isChecked, setIsChecked] = useState(false);
     const { toast } = useToast()
@@ -25,6 +36,27 @@ export default function FolderItem({ folder, setFolderStack, folderStack }: { fo
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
+
+        let arr: any[] = []
+
+        if (!isChecked) {
+            arr = [...selectedItem, {
+                type: "folder",
+                folderId: folder.ID
+            }]
+        } else {
+            arr = [...selectedItem]
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].type === 'folder') {
+                    if (arr[i].folderId === folder.ID) {
+                        arr.splice(i, 1)
+                        break
+                    }
+                }
+            }
+
+        }
+        setSelectedItem(arr)
     };
 
     const moveToTrash = async (id: number) => {

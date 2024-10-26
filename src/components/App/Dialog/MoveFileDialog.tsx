@@ -100,14 +100,21 @@ export default function MoveFileDialog({ type, fileSouce, folderSource, isOpen, 
 
         if (type === 'folder') {
 
-            const res = await axiosInstance.post('/folder/move-folder', {
+            await axiosInstance.post('/folder/move-folder', {
                 folder_id: folderSource?.ID,
                 destination_folder_id: folderStack[folderStack.length - 1].id
             })
 
-            console.log(res)
             dispatch(setUpdater(Math.random() * 10000))
 
+        } else {
+
+            await axiosInstance.post('/file/move-file', {
+                file_id: fileSouce?.file_id,
+                destination_folder_id: folderStack[folderStack.length - 1].id
+            })
+
+            dispatch(setUpdater(Math.random() * 10000))
         }
 
     }

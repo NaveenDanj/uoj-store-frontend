@@ -26,12 +26,15 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { PassPhraseDialog } from '@/components/App/Dialog/PassPhraseDialog';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
+import { axiosInstance } from '@/axios';
+import { useToast } from '@/hooks/use-toast';
 
 
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false)
   const user = useSelector((state: RootState) => state.user.currentUser)
+  const { toast } = useToast()
 
   const [selectedMenu, setSelectedMenu] = useState('dashboard');
 
@@ -60,6 +63,25 @@ export default function DashboardLayout() {
 
     return () => clearInterval(interval);
   }, [])
+
+
+  const handleLogout = async () => {
+
+    try {
+      const res = await axiosInstance.post('/auth/logout')
+      console.log(res);
+      localStorage.removeItem('token')
+      localStorage.removeItem('passphrase')
+      navigate('/auth')
+    } catch (err) {
+      toast({
+        title: "Something went wrong!",
+        description: "Could not sign you out. Please try again!"
+      })
+      console.log(err)
+    }
+
+  }
 
   return (
     <div className="h-[100vh] gap-2 flex p-1 w-full">
@@ -188,9 +210,9 @@ export default function DashboardLayout() {
 
                   <MenubarItem>Admin</MenubarItem>
                   <MenubarSeparator />
-                  <MenubarItem>Notifications</MenubarItem>
+                  <MenubarItem onClick={() => navigate('/dashboard/notification')}>Notifications</MenubarItem>
                   <MenubarSeparator />
-                  <MenubarItem>Logout</MenubarItem>
+                  <MenubarItem onClick={handleLogout}>Logout</MenubarItem>
 
                 </MenubarContent>
 

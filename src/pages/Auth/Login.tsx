@@ -40,7 +40,7 @@ export default function LoginPage() {
 
             dispatch(setUser(res.data.user))
             navigate('/dashboard', { replace: true })
-
+            window.location.reload()
         } catch (error) {
             // @ts-ignore
             const errMsg = error.response.data.message as string;

@@ -16,6 +16,8 @@ import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import EmptyFolderIcon from '@/assets/empty-folder.svg'
+import LoadingDialog from "@/components/common/LoadingDialog";
+import { Button } from "@/components/ui/button";
 
 export default function FilePage() {
     const { toast } = useToast()
@@ -28,27 +30,38 @@ export default function FilePage() {
         name: "Home"
     }])
 
+    const [loading, setLoading] = useState(false)
+    const [selectedItem, setSelectedItem] = useState<{ folderId?: number, fileId?: string, type: string }[]>([])
+
+
     const fetchFolderItems = async () => {
         try {
+            setLoading(true)
             const res = await axiosInstance.get("/folder/get-folder-items/" + folderStack[folderStack.length - 1].id)
             setFileList(res.data.files)
             setFolderList(res.data.folders as Folder[])
+            setLoading(false)
         } catch (error) {
             toast({
                 title: "Uh oh! Something went wrong.",
                 description: `Error while fetching files and folders`,
             })
+            setLoading(false)
         }
     }
 
     useEffect(() => {
+        setSelectedItem([])
         fetchFolderItems()
     }, [user.updater])
 
+    useEffect(() => {
+        console.log(selectedItem)
+    }, [selectedItem])
 
     return (
         <div className="w-full flex flex-col">
-
+            <LoadingDialog open={loading} />
             <div className="w-full flex flex-col  md:flex-row justify-between mt-8 pl-3">
                 <div className="flex flex-col">
                     <label className="text-xl mb-5 md:mb-0 my-auto font-semibold">Manage Files</label>
@@ -64,10 +77,9 @@ export default function FilePage() {
 
             <div className="flex  mt-5 pl-3 gap-3 md:max-w-[]">
                 <Input className="md:max-w-[300px]" type="email" placeholder="Search files" />
-                {/* <Button variant={'outline'} className="px-2 flex items-center dark:bg-[#111318]">
-                    <FilterAltOutlinedIcon className="my-auto" sx={{ fontSize: 20 }} />
-                    <label className="my-auto ml-1 text-sm hidden md:block">Search</label>
-                </Button> */}
+                {selectedItem.length > 0 && <Button variant={'outline'} className=" text-red-500 border-red-500 dark:bg-[#111318]">
+                    Move To Trash
+                </Button>}
             </div>
 
             <div className="flex pl-3 mt-5">
@@ -75,8 +87,8 @@ export default function FilePage() {
             </div>
 
             <div className="mt-10 pl-3 grid grid-cols-2 gap-4 mb-8 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 3xl:grid-cols-8">
-                {folderList.map((item, index) => (<FolderItem folderStack={folderStack} setFolderStack={setFolderStack} folder={item} key={index} />))}
-                {fileList.map((item, index) => (<FileItem key={index} file={item} />))}
+                {folderList.map((item, index) => (<FolderItem selectedItem={selectedItem} setSelectedItem={setSelectedItem} folderStack={folderStack} setFolderStack={setFolderStack} folder={item} key={index} />))}
+                {fileList.map((item, index) => (<FileItem selectedItem={selectedItem} setSelectedItem={setSelectedItem} key={index} file={item} />))}
             </div>
 
             {(folderList.length == 0 && fileList.length == 0) && (

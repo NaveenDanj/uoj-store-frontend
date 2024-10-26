@@ -18,13 +18,44 @@ import { axiosInstance } from '@/axios';
 import { useToast } from '@/hooks/use-toast';
 
 
-export default function FileItem({ file }: { file: File }) {
+export default function FileItem({ file, setSelectedItem, selectedItem }: {
+  setSelectedItem: React.Dispatch<React.SetStateAction<{
+    folderId?: number;
+    fileId?: string;
+    type: string;
+  }[]>>,
+  file: File,
+  selectedItem: { folderId?: number, fileId?: string, type: string }[]
+}) {
   const [isChecked, setIsChecked] = useState(false);
   const { toast } = useToast()
 
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+
+    let arr: any[] = []
+
+    if (!isChecked) {
+      arr = [...selectedItem, {
+        type: "file",
+        fileId: file.file_id
+      }]
+    } else {
+      arr = [...selectedItem]
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i].type === 'file') {
+          if (arr[i].fileId === file.file_id) {
+            arr.splice(i, 1)
+            break
+          }
+        }
+      }
+
+    }
+
+    setSelectedItem(arr)
+
   };
 
   const MenuComponent = ({ file }: { file: File }) => {
