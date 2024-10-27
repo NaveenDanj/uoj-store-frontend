@@ -16,6 +16,8 @@ import { ShareDialog } from '../Dialog/ShareDialog';
 import { File } from '@/types';
 import { axiosInstance } from '@/axios';
 import { useToast } from '@/hooks/use-toast';
+import { useDispatch } from 'react-redux';
+import { setUpdater } from '@/store/UserSlice';
 
 
 export default function FileItem({ file, setSelectedItem, selectedItem }: {
@@ -29,6 +31,7 @@ export default function FileItem({ file, setSelectedItem, selectedItem }: {
 }) {
   const [isChecked, setIsChecked] = useState(false);
   const { toast } = useToast()
+  const dispatch = useDispatch()
 
 
   const handleCheckboxChange = () => {
@@ -105,6 +108,28 @@ export default function FileItem({ file, setSelectedItem, selectedItem }: {
       }
     }
 
+    const handleSetFav = async () => {
+      try {
+        await axiosInstance.post('/file/change-file-fav-state', {
+          file_id: file.file_id
+        })
+
+        toast({
+          title: 'Successfully changed the favourite state'
+        })
+
+        dispatch(setUpdater(Math.random() * 10000))
+
+      } catch (err) {
+
+        toast({
+          title: 'Something went wrong!',
+          description: 'Could not update the file favourite state'
+        })
+
+      }
+    }
+
     return (
       <>
         <Menubar>
@@ -119,7 +144,7 @@ export default function FileItem({ file, setSelectedItem, selectedItem }: {
                 Share & Get Link <MenubarShortcut>⌘T</MenubarShortcut>
               </MenubarItem>
               <MenubarItem onClick={() => handleDownload()}>Download</MenubarItem>
-              <MenubarItem>{!file.is_favourite ? 'Add to Favourite' : 'Remove from Favourite'}</MenubarItem>
+              <MenubarItem onClick={handleSetFav}>{!file.is_favourite ? 'Add to Favourite' : 'Remove from Favourite'}</MenubarItem>
               <MenubarSeparator />
               <MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>
               <MenubarItem onClick={() => handleMoveToTrash(file.file_id)}>Move to Trash</MenubarItem>
