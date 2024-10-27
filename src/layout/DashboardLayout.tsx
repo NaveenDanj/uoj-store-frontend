@@ -191,7 +191,11 @@ export default function DashboardLayout() {
 
           <div className='flex gap-3 my-auto'>
 
-            <Button className='px-2 dark:bg-[#111318]' variant={'outline'}>
+            <Button onClick={() => {
+              const theme = localStorage.getItem('theme') || 'dark'
+              localStorage.setItem('theme', theme == 'dark' ? 'light' : 'dark')
+              window.location.reload()
+            }} className='px-2 dark:bg-[#111318]' variant={'outline'}>
               <DarkModeIcon sx={{ fontSize: 18 }} />
             </Button>
 

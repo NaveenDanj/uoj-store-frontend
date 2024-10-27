@@ -3,6 +3,7 @@ import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import { Input } from "@/components/ui/input"
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 // import FileItem from "@/components/App/File/FileItem";
+import EmptyFolderIcon from '@/assets/empty-folder.svg'
 
 
 export default function FavouritePage() {
@@ -45,6 +46,14 @@ export default function FavouritePage() {
                 <FileItem />
                 <FileItem /> */}
             </div>
+
+            {([].length == 0) && (
+                <div className="flex flex-col gap-1 justify-center items-center w-[100%] h-[100%]">
+                    <img src={EmptyFolderIcon} width={200} height={100} />
+                    <center><label className="text-lg text-gray-500 font-bold">No files</label></center>
+                    <center><label className="text-sm text-gray-500 font-semibold">Please start uploading files</label></center>
+                </div>
+            )}
 
         </div>
     )

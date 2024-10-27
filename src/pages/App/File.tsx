@@ -13,15 +13,17 @@ import { useToast } from "@/hooks/use-toast";
 // import MoveFileDialog from "@/components/App/Dialog/MoveFileDialog";
 import { Folder, File } from '../../types'
 import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import EmptyFolderIcon from '@/assets/empty-folder.svg'
 import LoadingDialog from "@/components/common/LoadingDialog";
 import { Button } from "@/components/ui/button";
+import { setUpdater } from "@/store/UserSlice";
 
 export default function FilePage() {
     const { toast } = useToast()
     const user = useSelector((state: RootState) => state.user)
+    const dispatch = useDispatch()
 
     const [fileList, setFileList] = useState<File[]>([])
     const [folderList, setFolderList] = useState<Folder[]>([])
@@ -48,6 +50,35 @@ export default function FilePage() {
             })
             setLoading(false)
         }
+    }
+
+    const moveToTrashSelected = async () => {
+
+        try {
+            setLoading(true)
+            for (let i = 0; i < selectedItem.length; i++) {
+
+                if (selectedItem[i].type === 'file') {
+                    await axiosInstance.post('/file/move-to-trash', {
+                        file_id: selectedItem[i].fileId
+                    })
+                } else {
+                    await axiosInstance.post('/folder/move-folder-trash', {
+                        folder_id: selectedItem[i].folderId
+                    })
+                }
+
+            }
+
+            setLoading(false)
+            dispatch(setUpdater(Math.random() * 10000))
+
+        } catch (err) {
+            console.log(err)
+            setLoading(false)
+
+        }
+
     }
 
     useEffect(() => {
@@ -77,7 +108,7 @@ export default function FilePage() {
 
             <div className="flex  mt-5 pl-3 gap-3 md:max-w-[]">
                 <Input className="md:max-w-[300px]" type="email" placeholder="Search files" />
-                {selectedItem.length > 0 && <Button variant={'outline'} className=" text-red-500 border-red-500 dark:bg-[#111318]">
+                {selectedItem.length > 0 && <Button onClick={moveToTrashSelected} variant={'outline'} className=" text-red-500 border-red-500 dark:bg-[#111318]">
                     Move To Trash
                 </Button>}
             </div>

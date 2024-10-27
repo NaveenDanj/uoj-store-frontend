@@ -29,4 +29,15 @@ export type File = {
     is_favourite: boolean;
     is_deleted: boolean;
     is_public: boolean;
+    
+}
+
+export type Notification = {
+    ID: number;
+    user_id:  number;
+    message: string;
+    is_read: boolean;
+    CreatedAt: Date;
+    UpdatedAt: Date;
+    DeletedAt: Date | null;
 }

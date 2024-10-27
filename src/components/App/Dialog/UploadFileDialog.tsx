@@ -40,8 +40,8 @@ export default function UploadFileDialog({ folderId }: { folderId: number }) {
         formData.append('folder_id', folderId + '');
 
         try {
-            await axios.post('https://uoj.uk.to/api/file/upload', formData, {
-                // await axios.post('http://localhost:5001/api/file/upload', formData, {
+            // await axios.post('https://uoj.uk.to/api/file/upload', formData, {
+            await axios.post('http://localhost:5001/api/file/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,

@@ -15,15 +15,29 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
+import { Button } from '@/components/ui/button'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteConfirmationDialog from '@/components/common/DeleteConfirmDialog'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUpdater } from '@/store/UserSlice'
+import { RootState } from '@/store/store'
+
 
 export default function ManageFilePage() {
     const { toast } = useToast()
+    const dispatch = useDispatch()
+    const user = useSelector((state: RootState) => state.user)
+
     const [loading, setLoading] = useState(false)
     const [files, setFiles] = useState<File[]>([])
     const [page, setPage] = useState(1)
     const [totalFiles, setTotalFiles] = useState(0)
     const [filesPerPage] = useState(5)
     const [searchTerm, setSearchTerm] = useState('')
+    const [deleteOpen, setDeleteOpen] = useState(false)
+    const [selectedItem, setSelectedItem] = useState<File | null>(null);
+
+
 
     const fetchFiles = async (page: number, search: string = '') => {
         try {
@@ -52,7 +66,7 @@ export default function ManageFilePage() {
 
     useEffect(() => {
         fetchFiles(page, searchTerm)
-    }, [page, searchTerm])
+    }, [page, searchTerm, user.updater])
 
     const totalPages = Math.ceil(totalFiles / filesPerPage)
 
@@ -67,9 +81,40 @@ export default function ManageFilePage() {
         setPage(1)
     }
 
+    const handleDeleteItem = async () => {
+        try {
+
+            setLoading(true)
+
+            const res = await axiosInstance.delete('/file/delete', {
+                data: {
+                    fileId: selectedItem?.file_id
+                }
+            })
+
+            toast({
+                title: 'File deleted successfully',
+            })
+
+            setLoading(false)
+            dispatch(setUpdater(Math.random() * 10000))
+
+        } catch (error) {
+
+            toast({
+                title: 'Uh oh! Something went wrong.',
+                description: 'Could not delete the user files'
+            })
+
+            setLoading(false)
+
+        }
+    }
+
     return (
         <div className="w-full flex flex-col">
             <LoadingDialog open={loading} />
+            <DeleteConfirmationDialog isOpen={deleteOpen} onClose={() => setDeleteOpen(false)} onConfirm={handleDeleteItem} itemName={selectedItem?.original_name + ''} />
             <div className="flex flex-row justify-between w-full px-3 py-4">
                 <div className="flex flex-col gap-0 my-auto">
                     <label className="text-xl font-semibold">Manage Files</label>
@@ -96,8 +141,9 @@ export default function ManageFilePage() {
                         <TableHead>Name</TableHead>
                         <TableHead>User</TableHead>
                         <TableHead>Type</TableHead>
-                        <TableHead className="text-right">File Size</TableHead>
-                        <TableHead className="text-right">Status</TableHead>
+                        <TableHead>File Size</TableHead>
+                        <TableHead >Status</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
                     </TableRow>
                 </TableHeader>
 
@@ -107,8 +153,16 @@ export default function ManageFilePage() {
                             <TableCell className="font-medium">{file.original_name}</TableCell>
                             <TableCell>{file.user_id}</TableCell>
                             <TableCell>{file.mime_type}</TableCell>
-                            <TableCell className="text-right">{file.file_size}</TableCell>
-                            <TableCell className="text-right">{file.is_favourite ? 'Yes' : 'No'}</TableCell>
+                            <TableCell >{file.file_size}</TableCell>
+                            <TableCell >{file.is_favourite ? 'Yes' : 'No'}</TableCell>
+                            <TableCell className="text-right">
+                                <Button onClick={() => {
+                                    setSelectedItem(file)
+                                    setDeleteOpen(true)
+                                }} variant={'outline'} className='px-2 dark:bg-[#111318]' >
+                                    <DeleteOutlineIcon sx={{ fontSize: 16 }} />
+                                </Button>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

@@ -119,7 +119,7 @@ export default function FileItem({ file, setSelectedItem, selectedItem }: {
                 Share & Get Link <MenubarShortcut>⌘T</MenubarShortcut>
               </MenubarItem>
               <MenubarItem onClick={() => handleDownload()}>Download</MenubarItem>
-              <MenubarItem>Add to Favourite</MenubarItem>
+              <MenubarItem>{!file.is_favourite ? 'Add to Favourite' : 'Remove from Favourite'}</MenubarItem>
               <MenubarSeparator />
               <MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>
               <MenubarItem onClick={() => handleMoveToTrash(file.file_id)}>Move to Trash</MenubarItem>

@@ -13,7 +13,8 @@ export interface User {
   DeletedAt: Date | null,
   root_folder: number,
   session_folder: number,
-  SessionId: number
+  session_id: string
+  session_time: number
 }
 
 
