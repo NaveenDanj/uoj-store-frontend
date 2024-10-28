@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 // import FileItem from "@/components/App/File/FileItem";
 import UploadFileDialog from "@/components/App/Dialog/UploadFileDialog";
 import FileItem from "@/components/App/File/FileItem";
@@ -55,14 +53,14 @@ export default function PrivateSessionPage() {
 
             <div className="flex  mt-5 pl-3 gap-3 md:max-w-[]">
                 <Input className="md:max-w-[300px]" type="email" placeholder="Search files" />
-                <Button variant={'outline'} className="px-2 flex items-center dark:bg-[#111318]">
+                {/* <Button variant={'outline'} className="px-2 flex items-center dark:bg-[#111318]">
                     <FilterAltOutlinedIcon className="my-auto" sx={{ fontSize: 20 }} />
                     <label className="my-auto ml-1 text-sm hidden md:block">Filter</label>
-                </Button>
+                </Button> */}
             </div>
 
             <div className="mt-10 pl-3 grid grid-cols-2 gap-4 mb-8 sm:grid-cols-3 md:grid-cols-4 2xl:grid-cols-7 3xl:grid-cols-8">
-                {files.map(item => (<FileItem type="session" setSelectedItem={function (value: SetStateAction<{ folderId?: number; fileId?: string; type: string; }[]>): void {
+                {files.map(item => (<FileItem type="session" setSelectedItem={function (_: SetStateAction<{ folderId?: number; fileId?: string; type: string; }[]>): void {
                     throw new Error("Function not implemented.");
                 }} file={item} selectedItem={[]} />))}
             </div>

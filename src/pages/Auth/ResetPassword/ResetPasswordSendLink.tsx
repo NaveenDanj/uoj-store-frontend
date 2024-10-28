@@ -8,6 +8,7 @@ import LoadingDialog from '@/components/common/LoadingDialog'
 import { axiosInstance } from '@/axios'
 import { useToast } from '@/hooks/use-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import ResetPasswordMessage from '@/components/Auth/PasswordResetMessage'
 
 
 
@@ -43,7 +44,7 @@ export default function ResetPasswordSendLinkPage() {
             const res = await axiosInstance.post("/auth/reset-password-send-link", linkForm)
             console.log(res);
             setLoading(false)
-            setCurrentState('set-new-password')
+            setCurrentState('message')
         } catch (error) {
             // @ts-ignore
             const errMsg = error.response.data.message as string;
@@ -161,6 +162,12 @@ export default function ResetPasswordSendLinkPage() {
 
                         </div>
 
+                    </div>
+                )}
+
+                {currentState === "message" && (
+                    <div className="flex gap-5 flex-grow justify-center items-center animate-fade-in-left">
+                        <ResetPasswordMessage />
                     </div>
                 )}
 

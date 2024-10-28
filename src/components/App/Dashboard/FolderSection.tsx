@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import File from '@/assets/file.svg';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+// import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { axiosInstance } from '@/axios';
 
 // Define a type for the FolderItem props
@@ -13,7 +13,7 @@ interface FolderItemProps {
 // FolderItem component to display each folder
 const FolderItem: React.FC<FolderItemProps> = ({ folderName, totalSize, itemCount }) => {
     return (
-        <div className="w-full lg:max-w-[300px] lg:min-w-[250px] flex flex-col py-5 border border-black/1 dark:border-white/1 p-3 rounded-lg">
+        <div id={itemCount + ''} className="w-full lg:max-w-[300px] lg:min-w-[250px] flex flex-col py-5 border border-black/1 dark:border-white/1 p-3 rounded-lg">
             <div className='flex flex-row w-full justify-between'>
                 <img src={File} className='w-[40px] h-[40px]' alt="File Icon" />
                 {/* <StarBorderIcon className='my-auto cursor-pointer' /> */}

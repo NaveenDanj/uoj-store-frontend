@@ -7,7 +7,7 @@ import { axiosInstance } from "@/axios";
 
 function ChartSection() {
   const [chartData, setChartData] = useState([]);
-  const [total, setTotal] = useState()
+  // const [total, setTotal] = useState()
 
   const chartConfig = {
     usage: {

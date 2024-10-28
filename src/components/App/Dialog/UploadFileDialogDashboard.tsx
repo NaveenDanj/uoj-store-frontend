@@ -10,14 +10,13 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from '@/components/ui/button';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FileItem from '@/components/common/FileItem';
 import UploadProgressDialog from './UploadProgressDialog';
 import axios from 'axios';  // Import axios
 import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
 
-export default function UploadFileDialog({ folderId, type }: { folderId: number, type?: string }) {
+export default function UploadFileDialogDashboard({ folderId, type }: { folderId: number, type?: string }) {
     const [files, setFiles] = useState<File[]>([]);
     const [uploading, setUploading] = useState<boolean>(false);
     const [progressMap, setProgressMap] = useState<{ [key: string]: number }>({});
@@ -78,10 +77,7 @@ export default function UploadFileDialog({ folderId, type }: { folderId: number,
     return (
         <Sheet onOpenChange={() => setFiles([])}>
             <SheetTrigger asChild={true}>
-                <Button variant={'outline'} className="w-full dark:bg-[#111318]">
-                    <FileUploadIcon className="my-auto mr-2" sx={{ fontSize: 20 }} />
-                    Upload
-                </Button>
+                <Button variant={'outline'} className='py-5 dark:bg-[#27272A]'>Upload new file</Button>
             </SheetTrigger>
 
             <SheetContent className='flex flex-col'>

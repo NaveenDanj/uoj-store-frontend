@@ -10,10 +10,12 @@ import { RootState } from "@/store/store";
 import AddIcon from '@mui/icons-material/Add';
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardPage() {
 
     const loading = useSelector((state: RootState) => state.user.loading);
+    const navigate = useNavigate()
     const [mainStat, setMainStat] = useState<{
         audio: number,
         video: number,
@@ -108,7 +110,7 @@ export default function DashboardPage() {
                             <label className="text-sm font-bold">{Math.floor(total || 0)} MB Used</label>
                             <Separator orientation="vertical" />
                             <div className="p-1 w-1 h-1 my-auto rounded-full bg-[#F0F0F0]"></div>
-                            <label className="text-sm font-bold">{Math.floor(((total || 0) / 300) * 100)}% Available</label>
+                            <label className="text-sm font-bold">{Math.floor(((total || 0) / 300) * 100) > 0 ? Math.floor(((total || 0) / 300) * 100) : 100}% Available</label>
                         </div>
                     </div>
 
@@ -131,7 +133,7 @@ export default function DashboardPage() {
                             </div>
                         </div>
 
-                        <label className="my-auto text-sm font-medium cursor-pointer">See All</label>
+                        <label onClick={() => navigate('/dashboard/file')} className="my-auto text-sm font-medium cursor-pointer">See All</label>
 
                     </div>
 

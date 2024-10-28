@@ -28,6 +28,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { axiosInstance } from '@/axios';
 import { useToast } from '@/hooks/use-toast';
+import UploadFileDialogDashboard from '@/components/App/Dialog/UploadFileDialogDashboard';
 
 
 export default function DashboardLayout() {
@@ -35,7 +36,7 @@ export default function DashboardLayout() {
   const [open, setOpen] = useState(false)
   const user = useSelector((state: RootState) => state.user.currentUser)
   const { toast } = useToast()
-
+  const [total, setTotal] = useState(0)
   const [selectedMenu, setSelectedMenu] = useState('dashboard');
 
   const isSelected = (menu: string) => selectedMenu === menu;
@@ -52,7 +53,14 @@ export default function DashboardLayout() {
     setOpen(false)
   }
 
+  const fetchStorageUsage = async () => {
+    const usage = await axiosInstance.get("/analytics/total-usage");
+    setTotal(usage.data.total_usage)
+  }
+
   useEffect(() => {
+
+    fetchStorageUsage()
 
     const interval = setInterval(() => {
       const passPhrase = localStorage.getItem('passphrase')
@@ -73,6 +81,23 @@ export default function DashboardLayout() {
       localStorage.removeItem('token')
       localStorage.removeItem('passphrase')
       navigate('/auth')
+    } catch (err) {
+      toast({
+        title: "Something went wrong!",
+        description: "Could not sign you out. Please try again!"
+      })
+      console.log(err)
+    }
+
+  }
+
+  const handleSession = async () => {
+    try {
+      const res = await axiosInstance.post('/auth/logout')
+      console.log(res);
+      localStorage.removeItem('token')
+      localStorage.removeItem('passphrase')
+      navigate('/auth/private-session-login')
     } catch (err) {
       toast({
         title: "Something went wrong!",
@@ -168,13 +193,13 @@ export default function DashboardLayout() {
         </div>
 
         <div className='flex flex-col gap-4 mt-20 px-1'>
-          <Progress value={33} />
-          <Label>291.77 MB of 300.00 MB used</Label>
+          <Progress value={Math.floor((total / 300) * 100)} />
+          <Label>{Math.floor(total)} MB of 300.00 MB used</Label>
         </div>
 
         <div className='flex flex-col gap-4 mt-10'>
-          <Button className='py-5' >New Private Session</Button>
-          <Button variant={'outline'} className='py-5 dark:bg-[#27272A]'>Upload new file</Button>
+          <Button onClick={handleSession} className='py-5' >New Private Session</Button>
+          <UploadFileDialogDashboard folderId={user?.root_folder || 1} />
         </div>
 
         <div className='flex flex-grow items-end'></div>

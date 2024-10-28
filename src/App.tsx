@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, setLoading } from "./store/UserSlice";
 import { RootState } from "./store/store";
 import DownloadPage from "./pages/DownloadPage";
+import AdminAccountSetupPage from "./pages/Auth/AdminAccountSetup";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -74,6 +75,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
           <Route path="private-session-login" element={<LoginSessionPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="admin-account-setup" element={<AdminAccountSetupPage />} />
           <Route path="reset-password">
             <Route path="" element={<ResetPasswordSendLinkPage />} />
           </Route>
