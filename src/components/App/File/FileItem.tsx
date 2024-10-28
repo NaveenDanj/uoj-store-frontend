@@ -14,7 +14,7 @@ import {
 import MoveFileDialog from '../Dialog/MoveFileDialog';
 import { ShareDialog } from '../Dialog/ShareDialog';
 import { File } from '@/types';
-import { axiosInstance } from '@/axios';
+import { axiosInstance, axiosSessionInstance } from '@/axios';
 import { useToast } from '@/hooks/use-toast';
 import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
@@ -69,21 +69,44 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type }: 
 
     const handleDownload = async () => {
       try {
-        const res = await axiosInstance.post('/file/download', {
-          passPhrase: localStorage.getItem('passphrase'),
-          fileId: file.file_id
-        }, { responseType: 'blob' })
 
-        const blob = new Blob([res.data], { type: res.data.type });
-        const downloadUrl = window.URL.createObjectURL(blob);
+        if (!type) {
 
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        // @ts-ignore
-        link.download = file.original_name
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+          const res = await axiosInstance.post('/file/download', {
+            passPhrase: localStorage.getItem('passphrase') || 'sample-passphrase',
+            fileId: file.file_id
+          }, { responseType: 'blob' })
+
+          const blob = new Blob([res.data], { type: res.data.type });
+          const downloadUrl = window.URL.createObjectURL(blob);
+
+          const link = document.createElement('a');
+          link.href = downloadUrl;
+          // @ts-ignore
+          link.download = file.original_name
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+        } else {
+
+          const res = await axiosSessionInstance.post('session/download-session-file', {
+            passPhrase: localStorage.getItem('passphrase') || 'sample-passphrase',
+            fileId: file.file_id
+          }, { responseType: 'blob' })
+
+          const blob = new Blob([res.data], { type: res.data.type });
+          const downloadUrl = window.URL.createObjectURL(blob);
+
+          const link = document.createElement('a');
+          link.href = downloadUrl;
+          // @ts-ignore
+          link.download = file.original_name
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+        }
 
       } catch (err) {
         console.log(err)
