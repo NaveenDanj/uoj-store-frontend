@@ -30,12 +30,6 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user)
 
-
-  const test = async () => {
-    // const res = await axios.get("http://localhost:5001/ping")
-    // console.log(res)
-  }
-
   const getCurrentUser = async () => {
     try {
       dispatch(setLoading(true));
@@ -62,7 +56,6 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
-    test()
     getCurrentUser();
   }, [])
 
@@ -92,7 +85,7 @@ function App() {
         </Route>
 
         <Route path="/private-session" element={<PrivateSessionLayout />} >
-          <Route path="" element={<PrivateSessionPage />} />
+          <Route path="" element={<ProtectedRoute user={user.currentUser}><PrivateSessionPage /></ProtectedRoute>} />
         </Route>
 
         <Route path="/download" element={<AuthLayout />} >
@@ -100,14 +93,14 @@ function App() {
         </Route>
 
         <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route path="" element={<DashboardPage />} />
+          <Route path="" element={<ProtectedRoute user={user.currentUser}><DashboardPage /></ProtectedRoute>} />
           <Route path="file" element={<ProtectedRoute user={user.currentUser}><FilePage /></ProtectedRoute>} />
-          <Route path="favourites" element={<FavouritePage />} />
-          <Route path="trash" element={<TrashPage />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="favourites" element={<ProtectedRoute user={user.currentUser}><FavouritePage /></ProtectedRoute>} />
+          <Route path="trash" element={<ProtectedRoute user={user.currentUser}><TrashPage /></ProtectedRoute>} />
+          <Route path="profile" element={<ProtectedRoute user={user.currentUser}><ProfilePage /></ProtectedRoute>} />
           <Route path="admin">
-            <Route path="users" element={<AdminPage />} />
-            <Route path="file" element={<ManageFilePage />} />
+            <Route path="users" element={<ProtectedRoute user={user.currentUser}><AdminPage /></ProtectedRoute>} />
+            <Route path="file" element={<ProtectedRoute user={user.currentUser}><ManageFilePage /></ProtectedRoute>} />
           </Route>
           <Route path="notification" element={<NotificationPage />} />
         </Route>

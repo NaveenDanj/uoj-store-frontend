@@ -14,14 +14,17 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FileItem from '@/components/common/FileItem';
 import UploadProgressDialog from './UploadProgressDialog';
 import axios from 'axios';  // Import axios
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
+import { RootState } from '@/store/store';
 
-export default function UploadFileDialog({ folderId }: { folderId: number }) {
+export default function UploadFileDialog({ folderId, type }: { folderId: number, type?: string }) {
     const [files, setFiles] = useState<File[]>([]);
     const [uploading, setUploading] = useState<boolean>(false);
     const [progressMap, setProgressMap] = useState<{ [key: string]: number }>({});
     const dispatch = useDispatch()
+    const user = useSelector((state: RootState) => state.user.currentUser)
+
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         setFiles((prevFiles) => [...prevFiles, ...acceptedFiles]);
@@ -36,15 +39,15 @@ export default function UploadFileDialog({ folderId }: { folderId: number }) {
     const uploadFile = async (file: File) => {
         const formData = new FormData();
         formData.append('upfile', file);
-        formData.append('passPhrase', localStorage.getItem('passphrase') || '');
+        formData.append('passPhrase', localStorage.getItem('passphrase') || 'sample-passphrase');
         formData.append('folder_id', folderId + '');
 
         try {
             // await axios.post('https://uoj.uk.to/api/file/upload', formData, {
-            await axios.post('http://localhost:5001/api/file/upload', formData, {
+            await axios.post(!type ? 'http://localhost:5001/api/file/upload' : 'http://localhost:5001/api/session/upload-session-file', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${localStorage.getItem('token') || ''}`,
+                    'Authorization': `Bearer ${!type ? localStorage.getItem('token') : sessionStorage.token || ''}`,
                 },
                 onUploadProgress: (progressEvent) => {
                     // @ts-ignore
@@ -75,7 +78,7 @@ export default function UploadFileDialog({ folderId }: { folderId: number }) {
     }, []);
 
     return (
-        <Sheet>
+        <Sheet onOpenChange={() => setFiles([])}>
             <SheetTrigger asChild={true}>
                 <Button variant={'outline'} className="w-full dark:bg-[#111318]">
                     <FileUploadIcon className="my-auto mr-2" sx={{ fontSize: 20 }} />

@@ -20,7 +20,7 @@ import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
 
 
-export default function FileItem({ file, setSelectedItem, selectedItem }: {
+export default function FileItem({ file, setSelectedItem, selectedItem, type }: {
   setSelectedItem: React.Dispatch<React.SetStateAction<{
     folderId?: number;
     fileId?: string;
@@ -28,6 +28,7 @@ export default function FileItem({ file, setSelectedItem, selectedItem }: {
   }[]>>,
   file: File,
   selectedItem: { folderId?: number, fileId?: string, type: string }[]
+  type?: string
 }) {
   const [isChecked, setIsChecked] = useState(false);
   const { toast } = useToast()
@@ -140,14 +141,18 @@ export default function FileItem({ file, setSelectedItem, selectedItem }: {
             </MenubarTrigger>
 
             <MenubarContent className=''>
-              <MenubarItem onClick={() => setIsShareOpen(true)}>
-                Share & Get Link <MenubarShortcut>⌘T</MenubarShortcut>
-              </MenubarItem>
+              {!type && (
+                <MenubarItem onClick={() => setIsShareOpen(true)}>
+                  Share & Get Link <MenubarShortcut>⌘T</MenubarShortcut>
+                </MenubarItem>
+              )}
               <MenubarItem onClick={() => handleDownload()}>Download</MenubarItem>
-              <MenubarItem onClick={handleSetFav}>{!file.is_favourite ? 'Add to Favourite' : 'Remove from Favourite'}</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>
-              <MenubarItem onClick={() => handleMoveToTrash(file.file_id)}>Move to Trash</MenubarItem>
+              {!type && (
+                <MenubarItem onClick={handleSetFav}>{!file.is_favourite ? 'Add to Favourite' : 'Remove from Favourite'}</MenubarItem>
+              )}
+              {!type && (<MenubarSeparator />)}
+              {!type && (<MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>)}
+              {!type && (<MenubarItem onClick={() => handleMoveToTrash(file.file_id)}>Move to Trash</MenubarItem>)}
             </MenubarContent>
           </MenubarMenu>
         </Menubar>
