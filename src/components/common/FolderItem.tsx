@@ -17,7 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
 
-export default function FolderItem({ setSelectedItem, selectedItem, folder, setFolderStack, folderStack }:
+export default function FolderItem({ setSelectedItem, selectedItem, folder, setFolderStack, folderStack, isTrash }:
     {
         folderStack: { id: number, name: string }[],
         folder: Folder,
@@ -27,7 +27,8 @@ export default function FolderItem({ setSelectedItem, selectedItem, folder, setF
             fileId?: string;
             type: string;
         }[]>>,
-        selectedItem: { folderId?: number, fileId?: string, type: string }[]
+        selectedItem: { folderId?: number, fileId?: string, type: string }[],
+        isTrash?: string
     }) {
 
     const [isChecked, setIsChecked] = useState(false);
@@ -130,7 +131,7 @@ export default function FolderItem({ setSelectedItem, selectedItem, folder, setF
             <div className="flex flex-row justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <Checkbox className="p-0 bg-white my-auto" checked={isChecked} onCheckedChange={handleCheckboxChange} />
                 {/* <MoreVertOutlinedIcon sx={{ fontSize: 20 }} /> */}
-                {folder.special_folder == '' && <MenuComponent />}
+                {(folder.special_folder == '' && !isTrash) && <MenuComponent />}
 
             </div>
 

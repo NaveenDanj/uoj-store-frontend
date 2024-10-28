@@ -20,7 +20,7 @@ import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
 
 
-export default function FileItem({ file, setSelectedItem, selectedItem, type }: {
+export default function FileItem({ file, setSelectedItem, selectedItem, type, isTrash }: {
   setSelectedItem: React.Dispatch<React.SetStateAction<{
     folderId?: number;
     fileId?: string;
@@ -28,7 +28,9 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type }: 
   }[]>>,
   file: File,
   selectedItem: { folderId?: number, fileId?: string, type: string }[]
-  type?: string
+  type?: string,
+  isTrash?: string
+
 }) {
   const [isChecked, setIsChecked] = useState(false);
   const { toast } = useToast()
@@ -124,6 +126,8 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type }: 
           description: res.data.message as string,
         })
 
+        dispatch(setUpdater(Math.random() * 10000))
+
       } catch (err) {
         toast({
           title: "Uh oh! Something went wrong.",
@@ -194,7 +198,7 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type }: 
       <div className="flex flex-row justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <Checkbox className="p-0 bg-white my-auto" checked={isChecked} onCheckedChange={handleCheckboxChange} />
         {/* <MoreVertOutlinedIcon sx={{ fontSize: 20 }} /> */}
-        <MenuComponent file={file} />
+        {!isTrash && <MenuComponent file={file} />}
 
       </div>
 

@@ -1,3 +1,4 @@
+import { axiosInstance } from "@/axios";
 import ChartSection from "@/components/App/Dashboard/ChartSection";
 import FileSection from "@/components/App/Dashboard/FileSection";
 import FolderSection from "@/components/App/Dashboard/FolderSection";
@@ -7,11 +8,25 @@ import StatCard from "@/components/App/Dashboard/StatCard";
 import { Separator } from "@/components/ui/separator";
 import { RootState } from "@/store/store";
 import AddIcon from '@mui/icons-material/Add';
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function DashboardPage() {
 
     const loading = useSelector((state: RootState) => state.user.loading);
+    const [mainStat, setMainStat] = useState<{
+        audio: number,
+        video: number,
+        image: number,
+        document: number,
+    }>({
+        audio: 0,
+        video: 0,
+        image: 0,
+        document: 0
+    })
+    const [total, setTotal] = useState()
+
 
     if (loading) {
         return (
@@ -21,14 +36,39 @@ export default function DashboardPage() {
         )
     }
 
+    const getMainStat = async () => {
+        try {
+            const res = await axiosInstance('/analytics/file-usage')
+            console.log(res.data.storage_usage.video)
+            setMainStat({
+                audio: res.data.storage_usage.audio,
+                video: res.data.storage_usage.video,
+                document: res.data.storage_usage.document,
+                image: res.data.storage_usage.image
+            })
+
+            const usage = await axiosInstance.get("/analytics/total-usage");
+            setTotal(usage.data.total_usage)
+            console.log(usage)
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+    useEffect(() => {
+        getMainStat()
+    }, [])
+
     return (
         <div className="w-full flex flex-col ">
 
             <div className="w-full pt-5 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-                <StatCard />
-                <StatCard />
-                <StatCard />
-                <StatCard />
+                <StatCard type="Image" used={mainStat.image} total={300} />
+                <StatCard type="Audio" used={mainStat.audio} total={300} />
+                <StatCard type="Video" used={mainStat.video} total={300} />
+                <StatCard type="Document" used={mainStat.document} total={300} />
             </div>
 
 
@@ -40,7 +80,7 @@ export default function DashboardPage() {
 
                         <div className="mb-3 flex flex-col gap-1">
                             <label className="text-[#475569] font-semibold">Total Storage used</label>
-                            <label className="text-2xl font-bold">291.77 MB</label>
+                            <label className="text-2xl font-bold">{Math.floor(total || 0)} MB</label>
                         </div>
 
                         <div className="flex flex-grow ">
@@ -65,10 +105,10 @@ export default function DashboardPage() {
                     <div className="mb-3 flex flex-col gap-1">
                         <div className="flex gap-3 justify-center">
                             <div className="p-1 w-1 h-1 my-auto rounded-full bg-[#0EB981]"></div>
-                            <label className="text-sm font-bold">291.77 MB Used</label>
+                            <label className="text-sm font-bold">{Math.floor(total || 0)} MB Used</label>
                             <Separator orientation="vertical" />
                             <div className="p-1 w-1 h-1 my-auto rounded-full bg-[#F0F0F0]"></div>
-                            <label className="text-sm font-bold">2.74% Available</label>
+                            <label className="text-sm font-bold">{Math.floor(((total || 0) / 300) * 100)}% Available</label>
                         </div>
                     </div>
 

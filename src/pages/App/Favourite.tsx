@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import { Input } from "@/components/ui/input"
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-// import FileItem from "@/components/App/File/FileItem";
 import EmptyFolderIcon from '@/assets/empty-folder.svg'
 
 
@@ -16,12 +15,10 @@ export default function FavouritePage() {
                     <label className="text-sm mb-5 md:mb-0 text-gray-500 my-auto font-semibold">View and manage your files which are marked as favourites</label>
                 </div>
                 <div className="flex flex-row gap-4 px-2 my-auto">
-
                     <Button className="dark:bg-[#111318] w-full" variant={'outline'}>
                         <LocalOfferOutlinedIcon className="my-auto mr-2" sx={{ fontSize: 20 }} />
                         Manage Tags
                     </Button>
-
                 </div>
 
             </div>

@@ -109,12 +109,26 @@ export default function MoveFileDialog({ type, fileSouce, folderSource, isOpen, 
 
         } else {
 
-            await axiosInstance.post('/file/move-file', {
-                file_id: fileSouce?.file_id,
-                destination_folder_id: folderStack[folderStack.length - 1].id
-            })
+            if (user.currentUser?.session_folder === fileSouce?.folder_id) {
+                await axiosInstance.post('/file/move-session-file', {
+                    passPhrase: localStorage.getItem('passphrase') || '',
+                    file_id: fileSouce?.file_id,
+                    destination_folder_id: folderStack[folderStack.length - 1].id
+                })
 
-            dispatch(setUpdater(Math.random() * 10000))
+                dispatch(setUpdater(Math.random() * 10000))
+
+            } else {
+                await axiosInstance.post('/file/move-file', {
+                    file_id: fileSouce?.file_id,
+                    destination_folder_id: folderStack[folderStack.length - 1].id
+                })
+
+                dispatch(setUpdater(Math.random() * 10000))
+
+            }
+
+
         }
 
     }
@@ -155,7 +169,12 @@ export default function MoveFileDialog({ type, fileSouce, folderSource, isOpen, 
                     </div>
 
                     <div className="mt-8 flex flex-col gap-5 max-h-[200px] overflow-y-auto">
-                        {folderList.map((item, index) => (<FolderItem folderStack={folderStack} setFolderStack={setFolderStack} folder={item} key={index} />))}
+                        {folderList.map((item, index) => {
+                            if (item.ID !== user.currentUser?.session_folder) {
+                                return (<FolderItem folderStack={folderStack} setFolderStack={setFolderStack} folder={item} key={index} />)
+                            }
+                        }
+                        )}
                     </div>
 
 
