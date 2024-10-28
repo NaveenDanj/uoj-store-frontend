@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+// import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import EmptyFolderIcon from '@/assets/empty-folder.svg';
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch, useSelector } from "react-redux";

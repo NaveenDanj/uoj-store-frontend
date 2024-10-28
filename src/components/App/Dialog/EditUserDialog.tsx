@@ -46,7 +46,7 @@ export default function EditUserDialog({ setOpen, open, user }: { setOpen: React
                 role: form.role == "Admin" ? "Admin" : "User"
             }
 
-            const res = await axiosInstance.post('/admin/change-account-status', JSON.stringify(data))
+            await axiosInstance.post('/admin/change-account-status', JSON.stringify(data))
 
             toast({
                 title: 'User details updated',

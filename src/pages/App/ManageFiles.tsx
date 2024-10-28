@@ -86,7 +86,7 @@ export default function ManageFilePage() {
 
             setLoading(true)
 
-            const res = await axiosInstance.delete('/file/delete', {
+            await axiosInstance.delete('/file/delete', {
                 data: {
                     fileId: selectedItem?.file_id
                 }
