@@ -166,6 +166,7 @@ export default function ManageFilePage() {
                         </TableRow>
                     ))}
                 </TableBody>
+                
             </Table>
 
             {/* Pagination Controls */}
