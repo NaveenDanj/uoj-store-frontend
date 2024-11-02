@@ -16,6 +16,7 @@ import { axiosInstance } from '@/axios';
 import { useToast } from '@/hooks/use-toast';
 import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
+import RenameFolderDialog from '../App/Dialog/RenameFolderDialog';
 
 export default function FolderItem({ setSelectedItem, selectedItem, folder, setFolderStack, folderStack, isTrash }:
     {
@@ -89,6 +90,7 @@ export default function FolderItem({ setSelectedItem, selectedItem, folder, setF
     const MenuComponent = () => {
 
         const [isMoveOpen, setIsMoveOpen] = useState(false);
+        const [isRenameOpen, setIsRenameOpen] = useState(false);
         // const [isShareOpen, setIsShareOpen] = useState(false);
 
         return (
@@ -107,12 +109,14 @@ export default function FolderItem({ setSelectedItem, selectedItem, folder, setF
                             {/* <MenubarItem>Download</MenubarItem> */}
                             {/* <MenubarItem>Add to Favourite</MenubarItem> */}
                             {/* <MenubarSeparator /> */}
+                            {folder.special_folder == '' && (<MenubarItem onClick={() => setIsRenameOpen(true)}>Rename</MenubarItem>)}
                             {folder.special_folder == '' && <MenubarItem onClick={() => setIsMoveOpen(true)}>Move to</MenubarItem>}
                             {folder.special_folder == '' && <MenubarItem onClick={() => moveToTrash(folder.ID)}>Move to Trash</MenubarItem>}
                         </MenubarContent>
                     </MenubarMenu>
                 </Menubar>
                 <MoveFileDialog type='folder' folderSource={folder} isOpen={isMoveOpen} setIsOpen={setIsMoveOpen} />
+                <RenameFolderDialog folder={folder} isOpen={isRenameOpen} setOpen={setIsRenameOpen} />
                 {/* <ShareDialog isOpen={isShareOpen} setIsOpen={setIsShareOpen} /> */}
             </>
         )

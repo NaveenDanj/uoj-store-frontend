@@ -25,6 +25,7 @@ import { setUser, setLoading } from "./store/UserSlice";
 import { RootState } from "./store/store";
 import DownloadPage from "./pages/DownloadPage";
 import AdminAccountSetupPage from "./pages/Auth/AdminAccountSetup";
+import FilePreviewPage from "./pages/App/OpenFile";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -93,6 +94,8 @@ function App() {
         <Route path="/download" element={<AuthLayout />} >
           <Route path="" element={<DownloadPage />} />
         </Route>
+
+        <Route path="/preview" element={<FilePreviewPage />} />
 
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route path="" element={<ProtectedRoute user={user.currentUser}><DashboardPage /></ProtectedRoute>} />

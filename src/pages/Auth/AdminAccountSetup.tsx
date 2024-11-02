@@ -48,7 +48,7 @@ export default function AdminAccountSetupPage() {
 
             setLoading(false);
             dispatch(setUser(response.data.user));
-            navigate('/login', { replace: true });
+            navigate('/auth/login', { replace: true });
             window.location.reload();
 
         } catch (error) {

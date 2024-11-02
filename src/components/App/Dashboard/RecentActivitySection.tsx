@@ -53,11 +53,11 @@ export default function RecentActivitySection() {
                 <label className="ml-2 my-auto text-lg font-bold">Recent Activities</label>
             </div>
             <div className="border border-black/1 dark:border-white/1 rounded-lg p-1 mt-3">
-                {notifications.map((notification, index) => (
+                {notifications.slice(0, 7).map((notification, index) => (
                     <RecentActivityItem
                         key={notification.id} // Use the notification ID as a unique key
                         message={notification.message}
-                        isLast={index === notifications.length - 1} // Check if this is the last item
+                        isLast={index === Math.min(4, notifications.length - 1)} // Correctly set isLast for up to 5 items
                     />
                 ))}
             </div>

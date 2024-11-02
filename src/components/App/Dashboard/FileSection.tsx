@@ -50,8 +50,8 @@ const FileSection: React.FC = () => {
     return (
         <div className="flex flex-col w-full mt-10">
             <div className="flex justify-between">
-                <label onClick={() => navigate('/dashboard/file')} className="ml-2 my-auto text-lg font-bold">All Files</label>
-                <label className="my-auto text-sm font-medium cursor-pointer">See All</label>
+                <label className="ml-2 my-auto text-lg font-bold">All Files</label>
+                <label onClick={() => navigate('/dashboard/file')} className="my-auto text-sm font-medium cursor-pointer">See All</label>
             </div>
 
             <div className="flex flex-col lg:grid lg:grid-cols-4 sm:grid-cols-3 gap-4 mt-5 w-full">

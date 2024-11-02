@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import FileImage from '@/assets/file-image.svg';
 import { Checkbox } from "@/components/ui/checkbox";
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import {
@@ -18,7 +17,13 @@ import { axiosInstance, axiosSessionInstance } from '@/axios';
 import { useToast } from '@/hooks/use-toast';
 import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
-
+// import FileImage from '@/assets/file-image.svg';
+import fileImage from '@/assets/file-image.svg'
+import filePdf from '@/assets/file-pdf.svg'
+import fileAny from '@/assets/file-any.svg'
+import fileDocx from '@/assets/file-docx.svg'
+import fileXlsx from '@/assets/file-xlsx.svg'
+import { useNavigate } from 'react-router-dom';
 
 export default function FileItem({ file, setSelectedItem, selectedItem, type, isTrash }: {
   setSelectedItem: React.Dispatch<React.SetStateAction<{
@@ -35,7 +40,7 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type, is
   const [isChecked, setIsChecked] = useState(false);
   const { toast } = useToast()
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -112,6 +117,12 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type, is
 
       } catch (err) {
         console.log(err)
+        // @ts-ignore
+        const errMsg = err.response.data.message as string;
+        toast({
+          title: 'Something went wrong!',
+          description: errMsg
+        })
       }
     }
 
@@ -189,6 +200,41 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type, is
     )
   }
 
+
+  const getFileTypeImage = (mimeType: string) => {
+    const mimeMapping = {
+      // Image types
+      "image/jpeg": fileImage,
+      "image/png": fileImage,
+      "image/gif": fileImage,
+      "image/webp": fileImage,
+      "image/bmp": fileImage,
+      "image/svg+xml": fileImage,
+      // PDF type
+      "application/pdf": filePdf,
+      // Word Document types
+      "application/msword": fileDocx,
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": fileDocx,
+      // Excel Spreadsheet types
+      "application/vnd.ms-excel": fileXlsx,
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": fileXlsx,
+      // Other document types (fallback)
+      "application/vnd.ms-powerpoint": fileAny,
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation": fileAny,
+      // Audio/Video/Unknown types (fallback)
+      "video/mp4": fileAny,
+      "audio/mpeg": fileAny,
+      "application/zip": fileAny,
+      "application/x-tar": fileAny,
+      "application/gzip": fileAny,
+      "text/plain": fileAny,
+      "text/csv": fileAny
+    };
+    // @ts-ignore
+    return mimeMapping[mimeType] || fileAny;
+  }
+
+
   return (
     <div
       className={`group flex flex-col p-5 rounded-lg max-w-[250px] ${isChecked ? 'bg-[#F6F7F9] dark:bg-[#1B1E27]' : 'hover:bg-[#F6F7F9] hover:dark:bg-[#1B1E27]'
@@ -202,8 +248,8 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type, is
 
       </div>
 
-      <div className="flex justify-center relative top-[-10px]">
-        <img src={FileImage} className="w-[38px] h-[56px]" />
+      <div onClick={() => navigate('/preview', { state: { file } })} className="flex justify-center relative top-[-10px]">
+        <img src={getFileTypeImage(file.mime_type)} className="w-[38px] h-[56px]" />
       </div>
 
       <div className="mt-3 flex justify-center">

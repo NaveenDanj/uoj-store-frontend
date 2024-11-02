@@ -110,7 +110,7 @@ export default function DashboardPage() {
                             <label className="text-sm font-bold">{Math.floor(total || 0)} MB Used</label>
                             <Separator orientation="vertical" />
                             <div className="p-1 w-1 h-1 my-auto rounded-full bg-[#F0F0F0]"></div>
-                            <label className="text-sm font-bold">{Math.floor(((total || 0) / 300) * 100) > 0 ? Math.floor(((total || 0) / 300) * 100) : 100}% Available</label>
+                            <label className="text-sm font-bold">{Math.floor(((total || 0) / 300) * 100) > 0 ? 100 - Math.floor(((total || 0) / 300) * 100) : 100}% Available</label>
                         </div>
                     </div>
 
