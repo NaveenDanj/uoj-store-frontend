@@ -12,7 +12,7 @@ export const axiosInstance = axios.create({
 
 
 export const axiosSessionInstance = axios.create({
-    // baseURL: 'http://localhost:5001/api',
+  c  // baseURL: 'http://localhost:5001/api',
     baseURL: 'https://uoj.uk.to/api',
     timeout: 6*10000, 
     headers: {
