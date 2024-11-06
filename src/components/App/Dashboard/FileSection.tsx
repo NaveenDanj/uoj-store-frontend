@@ -11,6 +11,16 @@ interface FileData {
 
 const FileItem: React.FC<FileData> = ({ file_id, original_name, file_size }) => {
 
+    const trimFilenameEnd = (filename: string) => {
+        const maxLength = 15;
+        if (filename.length <= maxLength) return filename;
+
+        const [name, extension] = filename.split(/(?=\.[^.]+$)/);
+        const trimLength = maxLength - extension.length - 3; // Leave space for "..."
+
+        return `${name.substring(0, trimLength)}...${extension}`;
+    }
+
     return (
         <div className="flex cursor-pointer w-full flex-row lg:flex-col justify-between p-3 border border-black/1 dark:border-white/1 rounded-lg">
             <div className='flex lg:flex-col gap-3'>
@@ -19,7 +29,7 @@ const FileItem: React.FC<FileData> = ({ file_id, original_name, file_size }) => 
                 </div>
                 <div className='flex flex-col'>
 
-                    <label id={file_id} className="my-auto text-md text-start lg:text-center font-medium cursor-pointer">{original_name}</label>
+                    <label id={file_id} className="my-auto text-md text-start lg:text-center font-medium cursor-pointer">{trimFilenameEnd(original_name)}</label>
                     <label className="my-auto text-xs text-start lg:mt-2 lg:text-center text-gray-500 font-bold cursor-pointer">{file_size.toFixed(2)} MB</label>
                 </div>
             </div>

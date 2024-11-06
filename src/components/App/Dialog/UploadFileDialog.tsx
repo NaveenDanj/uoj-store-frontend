@@ -42,7 +42,8 @@ export default function UploadFileDialog({ folderId, type }: { folderId: number,
 
         try {
             // await axios.post('http://localhost:5001/api/file/upload', formData, {
-            await axios.post(!type ? 'https://uoj.uk.to/api/file/upload' : 'https://uoj.uk.to/api/session/upload-session-file', formData, {
+            await axios.post(!type ? 'http://localhost:5001/api/file/upload' : 'http://localhost:5001/api/session/upload-session-file', formData, {
+                // await axios.post(!type ? 'https://uoj.uk.to/api/file/upload' : 'https://uoj.uk.to/api/session/upload-session-file', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${!type ? localStorage.getItem('token') : sessionStorage.token || ''}`,
@@ -65,6 +66,7 @@ export default function UploadFileDialog({ folderId, type }: { folderId: number,
         setUploading(true);
         const promises = files.map(file => uploadFile(file));
         Promise.all(promises).then(() => setUploading(false));
+        dispatch(setUpdater(Math.random() * 10000))
     };
 
     const removeFile = (fileToRemove: File) => {

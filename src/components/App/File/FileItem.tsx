@@ -234,6 +234,16 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type, is
     return mimeMapping[mimeType] || fileAny;
   }
 
+  const trimFilenameEnd = (filename: string) => {
+    const maxLength = 25;
+    if (filename.length <= maxLength) return filename;
+
+    const [name, extension] = filename.split(/(?=\.[^.]+$)/);
+    const trimLength = maxLength - extension.length - 3; // Leave space for "..."
+
+    return `${name.substring(0, trimLength)}...${extension}`;
+  }
+
 
   return (
     <div
@@ -253,7 +263,7 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type, is
       </div>
 
       <div className="mt-3 flex justify-center">
-        <center><label className="text-sm">{file.original_name}</label></center>
+        <center><label className="text-sm">{trimFilenameEnd(file.original_name)}</label></center>
       </div>
     </div>
   );

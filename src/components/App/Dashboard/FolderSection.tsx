@@ -12,6 +12,18 @@ interface FolderItemProps {
 
 // FolderItem component to display each folder
 const FolderItem: React.FC<FolderItemProps> = ({ folderName, totalSize, itemCount }) => {
+
+    const trimFilenameEnd = (filename: string) => {
+        const maxLength = 15;
+        if (filename.length <= maxLength) return filename;
+
+        const [name, extension] = filename.split(/(?=\.[^.]+$)/);
+        const trimLength = maxLength - extension.length - 3; // Leave space for "..."
+
+        return `${name.substring(0, trimLength)}...${extension}`;
+    }
+
+
     return (
         <div id={itemCount + ''} className="w-full lg:max-w-[300px] lg:min-w-[250px] flex flex-col py-5 border border-black/1 dark:border-white/1 p-3 rounded-lg">
             <div className='flex flex-row w-full justify-between'>
@@ -20,7 +32,7 @@ const FolderItem: React.FC<FolderItemProps> = ({ folderName, totalSize, itemCoun
             </div>
             <div className='flex justify-between mt-3'>
                 <div className='flex flex-col'>
-                    <label className='text-sm font-medium'>{folderName}</label>
+                    <label className='text-sm font-medium'>{trimFilenameEnd(folderName)}</label>
                     <label className='text-xs text'>{totalSize.toFixed(2)} MB</label>
                 </div>
             </div>

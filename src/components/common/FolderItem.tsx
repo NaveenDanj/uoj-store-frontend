@@ -127,6 +127,16 @@ export default function FolderItem({ setSelectedItem, selectedItem, folder, setF
         dispatch(setUpdater(Math.random() * 10000))
     }
 
+    const trimFilenameEnd = (filename: string) => {
+        const maxLength = 15;
+        if (filename.length <= maxLength) return filename;
+
+        const [name, extension] = filename.split(/(?=\.[^.]+$)/);
+        const trimLength = maxLength - extension.length - 3; // Leave space for "..."
+
+        return `${name.substring(0, trimLength)}...${extension}`;
+    }
+
     return (
         <div
             className={`group flex flex-col p-5 rounded-lg max-w-[250px] ${isChecked ? 'bg-[#F6F7F9] dark:bg-[#1B1E27]' : 'hover:bg-[#F6F7F9] hover:dark:bg-[#1B1E27]'}`}
@@ -144,7 +154,7 @@ export default function FolderItem({ setSelectedItem, selectedItem, folder, setF
             </div>
 
             <div className="mt-3 flex justify-center">
-                <label className="text-sm">{folder.name}</label>
+                <label className="text-sm">{trimFilenameEnd(folder.name)}</label>
             </div>
         </div>
     )

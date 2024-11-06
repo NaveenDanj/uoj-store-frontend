@@ -121,7 +121,7 @@ export default function FilePreviewPage() {
         <div className="flex flex-col h-screen w-full overflow-y-auto bg-[#1B1E27]  text-white">
             <LoadingDialog open={loading} />
 
-            <div className="flex justify-between w-full py-2 px-5 dark:bg-[#1B1E27] bg-white border border-b-black/10 dark:border-b-white/10">
+            <div className="justify-between w-full flex py-2 px-5 dark:bg-[#1B1E27] bg-white border border-b-black/10 dark:border-b-white/10">
 
                 <Button onClick={() => navigate(-1)} className="dark:bg-[#1B1E27] dark:text-gray-300 bg-white text-black" variant={'ghost'}>
                     &larr; Back
@@ -146,29 +146,37 @@ export default function FilePreviewPage() {
 
             <div className="flex w-full flex-grow ">
                 {/* Main Content */}
-                <div className="dark:bg-[#15171E] flex justify-center items-center flex-grow">
+                <div className="dark:bg-[#15171E] flex flex-grow">
                     {isImage(file.mime_type) ? (
-                        <img src={fileBlobUrl} alt="File content" className="w-[400px] max-h-[80%] object-contain" />
+                        <div className="flex justify-center items-center">
+                            <img src={fileBlobUrl} alt="File content" className="w-[90%] h-[90%]  object-contain" />
+                        </div>
                     ) : isVideo(file.mime_type) ? (
-                        <video controls src={fileBlobUrl} className="w-[500px] max-h-full">
-                            Your browser does not support the video tag.
-                        </video>
+                        <div className="flex justify-center items-center">
+                            <video controls src={fileBlobUrl} className="w-[90%] h-[90%]">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     ) : isPdf(file.mime_type) ? (
-                        <embed src={fileBlobUrl} type="application/pdf" className="w-[500px] h-[80%]" />
+                        <embed src={fileBlobUrl} type="application/pdf" className="w-full h-full" />
                     ) : isText(file.mime_type) ? (
-                        <pre className="w-[95%] max-h-[500px] overflow-y-auto bg-gray-800 p-4 rounded text-left text-white">
-                            {fileText}
-                        </pre>
+                        <div className="w-full h-[calc(100vh-54px)] overflow-auto">
+                            <pre className="bg-gray-800 rounded text-left text-white">
+                                {fileText}
+                            </pre>
+                        </div>
                     ) : (
-                        <div className="text-center text-red-500 flex flex-col items-center">
-                            <ErrorOutlineIcon style={{ fontSize: 50 }} />
-                            <p className="mt-2">Unable to preview this file type.</p>
+                        <div className="flex justify-center items-center w-full">
+                            <div className="text-center text-red-500 flex flex-col items-center">
+                                <ErrorOutlineIcon style={{ fontSize: 50 }} />
+                                <p className="mt-2">Unable to preview this file type.</p>
+                            </div>
                         </div>
                     )}
                 </div>
 
                 {/* Right Panel with File Details */}
-                <div className="w-[350px] p-4 border-l border-gray-600 bg-[#1A1D25]">
+                <div className="min-w-[350px]  hidden lg:block max-w-[350px] p-4 border-l border-gray-600 bg-[#1A1D25]">
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-xl font-semibold">File Details</h2>
                     </div>

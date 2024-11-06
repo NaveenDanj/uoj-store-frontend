@@ -26,6 +26,7 @@ import { RootState } from "./store/store";
 import DownloadPage from "./pages/DownloadPage";
 import AdminAccountSetupPage from "./pages/Auth/AdminAccountSetup";
 import FilePreviewPage from "./pages/App/OpenFile";
+import NotFoundPage from "./pages/404";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
@@ -110,7 +111,7 @@ function App() {
           <Route path="notification" element={<NotificationPage />} />
         </Route>
 
-        <Route path="*" element={<div>no page</div>} />
+        <Route path="*" element={<NotFoundPage />} />
 
       </Routes>
 

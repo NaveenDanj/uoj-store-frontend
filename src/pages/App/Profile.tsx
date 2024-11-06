@@ -135,7 +135,7 @@ export default function ProfilePage() {
                     </div>
 
                     <div className="w-full my-auto max-w-2/3">
-                        <Input required value={user.session_time} onChange={(e) => setuser({ ...user, session_time: parseInt(e.target.value) })} min={5} max={30} type="number" className="w-full" placeholder="Session timeout time" />
+                        <Input required value={user.session_time} onChange={(e) => setuser({ ...user, session_time: parseInt(e.target.value) })} min={1} max={30} type="number" className="w-full" placeholder="Session timeout time" />
                     </div>
                 </div>
 
