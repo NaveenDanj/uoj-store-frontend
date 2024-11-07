@@ -47,6 +47,12 @@ export default function RegisterPage() {
         code: "",
     })
 
+    function validateUsername(username: string) {
+        const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+        return usernameRegex.test(username);
+    }
+
+
 
     const handleRegisterSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -54,6 +60,15 @@ export default function RegisterPage() {
         try {
             setLoading(true)
             const email = formData.regYear.toLowerCase() + formData.code.toLowerCase() + "@univ.jfn.ac.lk"
+
+            if (!validateUsername(formData.name)) {
+                toast({
+                    title: "Uh oh! Something went wrong.",
+                    description: 'Please enter a valid username',
+                })
+                setLoading(false)
+                return;
+            }
 
             const res = await axiosInstance.post("/auth/sign-up", {
                 name: formData.name,

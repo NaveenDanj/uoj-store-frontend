@@ -141,6 +141,20 @@ export default function ProfilePage() {
 
                 <Separator />
 
+                <div className="flex flex-col md:flex-row gap-2 justify-between p-5 w-full">
+
+                    <div className="w-full flex flex-col gap-2">
+                        <label className="text-sm font-semibold my-auto">Max Storage limit</label>
+                        <label className="text-sm text-gray-500 my-auto">Maximum upload limit ( in Megabytes )</label>
+                    </div>
+
+                    <div className="w-full my-auto max-w-2/3">
+                        <Input readOnly required value={user.max_upload_size} onChange={(e) => setuser({ ...user, max_upload_size: parseInt(e.target.value) })} min={1} max={300} type="number" className="w-full" placeholder="Session timeout time" />
+                    </div>
+                </div>
+
+                <Separator />
+
                 {/* <div className="flex flex-col md:flex-row gap-2 justify-between p-5 w-full">
 
                     <div className="w-full flex flex-col gap-2">

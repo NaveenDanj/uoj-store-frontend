@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 export default function DashboardPage() {
 
     const loading = useSelector((state: RootState) => state.user.loading);
+    const user = useSelector((state: RootState) => state.user.currentUser);
     const navigate = useNavigate()
     const [mainStat, setMainStat] = useState<{
         audio: number,
@@ -27,7 +28,7 @@ export default function DashboardPage() {
         image: 0,
         document: 0
     })
-    const [total, setTotal] = useState()
+    const [total, setTotal] = useState(0)
 
 
     if (loading) {
@@ -67,10 +68,10 @@ export default function DashboardPage() {
         <div className="w-full flex flex-col ">
 
             <div className="w-full pt-5 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-                <StatCard type="Image" used={mainStat.image} total={300} />
-                <StatCard type="Audio" used={mainStat.audio} total={300} />
-                <StatCard type="Video" used={mainStat.video} total={300} />
-                <StatCard type="Document" used={mainStat.document} total={300} />
+                <StatCard type="Image" used={mainStat.image} total={user?.max_upload_size || 300} />
+                <StatCard type="Audio" used={mainStat.audio} total={user?.max_upload_size || 300} />
+                <StatCard type="Video" used={mainStat.video} total={user?.max_upload_size || 300} />
+                <StatCard type="Document" used={mainStat.document} total={user?.max_upload_size || 300} />
             </div>
 
 
@@ -82,7 +83,7 @@ export default function DashboardPage() {
 
                         <div className="mb-3 flex flex-col gap-1">
                             <label className="text-[#475569] font-semibold">Total Storage used</label>
-                            <label className="text-2xl font-bold">{Math.floor(total || 0)} MB</label>
+                            <label className="text-2xl font-bold">{(total.toFixed(2) || 0)} MB</label>
                         </div>
 
                         <div className="flex flex-grow ">
@@ -110,7 +111,7 @@ export default function DashboardPage() {
                             <label className="text-sm font-bold">{Math.floor(total || 0)} MB Used</label>
                             <Separator orientation="vertical" />
                             <div className="p-1 w-1 h-1 my-auto rounded-full bg-[#F0F0F0]"></div>
-                            <label className="text-sm font-bold">{Math.floor(((total || 0) / 300) * 100) > 0 ? 100 - Math.floor(((total || 0) / 300) * 100) : 100}% Available</label>
+                            <label className="text-sm font-bold">{Math.floor(((total || 0) / (user != null ? user.max_upload_size : 300)) * 100) > 0 ? 100 - Math.floor(((total || 0) / 300) * 100) : 100}% Available</label>
                         </div>
                     </div>
 

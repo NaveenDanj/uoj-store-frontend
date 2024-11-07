@@ -19,6 +19,14 @@ export const axiosSessionInstance = axios.create({
     timeout: 6*10000, 
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.token || "token"}`
+        // 'Authorization': `Bearer ${sessionStorage.sessionToken || "token"}`
     }
 });
+
+axiosSessionInstance.interceptors.request.use(config => {
+    const token = sessionStorage.getItem("sessionToken");
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+}, error => Promise.reject(error));

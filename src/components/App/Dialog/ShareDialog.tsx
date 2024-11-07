@@ -37,7 +37,7 @@ export function ShareDialog({
     const [nextPage, setNextPage] = useState(false);
     const [optionsPage, setOptionsPage] = useState(false);
     const [maxDownloads, setMaxDownloads] = useState<number>(10);
-    const [expirationDate, setExpirationDate] = useState<string>(new Date().toUTCString());
+    const [expirationDate, setExpirationDate] = useState<string>('');
     const [downloadLink, setDownloadLink] = useState<string>('');
     const { toast } = useToast()
 
@@ -87,7 +87,7 @@ export function ShareDialog({
 
     const handleShare = async () => {
 
-        if (!maxDownloads || !expirationDate) {
+        if (!maxDownloads || !expirationDate || expirationDate == '') {
             alert("Please set the maximum download count and expiration date.");
             return;
         }
@@ -124,9 +124,16 @@ export function ShareDialog({
 
     };
 
+    const handleClose = () => {
+        setSelectedUsers([])
+        setIsOpen(false)
+        setNextPage(false)
+        setOptionsPage(false)
+        setSearch('')
+    }
 
     return (
-        <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+        <Dialog open={isOpen} onOpenChange={() => handleClose()}>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
                     <DialogTitle>Share with users</DialogTitle>
@@ -198,12 +205,14 @@ export function ShareDialog({
                         <div className="flex flex-col gap-3">
                             <Label htmlFor="expirationDate">Expiration Date</Label>
                             <Input
+                                className="w-full"
                                 required
                                 id="expirationDate"
                                 type="date"
                                 value={expirationDate}
                                 onChange={(e) => setExpirationDate(e.target.value)}
                             />
+                            {/* <DatePicker /> */}
                         </div>
                     </div>
                 )}
@@ -243,7 +252,9 @@ export function ShareDialog({
 
                 <DialogFooter className="sm:justify-start mt-3 gap-4">
 
-                    <Button type="button" variant="secondary" onClick={() => setIsOpen(false)}>
+                    <Button type="button" variant="secondary" onClick={() => {
+                        handleClose()
+                    }}>
                         Close
                     </Button>
 

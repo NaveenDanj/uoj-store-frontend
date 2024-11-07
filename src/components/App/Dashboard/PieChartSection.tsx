@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
 import { PieChart, Pie, Cell } from 'recharts';
 import { axiosInstance } from "@/axios";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
 
 interface ChartData {
     name: string;
@@ -14,7 +16,9 @@ interface TotalUsageResponse {
 
 export default function PieChartSection() {
     const [data, setData] = useState<ChartData[]>([]);
-    const totalStorage = 300; 
+    const user = useSelector((state: RootState) => state.user);
+
+    const totalStorage = user.currentUser?.max_upload_size || 300;
 
     const chartConfig: ChartConfig = {
         usage: {

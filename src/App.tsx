@@ -19,7 +19,7 @@ import PrivateSessionPage from "@/pages/Session/PrivateSession";
 import ResetPasswordSendLinkPage from "./pages/Auth/ResetPassword/ResetPasswordSendLink";
 import { Toaster } from "@/components/ui/toaster"
 import ProtectedRoute from "./components/UserProtectedRoute";
-import { axiosInstance } from "./axios";
+import { axiosInstance, axiosSessionInstance } from "./axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setLoading } from "./store/UserSlice";
 import { RootState } from "./store/store";
@@ -47,6 +47,21 @@ function App() {
     }
   }
 
+  const getCurrentSessionUser = async () => {
+    try {
+      dispatch(setLoading(true));
+      const res = await axiosSessionInstance.get("/auth/session-current-user")
+      console.log('session-user : ', res);
+      dispatch(setUser(res.data.user))
+      dispatch(setLoading(false));
+    } catch (err) {
+      dispatch(setUser(null));
+      dispatch(setLoading(false));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  }
+
   useEffect(() => {
     console.log(setTheme)
     if (theme === 'dark') {
@@ -59,7 +74,14 @@ function App() {
   }, [theme]);
 
   useEffect(() => {
-    getCurrentUser();
+    const loginType = localStorage.getItem('login-type') || 'proper';
+
+    if (loginType == 'session') {
+      getCurrentSessionUser();
+    } else {
+      getCurrentUser();
+    }
+
   }, [])
 
   if (user.loading) {

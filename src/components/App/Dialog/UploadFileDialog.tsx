@@ -46,7 +46,7 @@ export default function UploadFileDialog({ folderId, type }: { folderId: number,
                 // await axios.post(!type ? 'https://uoj.uk.to/api/file/upload' : 'https://uoj.uk.to/api/session/upload-session-file', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${!type ? localStorage.getItem('token') : sessionStorage.token || ''}`,
+                    'Authorization': `Bearer ${!type ? localStorage.getItem('token') : sessionStorage.getItem('sessionToken') || ''}`,
                 },
                 onUploadProgress: (progressEvent) => {
                     // @ts-ignore

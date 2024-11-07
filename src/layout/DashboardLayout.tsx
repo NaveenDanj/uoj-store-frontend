@@ -94,9 +94,9 @@ export default function DashboardLayout() {
   const handleSession = async () => {
     try {
       const res = await axiosInstance.post('/auth/logout')
-      console.log(res);
       localStorage.removeItem('token')
       localStorage.removeItem('passphrase')
+      localStorage.setItem('login-type', 'session')
       navigate('/auth/private-session-login')
     } catch (err) {
       toast({
@@ -193,8 +193,8 @@ export default function DashboardLayout() {
         </div>
 
         <div className='flex flex-col gap-4 mt-20 px-1'>
-          <Progress value={Math.floor((total / 300) * 100)} />
-          <Label>{Math.floor(total)} MB of 300.00 MB used</Label>
+          <Progress value={Math.floor(total / (user == null ? 1 : user.max_upload_size) * 100)} />
+          <Label>{total.toFixed(2)} MB of {user?.max_upload_size.toFixed(2)} MB used</Label>
         </div>
 
         <div className='flex flex-col gap-4 mt-10'>

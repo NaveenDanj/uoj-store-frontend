@@ -15,6 +15,7 @@ export interface User {
   session_folder: number,
   session_id: string
   session_time: number
+  max_upload_size: number
 }
 
 

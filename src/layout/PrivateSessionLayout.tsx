@@ -41,7 +41,8 @@ export default function PrivateSessionLayout() {
     const handleLogout = async () => {
         try {
             await axiosSessionInstance.post('/auth/session-logout');
-            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('sessionToken');
+            localStorage.setItem('login-type', 'proper')
             dispatch(setUser(null));
             navigate('/auth/private-session-login');
         } catch (err) {

@@ -35,6 +35,7 @@ export default function LoginPage() {
 
             console.log(res);
             localStorage.setItem("token", res.data.authToken)
+            localStorage.setItem('login-type', 'proper')
 
             setLoading(false)
 
