@@ -33,10 +33,11 @@ export default function AddAdminDialog() {
     const { toast } = useToast()
     const dispatch = useDispatch()
 
-    const [form, setForm] = useState<{ username: string, email: string, status: boolean }>({
+    const [form, setForm] = useState<{ max_upload_size: number, username: string, email: string, status: boolean }>({
         username: '',
         email: '',
-        status: false
+        status: false,
+        max_upload_size: 300
     })
     const [loading, setLoading] = useState(false)
 
@@ -55,7 +56,8 @@ export default function AddAdminDialog() {
             setForm({
                 username: '',
                 email: '',
-                status: false
+                status: false,
+                max_upload_size: 300
             })
 
             dispatch(setUpdater(Math.random() * 10000))
@@ -99,6 +101,11 @@ export default function AddAdminDialog() {
                         <div className='flex flex-col gap-2'>
                             <label className='text-sm'>Email</label>
                             <Input required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} type="email" placeholder='Enter email' />
+                        </div>
+
+                        <div className='flex flex-col gap-2'>
+                            <label className='text-sm'>Max storage limit</label>
+                            <Input required type="number" onChange={(e) => setForm({ ...form, max_upload_size: +e.target.value })} value={form.max_upload_size} defaultValue={300} placeholder='Enter maximum storage limit (in Megabytes)' />
                         </div>
 
                         <div className='flex flex-col gap-2'>

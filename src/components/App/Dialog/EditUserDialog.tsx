@@ -29,9 +29,10 @@ export default function EditUserDialog({ setOpen, open, user }: { setOpen: React
     const { toast } = useToast()
     const dispatch = useDispatch()
 
-    const [form, setForm] = useState<{ isActive: boolean, role: string }>({
+    const [form, setForm] = useState<{ isActive: boolean, role: string, maxSize: number }>({
         isActive: user !== null ? user.is_active : true,
-        role: user?.role || ""
+        role: user?.role || "",
+        maxSize: user?.max_upload_size || 0
     })
 
 
@@ -43,7 +44,8 @@ export default function EditUserDialog({ setOpen, open, user }: { setOpen: React
             const data = {
                 userId: user?.ID,
                 status: form.isActive,
-                role: form.role == "Admin" ? "Admin" : "User"
+                role: form.role == "Admin" ? "Admin" : "User",
+                max_upload_size: form.maxSize
             }
 
             await axiosInstance.post('/admin/change-account-status', JSON.stringify(data))
@@ -68,7 +70,7 @@ export default function EditUserDialog({ setOpen, open, user }: { setOpen: React
 
 
     useEffect(() => {
-        setForm({ ...form, isActive: user !== null ? user.is_active : true, role: user?.role || "" })
+        setForm({ ...form, isActive: user !== null ? user.is_active : true, role: user?.role || "", maxSize: user?.max_upload_size || 300 })
     }, [open])
 
     return (
@@ -93,6 +95,10 @@ export default function EditUserDialog({ setOpen, open, user }: { setOpen: React
                         <Input readOnly type="email" value={user?.email} placeholder='Enter email' />
                     </div>
 
+                    <div className='flex flex-col gap-2'>
+                        <label className='text-sm'>Maximum storage limit</label>
+                        <Input type="number" onChange={(e) => setForm({ ...form, maxSize: +e.target.value })} value={form.maxSize} placeholder='Enter Maximum storage limit' />
+                    </div>
 
                     <div className='flex flex-col gap-2'>
                         <label className='text-sm'>Role</label>

@@ -16,8 +16,11 @@ import UploadProgressDialog from './UploadProgressDialog';
 import axios from 'axios';  // Import axios
 import { useDispatch } from 'react-redux';
 import { setUpdater } from '@/store/UserSlice';
+import { useToast } from '@/hooks/use-toast';
 
 export default function UploadFileDialog({ folderId, type }: { folderId: number, type?: string }) {
+    const { toast } = useToast()
+
     const [files, setFiles] = useState<File[]>([]);
     const [uploading, setUploading] = useState<boolean>(false);
     const [progressMap, setProgressMap] = useState<{ [key: string]: number }>({});
@@ -58,7 +61,12 @@ export default function UploadFileDialog({ folderId, type }: { folderId: number,
             dispatch(setUpdater(Math.random() * 10000))
 
         } catch (error) {
-            console.error("File upload error:", error);
+            // @ts-ignore
+            const errMsg = error.response.data.error as string;
+            toast({
+                title: "Uh oh! Something went wrong.",
+                description: errMsg,
+            })
         }
     };
 
