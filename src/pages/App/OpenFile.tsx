@@ -139,16 +139,27 @@ export default function FilePreviewPage() {
     }
 
     useEffect(() => {
-        if (isInitialRender.current) {
-            isInitialRender.current = false;
-        } else if (file) {
+        // if (isInitialRender.current) {
+        //     isInitialRender.current = false;
+        // } else if (file) {
+        //     downloadFile();
+        // }
+        // return () => {
+        //     if (fileBlobUrl) {
+        //         URL.revokeObjectURL(fileBlobUrl);
+        //     }
+        // };
+
+        if (file) {
             downloadFile();
         }
+
         return () => {
             if (fileBlobUrl) {
                 URL.revokeObjectURL(fileBlobUrl);
             }
         };
+
     }, [file]);
 
     return (
