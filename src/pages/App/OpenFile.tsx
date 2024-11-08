@@ -34,7 +34,7 @@ export default function FilePreviewPage() {
     const { toast } = useToast();
     const navigate = useNavigate();
     const user = useSelector((state: RootState) => state.user)
-    const isInitialRender = useRef(true);
+    // const isInitialRender = useRef(true);
 
 
     const isImage = (mimeType: string) => mimeType.startsWith("image/");
