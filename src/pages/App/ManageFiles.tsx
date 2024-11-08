@@ -142,7 +142,7 @@ export default function ManageFilePage() {
                         <TableHead>User</TableHead>
                         <TableHead>Type</TableHead>
                         <TableHead>File Size</TableHead>
-                        <TableHead >Status</TableHead>
+                        <TableHead >Deleted</TableHead>
                         <TableHead className="text-right">Action</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -154,7 +154,7 @@ export default function ManageFilePage() {
                             <TableCell>{file.user_id}</TableCell>
                             <TableCell>{file.mime_type}</TableCell>
                             <TableCell >{(file.file_size / 1000000).toFixed(2)} MB</TableCell>
-                            <TableCell >{file.is_favourite ? 'Yes' : 'No'}</TableCell>
+                            <TableCell >{file.is_deleted ? 'Yes' : 'No'}</TableCell>
                             <TableCell className="text-right">
                                 <Button onClick={() => {
                                     setSelectedItem(file)

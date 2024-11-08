@@ -14,6 +14,7 @@ import EmptyFolderIcon from '@/assets/empty-folder.svg';
 import LoadingDialog from "@/components/common/LoadingDialog";
 import { Button } from "@/components/ui/button";
 import { setUpdater } from "@/store/UserSlice";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 export default function FilePage() {
     const { toast } = useToast();
@@ -65,9 +66,38 @@ export default function FilePage() {
             dispatch(setUpdater(Math.random() * 10000));
         } catch (err) {
             console.log(err);
+            toast({
+                title: "Uh oh! Something went wrong.",
+                description: "Could not move files to trash",
+            })
             setLoading(false);
         }
     };
+
+    const smartManageSelectedFile = async (selectedItem: { folderId?: number, fileId?: string, type: string }) => {
+
+        try {
+            setLoading(true);
+            if (selectedItem.type === 'file') {
+                await axiosInstance.get(`/folder/smart-manage/${selectedItem.fileId}`);
+            }
+            setLoading(false);
+            dispatch(setUpdater(Math.random() * 10000));
+        } catch (err) {
+            toast({
+                title: "Uh oh! Something went wrong.",
+                description: "Could smart manage selected files",
+            })
+            setLoading(false);
+        }
+
+    }
+
+    const smartManageAll = () => {
+        const promises = selectedItem.map(file => smartManageSelectedFile(file));
+        Promise.all(promises).then(() => console.log('done!'));
+        dispatch(setUpdater(Math.random() * 10000))
+    }
 
     useEffect(() => {
         setSelectedItem([]);
@@ -102,10 +132,19 @@ export default function FilePage() {
                     onChange={(e) => setSearchTerm(e.target.value)} // Update search term
                 />
                 {selectedItem.length > 0 && (
-                    <Button onClick={moveToTrashSelected} variant={'outline'} className="text-red-500 border-red-500 dark:bg-[#111318]">
-                        Move To Trash
-                    </Button>
+                    <>
+                        <Button onClick={moveToTrashSelected} variant={'outline'} className="text-red-500 border-red-500 dark:bg-[#111318]">
+                            Move To Trash
+                        </Button>
+
+                        <Button onClick={smartManageAll} variant={'outline'} className="border-blue-500 dark:bg-[#111318]">
+                            <AutoAwesomeIcon sx={{ color: 'gold' }} />
+                            Smart Manage
+                        </Button>
+                    </>
+
                 )}
+
             </div>
 
             <div className="flex pl-3 mt-5">

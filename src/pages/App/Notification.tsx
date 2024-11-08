@@ -6,6 +6,7 @@ import { axiosInstance } from "@/axios"
 import { Notification } from "@/types"
 import { useToast } from "@/hooks/use-toast"
 import LoadingDialog from "@/components/common/LoadingDialog"
+import moment from 'moment';
 
 
 const RecentActivityItem = ({ notification }: { notification: Notification }) => {
@@ -22,7 +23,7 @@ const RecentActivityItem = ({ notification }: { notification: Notification }) =>
 
                 <div className="my-auto flex flex-col">
                     <label className="text-sm text-gray-500 font-semibold"><span className="dark:text-white text-black font-semibold">For You</span> {notification.message}<br />
-                        <span className="text-xs">{new Date(notification.CreatedAt).toUTCString()}</span>
+                        <span className="text-xs">{moment.utc(notification.CreatedAt).local().format('YYYY-MM-DD HH:mm:ss')}</span>
                     </label>
                 </div>
 
@@ -42,8 +43,9 @@ export default function NotificationPage() {
         try {
             setLoading(true)
             const res = await axiosInstance.get('/auth/user-notifications')
+            const arr = res.data.notifications.slice().reverse() // res.data.notifications.reverse()
             console.log(res)
-            setItems(res.data.notifications)
+            setItems(arr)
             setLoading(false)
         } catch (err) {
             console.log(err)
