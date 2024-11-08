@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import DownloadIcon from '@mui/icons-material/Download';
@@ -9,6 +9,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { axiosInstance, axiosSessionInstance } from "@/axios";
 import LoadingDialog from "@/components/common/LoadingDialog";
 import { useToast } from "@/hooks/use-toast";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+
+
+const ErrorPage = () => {
+    return (
+        <div className="flex justify-center items-center w-full">
+            <div className="text-center text-red-500 flex flex-col items-center">
+                <ErrorOutlineIcon style={{ fontSize: 50 }} />
+                <p className="mt-2">Unable to preview this file type.</p>
+            </div>
+        </div>
+    )
+}
+
 
 export default function FilePreviewPage() {
     const location = useLocation();
@@ -18,6 +33,9 @@ export default function FilePreviewPage() {
     const [fileText, setFileText] = useState("");
     const { toast } = useToast();
     const navigate = useNavigate();
+    const user = useSelector((state: RootState) => state.user)
+    const isInitialRender = useRef(true);
+
 
     const isImage = (mimeType: string) => mimeType.startsWith("image/");
     const isVideo = (mimeType: string) => mimeType.startsWith("video/");
@@ -27,7 +45,9 @@ export default function FilePreviewPage() {
     const downloadFile = async () => {
         try {
             setLoading(true);
-            const res = await axiosInstance.post('/file/download', {
+            const method = file.folder_id == user.currentUser?.session_folder
+            console.log(method)
+            const res = await axiosInstance.post(!method ? '/file/download' : 'session/download-session-file', {
                 passPhrase: localStorage.getItem('passphrase') || '',
                 fileId: file.file_id
             }, { responseType: 'blob' });
@@ -56,7 +76,9 @@ export default function FilePreviewPage() {
     const handlClickeDownload = async () => {
         try {
 
-            if (!type) {
+            const method = file.folder_id == user.currentUser?.session_folder
+            console.log(method)
+            if (!method) {
                 setLoading(true);
                 const res = await axiosInstance.post('/file/download', {
                     passPhrase: localStorage.getItem('passphrase') || 'sample-passphrase',
@@ -107,12 +129,14 @@ export default function FilePreviewPage() {
     }
 
     useEffect(() => {
-        if (file) {
+        if (isInitialRender.current) {
+            isInitialRender.current = false;
+        } else if (file) {
             downloadFile();
         }
         return () => {
             if (fileBlobUrl) {
-                URL.revokeObjectURL(fileBlobUrl); // Clean up URL when component unmounts
+                URL.revokeObjectURL(fileBlobUrl);
             }
         };
     }, [file]);
@@ -146,34 +170,32 @@ export default function FilePreviewPage() {
 
             <div className="flex w-full flex-grow ">
                 {/* Main Content */}
-                <div className="dark:bg-[#15171E] flex flex-grow">
-                    {isImage(file.mime_type) ? (
-                        <div className="flex justify-center items-center">
-                            <img src={fileBlobUrl} alt="File content" className="w-[90%] h-[90%]  object-contain" />
-                        </div>
-                    ) : isVideo(file.mime_type) ? (
-                        <div className="flex justify-center items-center">
-                            <video controls src={fileBlobUrl} className="w-[90%] h-[90%]">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    ) : isPdf(file.mime_type) ? (
-                        <embed src={fileBlobUrl} type="application/pdf" className="w-full h-full" />
-                    ) : isText(file.mime_type) ? (
-                        <div className="w-full h-[calc(100vh-54px)] overflow-auto">
-                            <pre className="bg-gray-800 rounded text-left text-white">
-                                {fileText}
-                            </pre>
-                        </div>
-                    ) : (
-                        <div className="flex justify-center items-center w-full">
-                            <div className="text-center text-red-500 flex flex-col items-center">
-                                <ErrorOutlineIcon style={{ fontSize: 50 }} />
-                                <p className="mt-2">Unable to preview this file type.</p>
+
+                {((localStorage.getItem('login-type') || 'proper') == 'proper' && (file.folder_id == user.currentUser?.session_folder)) ? (<ErrorPage />) : (
+                    <div className="dark:bg-[#15171E] flex flex-grow">
+                        {isImage(file.mime_type) ? (
+                            <div className="flex justify-center items-center">
+                                <img src={fileBlobUrl} alt="File content" className="w-[90%] h-[90%]  object-contain" />
                             </div>
-                        </div>
-                    )}
-                </div>
+                        ) : isVideo(file.mime_type) ? (
+                            <div className="flex justify-center items-center">
+                                <video controls src={fileBlobUrl} className="w-[90%] h-[90%]">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        ) : isPdf(file.mime_type) ? (
+                            <embed src={fileBlobUrl} type="application/pdf" className="w-full h-full" />
+                        ) : isText(file.mime_type) ? (
+                            <div className="w-full h-[calc(100vh-54px)] overflow-auto">
+                                <pre className="bg-gray-800 rounded text-left text-white pl-2">
+                                    {fileText}
+                                </pre>
+                            </div>
+                        ) : (
+                            <ErrorPage />
+                        )}
+                    </div>
+                )}
 
                 {/* Right Panel with File Details */}
                 <div className="min-w-[350px]  hidden lg:block max-w-[350px] p-4 border-l border-gray-600 bg-[#1A1D25]">
