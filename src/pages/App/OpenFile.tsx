@@ -46,7 +46,7 @@ export default function FilePreviewPage() {
         try {
             setLoading(true);
             const method = file.folder_id == user.currentUser?.session_folder
-            console.log(method)
+            console.log(method, type)
             const res = await axiosInstance.post(!method ? '/file/download' : 'session/download-session-file', {
                 passPhrase: localStorage.getItem('passphrase') || '',
                 fileId: file.file_id

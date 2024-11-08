@@ -32,7 +32,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 
 export default function AdminPage() {
-    const [users, setUsers] = useState<User[]>([]);
+    // const [users, setUsers] = useState<User[]>([]);
     const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -47,7 +47,7 @@ export default function AdminPage() {
             const res = await axiosInstance.get('/admin/fetch-users', {
                 params: { page, limit: usersPerPage, search }
             });
-            setUsers(res.data.users);
+            // setUsers(res.data.users);
             setFilteredUsers(res.data.users);
             setTotalUsers(res.data.total);
         } catch (err) {

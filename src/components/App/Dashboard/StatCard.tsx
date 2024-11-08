@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 
-export default function StatCard({ type, used, total }: { type: string, used: number, total: number }) {
+export default function StatCard({ type, used }: { type: string, used: number }) {
 
     const user = useSelector((state: RootState) => state.user);
 

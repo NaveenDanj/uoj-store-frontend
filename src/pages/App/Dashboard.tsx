@@ -68,10 +68,10 @@ export default function DashboardPage() {
         <div className="w-full flex flex-col ">
 
             <div className="w-full pt-5 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-                <StatCard type="Image" used={mainStat.image} total={user?.max_upload_size || 300} />
-                <StatCard type="Audio" used={mainStat.audio} total={user?.max_upload_size || 300} />
-                <StatCard type="Video" used={mainStat.video} total={user?.max_upload_size || 300} />
-                <StatCard type="Document" used={mainStat.document} total={user?.max_upload_size || 300} />
+                <StatCard type="Image" used={mainStat.image} />
+                <StatCard type="Audio" used={mainStat.audio} />
+                <StatCard type="Video" used={mainStat.video} />
+                <StatCard type="Document" used={mainStat.document} />
             </div>
 
 

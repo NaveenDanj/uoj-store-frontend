@@ -95,7 +95,7 @@ export default function DashboardLayout() {
 
   const handleSession = async () => {
     try {
-      const res = await axiosInstance.post('/auth/logout')
+      await axiosInstance.post('/auth/logout')
       localStorage.removeItem('token')
       localStorage.removeItem('passphrase')
       localStorage.setItem('login-type', 'session')
