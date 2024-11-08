@@ -178,7 +178,7 @@ export default function FilePreviewPage() {
 
             </div>
 
-            <div className="flex w-full flex-grow ">
+            <div className="flex w-full flex-grow max-w-[100vw]">
                 {/* Main Content */}
 
                 {((localStorage.getItem('login-type') || 'proper') == 'proper' && (file.folder_id == user.currentUser?.session_folder)) ? (<ErrorPage />) : (
@@ -196,7 +196,7 @@ export default function FilePreviewPage() {
                         ) : isPdf(file.mime_type) ? (
                             <embed src={fileBlobUrl} type="application/pdf" className="w-full h-full" />
                         ) : isText(file.mime_type) ? (
-                            <div className="w-full h-[calc(100vh-54px)] overflow-auto">
+                            <div className="w-[calc(100vw-350px)] h-[calc(100vh-54px)] overflow-auto">
                                 <pre className="bg-gray-800 rounded text-left text-white pl-2">
                                     {fileText}
                                 </pre>
@@ -208,7 +208,7 @@ export default function FilePreviewPage() {
                 )}
 
                 {/* Right Panel with File Details */}
-                <div className="min-w-[350px]  hidden lg:block max-w-[350px] p-4 border-l border-gray-600 bg-[#1A1D25]">
+                <div className="min-w-[350px] max-w-[350px]  hidden lg:block  p-4 border-l border-gray-600 bg-[#1A1D25]">
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-xl font-semibold">File Details</h2>
                     </div>
