@@ -47,10 +47,19 @@ export default function FilePreviewPage() {
             setLoading(true);
             const method = file.folder_id == user.currentUser?.session_folder
             console.log(method, type)
-            const res = await axiosInstance.post(!method ? '/file/download' : 'session/download-session-file', {
-                passPhrase: localStorage.getItem('passphrase') || '',
-                fileId: file.file_id
-            }, { responseType: 'blob' });
+            let res = null;
+
+            if (!method) {
+                res = await axiosInstance.post('/file/download', {
+                    passPhrase: localStorage.getItem('passphrase') || 'sample-passphrase',
+                    fileId: file.file_id
+                }, { responseType: 'blob' });
+            } else {
+                res = await axiosSessionInstance.post('/session/download-session-file', {
+                    passPhrase: localStorage.getItem('passphrase') || 'sample-passphrase',
+                    fileId: file.file_id
+                }, { responseType: 'blob' });
+            }
 
             const blob = new Blob([res.data], { type: res.data.type });
             if (isText(file.mime_type)) {
@@ -80,6 +89,7 @@ export default function FilePreviewPage() {
             console.log(method)
             if (!method) {
                 setLoading(true);
+
                 const res = await axiosInstance.post('/file/download', {
                     passPhrase: localStorage.getItem('passphrase') || 'sample-passphrase',
                     fileId: file.file_id
@@ -98,7 +108,7 @@ export default function FilePreviewPage() {
                 setLoading(false);
             } else {
                 setLoading(true);
-                const res = await axiosSessionInstance.post('session/download-session-file', {
+                const res = await axiosSessionInstance.post('/session/download-session-file', {
                     passPhrase: localStorage.getItem('passphrase') || 'sample-passphrase',
                     fileId: file.file_id
                 }, { responseType: 'blob' })

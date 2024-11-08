@@ -16,8 +16,8 @@ export default function LoginSessionPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
-    const [form, setForm] = useState<{ session_id: number }>({
-        session_id: 0
+    const [form, setForm] = useState<{ session_id: string }>({
+        session_id: ''
     })
     const [loading, setLoading] = useState(false)
 
@@ -65,7 +65,7 @@ export default function LoginSessionPage() {
                         <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">By signing up, you will gain access to exclusive content.</p></center>
 
                         <form onSubmit={(e) => handleSubmit(e)} className='flex gap-5 justify-center items-center mt-5 flex-col w-full'>
-                            <Input type='number' required onChange={(e) => setForm({ ...form, session_id: parseInt(e.target.value) })} size={120} placeholder='Enter your session ID' className='max-w-[400px]' />
+                            <Input type='text' required onChange={(e) => setForm({ ...form, session_id: e.target.value })} size={120} placeholder='Enter your session ID' className='max-w-[400px]' />
                             {/* <Input type='password' size={120} placeholder='Enter your password' className='max-w-[400px]' /> */}
                             <Button className='w-full bg-[#0F172A] hover:bg-[#272E3F] hover:text-white dark:bg-[#3b404f] p-5 text-white' variant="outline">Sign in</Button>
                         </form>
