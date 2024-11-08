@@ -91,7 +91,7 @@ export default function NotificationPage() {
 
             <div className='flex flex-col mt-5  '>
                 <Separator />
-                {items.map((item) => <RecentActivityItem notification={item} />)}
+                {items.map((item: Notification, index: number) => <RecentActivityItem key={index} notification={item} />)}
             </div>
 
         </div>

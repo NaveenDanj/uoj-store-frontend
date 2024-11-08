@@ -211,7 +211,7 @@ export default function DashboardLayout() {
 
   const SidebarModbile = () => {
     return (
-      <div className="lg:flex  h-[calc(100vh-90px)] flex-col p-3 px-5 border border-black/10 dark:border-white/10 lg:min-w-[300px] bg-[#F9F9FB] dark:bg-[#1B1E27] rounded-md">
+      <div className="lg:flex  h-[calc(100vh)] flex-col p-3 px-5 border border-black/10 dark:border-white/10 lg:min-w-[300px] bg-[#F9F9FB] dark:bg-[#1B1E27] rounded-md">
 
         <div className="flex gap-1">
           <img src={AppLogo} className="w-9 my-auto" />
