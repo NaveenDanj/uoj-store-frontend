@@ -181,7 +181,7 @@ export default function FileItem({ file, setSelectedItem, selectedItem, type, is
             <MenubarContent className=''>
               {!type && (
                 <MenubarItem onClick={() => setIsShareOpen(true)}>
-                  Share & Get Link <MenubarShortcut>⌘T</MenubarShortcut>
+                  Share & Get Link <MenubarShortcut></MenubarShortcut>
                 </MenubarItem>
               )}
               <MenubarItem onClick={() => handleDownload()}>Download</MenubarItem>

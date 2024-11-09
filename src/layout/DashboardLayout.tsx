@@ -349,7 +349,7 @@ export default function DashboardLayout() {
                     User Settings <MenubarShortcut>⌘T</MenubarShortcut>
                   </MenubarItem>
 
-                  <MenubarItem>Admin</MenubarItem>
+                  {/* <MenubarItem>Admin</MenubarItem> */}
                   <MenubarSeparator />
                   <MenubarItem onClick={() => navigate('/dashboard/notification')}>Notifications</MenubarItem>
                   <MenubarSeparator />

@@ -73,6 +73,7 @@ export default function LoginPage() {
                     <div className='flex gap-5 flex-col'>
                         <center><h2 className="text-2xl lg:text-3xl font-bold">Welcome Back! Please <br /> Sign In To Continue</h2></center>
                         <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]">By signing up, you will gain access to exclusive content.</p></center>
+                        <center><p className="text-sm font-semibold dark:text-gray-500 text-[#78748B]"><span onClick={() => navigate('/auth/private-session-login')} className='text-blue-500 cursor-pointer'>Session Sign In</span></p></center>
 
                         <form onSubmit={(e) => handleSubmit(e)} className='flex gap-5 justify-center items-center mt-5 flex-col w-full'>
                             <Input value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} required type='text' size={120} placeholder='Enter your username' className='max-w-[400px]' />
